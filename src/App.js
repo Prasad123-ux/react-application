@@ -1,13 +1,8 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
-import Heading from './Componants/Heading'
 import Navbar from './Componants/Navbar'
 import Main from './Componants/Main'
-import Job from './Componants/Job'
-// import Indeed from './Componants/Indeed'
-// import Save from './Componants/Save'
-import { Spinner } from '@chakra-ui/react'
-import Loading from './Componants/Loading'
+
 import Home from './Componants/Home'
 import Login from './Componants/Login'
 import Registration from './Componants/Registration'
@@ -44,9 +39,6 @@ const handleDelete=()=>{
 }
 console.log()
 const length=users.length
-// console.log(length)
-// console.log(users)
-// console.log(localStorage.getItem('users'))
 
 
  const onCityChange=(cityValue)=>{
@@ -74,10 +66,10 @@ const length=users.length
 
     
 
-    {/* <Home/>  */}
+  
 
 <Routes>
-  <Route path='/' element={<Home users={users}  />}/>
+  <Route exact path='/' element={<Home users={users}/>}/>
   
   <Route exact path='/login' element={<Login users={users}/>} />
   <Route exact path='/signin' element={<Signin users={users}/>}/>
