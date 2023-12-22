@@ -37,7 +37,6 @@ const handleDelete=()=>{
   localStorage.removeItem('users')
   users.length=0;
 }
-console.log()
 const length=users.length
 
 
@@ -58,27 +57,15 @@ const length=users.length
       
       
 
-      <BrowserRouter basename="/React-job-listing-application">
+      <BrowserRouter>
     <Navbar users={users} getCity={onCityChange} getRole={onRoleChange} onDelete={handleDelete} length={length}/>
-    
-
-
-
-    
-
-  
-    
 <Routes>
-<Route exact path='/' element={<Home users={users}/>}/>
-  
-  <Route exact path='/login' element={<Login users={users}/>} />
-  <Route exact path='/signin' element={<Signin users={users}/>}/>
-  <Route exact path='/registration' element={<Registration addUser={addUser} users={users}/>}/>
-  <Route exact path='/main' element={<Main city={city} role={type} />} />
-  <Route exact path='/profile' element={<Profile users={users}/>}/>
-
-
-
+<Route exact path="/" element={<Home users={users} />} />
+<Route exact path='/login' element={<Login users={users}/>} />
+<Route exact path='/signin' element={<Signin users={users}/>}/>
+<Route exact path='/registration' element={<Registration addUser={addUser} users={users}/>}/>
+<Route exact path='/main' element={<Main city={city} role={type} />} />
+<Route exact path='/profile' element={<Profile users={users}/>}/>
 </Routes>
 
  
