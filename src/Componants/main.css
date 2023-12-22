@@ -1,0 +1,23 @@
+
+*{
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    
+    box-sizing: border-box;
+}
+
+body {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+  }
+
+.pagination{
+    margin-top: 100px;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+  

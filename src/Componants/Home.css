@@ -1,0 +1,282 @@
+
+*{
+    margin: 0;
+    padding: 0;
+  
+    box-sizing: border-box;
+}
+.main-class{
+    width: 100%;
+}
+.home{
+    margin-top: 50px;
+}
+.job-name{
+    font-size: 5rem;
+    font-weight: 700;
+    color: yellow;
+}
+.find{
+font-size: 4rem;
+font-weight: 800;
+text-align: center;
+}
+.lakh{
+
+    font-size: 2.5rem;
+    font-weight: 500;
+    text-align: center;
+}
+.main-class{
+
+    width: 100%;
+    text-align: center;
+    height:60%;
+}
+
+.buttons{
+    width: 100%;
+    height: 30%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly; 
+   
+
+}
+.register{
+    font-size: 1.2rem;
+    margin-top: 30px;
+}
+a{
+    text-decoration: underline;
+    font-weight: 600;
+
+    &:hover{
+        color: blue;
+    }
+}
+
+.company{
+    text-align: center;
+    height: 70vh;
+    margin-top: 60px;
+}
+.heading-places{
+    
+
+font-size: 3rem;
+font-weight:700;
+letter-spacing: 3px;
+
+}
+.cards{
+   width: 100%;
+   height: 10vh;
+    display: grid;
+    grid-template-columns: repeat(4, 0.2fr);
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    
+
+}
+.company-info{
+    margin-top: 60px;
+    text-align: center;
+    height: 80vh;
+}
+.sponsored{
+
+font-size: 3rem;
+font-weight: 700;
+letter-spacing: 3px;
+
+
+}
+.side-img{
+    width: 150px;
+    height: 70px;
+}
+.logo{
+    text-align: center;
+    display: grid;
+    margin-top: 40px;
+    grid-template-columns: repeat(4,0.1fr);
+    flex-direction: row;
+    justify-content: space-evenly;
+    height: 50vh;
+   
+}
+.whatsapp{
+   width: 100px;
+   margin-left: 200px;
+
+}
+@media (max-width:480px){
+ .home{
+    margin-top: 50px;
+}
+.job-name{
+    
+    font-size: 2rem;
+    font-weight: 700;
+    color: yellow;
+}
+.find{
+font-size: 1.8rem;
+font-weight: 700;
+text-align: center;
+}
+.lakh{
+
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-align: center;
+}
+.main-class{
+
+    width: 100%;
+    text-align: center;
+    height:60%;
+}
+
+.buttons{
+    width: 100%;
+    height: 30%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly; 
+   
+
+}
+.register{
+    font-size: 1.2rem;
+    margin-top: 30px;
+}
+a{
+    text-decoration: underline;
+    font-weight: 600;
+
+    &:hover{
+        color: blue;
+    }
+}
+
+.company{
+   
+    text-align: center;
+    height: 120vh;
+    margin-top: 60px;
+}
+.heading-places{
+    
+
+font-size: 3rem;
+font-weight:700;
+letter-spacing: 3px;
+
+}
+.cards{
+   width: 100%;
+   height: 10vh;
+    display: grid;
+    grid-template-columns: repeat(2, 0.2fr);
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    
+
+}
+.company-info{
+    margin-top: 60px;
+    text-align: center;
+    height:60vh;
+}
+.sponsored{
+
+font-size: 3rem;
+font-weight: 700;
+letter-spacing: 3px;
+
+
+}
+.side-img{
+    width: 150px;
+    height: 70px;
+}
+.logo{
+    text-align: center;
+    display: grid;
+    margin-top: 20px;
+    grid-template-columns: repeat(2,0.1fr);
+    flex-direction: row;
+    justify-content: space-evenly;
+    height: 50vh;
+    
+}
+
+
+}
+@media (min-width:480px){
+
+    .cards{
+        width: 100%;
+        height: 10vh;
+         display: grid;
+         grid-template-columns: repeat(2, 0.2fr);
+         flex-direction: row;
+         justify-content: space-evenly;
+         flex-wrap: wrap;
+         
+     
+     }
+     .company{
+        height: 145vh;
+     }
+     .logo{
+        text-align: center;
+        display: grid;
+        margin-top: 20px;
+        grid-template-columns: repeat(4,0.1fr);
+        flex-direction: row;
+        justify-content: space-evenly;
+        height: 40vh;
+    
+    }
+    .company-info{
+        height: 50vh;
+    }
+
+}
+@media (min-width:767px){
+    .cards{
+        width: 100%;
+        height: 10vh;
+         display: grid;
+         grid-template-columns: repeat(4, 0.2fr);
+         flex-direction: row;
+         justify-content: space-evenly;
+         flex-wrap: wrap;
+         
+     
+     }
+     .company{
+        height: 85vh;
+     }
+     .logo{
+        text-align: center;
+        display: grid;
+        margin-top: 40px;
+        grid-template-columns: repeat(4,0.1fr);
+        flex-direction: row;
+        justify-content: space-evenly;
+        height: 50vh;
+       
+    }
+    .company-info{
+       
+        text-align: center;
+        height:75vh;
+    }
+   
+}

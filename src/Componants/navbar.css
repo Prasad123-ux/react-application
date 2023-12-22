@@ -1,0 +1,30 @@
+
+ *{ 
+     margin: 0; 
+    padding: 0; 
+     
+     box-sizing: border-box; 
+ } 
+  body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+  }
+
+
+.navbar{
+
+     
+    background-color: aqua; 
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+   
+  
+   
+ } 
+
+ .menu-icon{ 
+     margin-left: '5rem'; 
+ } 
