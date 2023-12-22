@@ -7,7 +7,7 @@ import Home from './Componants/Home'
 import Login from './Componants/Login'
 import Registration from './Componants/Registration'
 import Signin from './Componants/Signin'
- import {BrowserRouter as Router, Routes, Route, BrowserRouter,} from 'react-router-dom'
+ import {BrowserRouter, Routes, Route,} from 'react-router-dom'
 
 import Profile from './Componants/Profile'
 
@@ -18,7 +18,7 @@ export default function App() {
 const [users, setUsers]= useState([]);
 const [type, setType]= useState()
 const [city, setCity]= useState()
-
+  
 useEffect(()=>{
   const storedUsers=JSON.parse(localStorage.getItem('users')) ||[]
 
