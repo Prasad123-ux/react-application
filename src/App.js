@@ -67,9 +67,9 @@ const length=users.length
     
 
   
-    <Route exact path='/' element={<Home users={users}/>}/>
+    
 <Routes>
-  
+<Route exact path='/' element={<Home users={users}/>}/>
   
   <Route exact path='/login' element={<Login users={users}/>} />
   <Route exact path='/signin' element={<Signin users={users}/>}/>
