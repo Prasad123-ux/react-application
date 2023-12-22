@@ -57,8 +57,9 @@ const length=users.length
       
       
 
-      <BrowserRouter>
+      <BrowserRouter basename='/React-job-listing-application'>
     <Navbar users={users} getCity={onCityChange} getRole={onRoleChange} onDelete={handleDelete} length={length}/>
+    
 <Routes>
 <Route exact path="/" element={<Home users={users} />} />
 <Route exact path='/login' element={<Login users={users}/>} />
