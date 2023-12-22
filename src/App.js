@@ -57,7 +57,7 @@ const length=users.length
       
       
 
-      <BrowserRouter basename='/React-job-listing-application'>
+      <BrowserRouter basename='/React-job-listing-application/'>
     <Navbar users={users} getCity={onCityChange} getRole={onRoleChange} onDelete={handleDelete} length={length}/>
     
 <Routes>
@@ -67,10 +67,10 @@ const length=users.length
 <Route exact path='/registration' element={<Registration addUser={addUser} users={users}/>}/>
 <Route exact path='/main' element={<Main city={city} role={type} />} />
 <Route exact path='/profile' element={<Profile users={users}/>}/>
-</Routes>
+</Routes>  
 
  
-
+  
 </BrowserRouter>
 
 
