@@ -7,7 +7,7 @@ import Home from './Componants/Home'
 import Login from './Componants/Login'
 import Registration from './Componants/Registration'
 import Signin from './Componants/Signin'
- import {BrowserRouter as Router, Routes, Route,} from 'react-router-dom'
+ import {BrowserRouter as Router, Routes, Route, BrowserRouter,} from 'react-router-dom'
 
 import Profile from './Componants/Profile'
 
@@ -58,7 +58,7 @@ const length=users.length
       
       
 
-      <Router>
+      <BrowserRouter basename="/React-job-listing-application">
     <Navbar users={users} getCity={onCityChange} getRole={onRoleChange} onDelete={handleDelete} length={length}/>
     
 
@@ -67,9 +67,9 @@ const length=users.length
     
 
   
-
+    <Route exact path='/' element={<Home users={users}/>}/>
 <Routes>
-  <Route exact path='/' element={<Home users={users}/>}/>
+  
   
   <Route exact path='/login' element={<Login users={users}/>} />
   <Route exact path='/signin' element={<Signin users={users}/>}/>
@@ -83,7 +83,7 @@ const length=users.length
 
  
 
-</Router>
+</BrowserRouter>
 
 
 
