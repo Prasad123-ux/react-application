@@ -57,11 +57,11 @@ const length=users.length
       
       
 
-      <BrowserRouter basename='/'>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
     <Navbar users={users} getCity={onCityChange} getRole={onRoleChange} onDelete={handleDelete} length={length}/>
     
 <Routes>
-<Route exact path="/" element={<Home users={users} />} />
+<Route exact path='/' element={<Home users={users} />} />
 <Route exact path='/login' element={<Login users={users}/>} />
 <Route exact path='/signin' element={<Signin users={users}/>}/>
 <Route exact path='/registration' element={<Registration addUser={addUser} users={users}/>}/>
