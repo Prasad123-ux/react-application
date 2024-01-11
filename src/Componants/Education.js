@@ -62,19 +62,19 @@ const onDelete=(indexToDelete)=>{
   const updatedDoctorate = [...doctorate];
   const deletedEducationState = updatedDoctorate[indexToDelete];
 
-  // Iterate over the keys of the deletedEducationState
+  
   for (const key in deletedEducationState) {
     if (deletedEducationState.hasOwnProperty(key)) {
       deletedEducationState[key] = '';
     }
   }
 
-  // Set the updated doctorate array
+  
   setDoctorate(updatedDoctorate);
 
-  // Reset the current input to the initial state
+  
   setCurrentInput(initialEducationState);
-  // onOPen()
+  
   onDoctorateModalOpen()
 };
   
@@ -84,10 +84,10 @@ const onDelete=(indexToDelete)=>{
 
   return (
     <div>
-      {/* <Box> */}
+      
       <Box  backgroundColor={'white'}   mt={'10'} padding={'5'} borderRadius={'20px'}>
 
-      {/* <VStack> */}
+      
       <HStack>
       <Text fontSize={{base:'1rem',  md:'1.2rem',lg:'1.5rem'}} fontWeight={'600'} >Education</Text>
        <Button width={{base:'75px',md:'150px',lg:'200px'}}  height={{base:'2vh',md:'4vh', lg:'5vh'}} fontSize={{base:'0.6rem', md:'1rem', lg:'1rem'}}   colorScheme={'teal'} onClick={onDoctorateModalOpen}>Add Education</Button>

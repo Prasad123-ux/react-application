@@ -2,11 +2,11 @@ import React, { createContext, useState } from 'react'
 import {Box, HStack, Avatar, VStack,Text, Button} from '@chakra-ui/react'
 import './job.css'
 import { ExternalLinkIcon } from '@chakra-ui/icons'
-import { FaCalendar, FaLocationArrow, FaSave} from 'react-icons/fa'
+import { FaCalendar, FaSave} from 'react-icons/fa'
 
 const UserContext =createContext()
 
-  export default function Job({adref,href, contract_type,category,company_name, title,logo, location, country, employment_type, description,experience,maxSalary,minSalary,qualification , id, onDelete}) {
+  export default function Job({href, contract_type,category,company_name, title,logo, location, country, employment_type, description,experience,maxSalary,minSalary,qualification , id, onDelete}) {
 
 
  let date= experience.slice(0,10)
@@ -16,7 +16,6 @@ let monthMinSalary
 
 if(maxSalary>0 && minSalary>0){
   monthMaxSalary=(maxSalary/12);
-  // monthMaxSalary=monthMaxSalary.slice(3)
   monthMinSalary=minSalary/12;
 
 }
@@ -24,12 +23,6 @@ if(maxSalary>0 && minSalary>0){
  const [save, setSave]=useState('save')
  const [values, setValues] =useState([])
   
-// })
-// ])
-
-// console.log(description.length>100)
-
-// const mainDesc= description.slice(0,300);
 
 
 

@@ -1,5 +1,5 @@
 {
-  "homepage": "https://Prasad123-ux.github.io/React-job-listing-application",
+  "homepage": "https://Prasad123-ux.github.io/react-application",
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
@@ -46,5 +46,9 @@
   },
   "devDependencies": {
     "gh-pages": "^6.1.0"
-  }
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC"
 }
