@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import 'C:/Users/metka/Desktop/jobNexus/react-application/src/Styles/login.css'
+import "../Styles/login.css"
 // import {Link} from "react-router-dom"
 import { useToast } from '@chakra-ui/react';
 import { FcGoogle } from "react-icons/fc";
