@@ -17,7 +17,7 @@
 
      
     background-color: aqua; 
-    position: fixed;
+    position: relative;
     top: 0;
     z-index: 1000;
    

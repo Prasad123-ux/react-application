@@ -1,0 +1,33 @@
+
+body{
+    width: 100%;
+}
+
+
+.profile-part-main{
+    
+    margin-top: 10px;
+    width: 100%;
+    /* width: fit-content; */
+
+    /* text-decoration: underline; */
+    width: fit-content;
+    color: black;
+   
+}
+.profile-part-header{
+    width: 100%;
+    /* width: fit-content; */
+    color: black;
+    
+}
+.profile-section{
+
+    font-size: medium; 
+    font-weight:700 ;
+    cursor: pointer;
+    width: fit-content;
+    &:hover{
+        color: gray;
+    }
+}

@@ -1,0 +1,22 @@
+.login-page{
+
+    width: 100%;
+}
+
+.login-form{
+    width: 30%;
+    height: fit-content;
+
+}
+.login-detail{
+    height: fit-content;
+    width: 40%;
+    
+}
+.login-btn{
+   
+    margin-left: 100px;
+}
+.forget-btn{
+    font-size: 10px;
+}

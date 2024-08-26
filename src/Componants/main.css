@@ -6,17 +6,24 @@
     
     box-sizing: border-box;
 }
+.main-box{
+  width: 100%;
+}
 
 body {
+  /* width: 100%; */
     scrollbar-width: thin;
     scrollbar-color: transparent transparent;
   }
 
 .pagination{
     margin-top: 100px;
-      display: flex;
+    display: flex;
     flex-direction: row;
     justify-content: space-evenly;
 }
+
+
+
 
   

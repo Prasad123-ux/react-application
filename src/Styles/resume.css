@@ -1,0 +1,123 @@
+.resume{
+width: 75%;
+}
+.download-btn{
+    width: fit-content;
+    /* border-radius: 180px; */
+    align-items: center;
+    background-color: lightblue;
+}
+.delete-btn{
+    width: fit-content;
+    background-color: lightblue;
+    margin-left: 10px;
+}
+.resume-content{
+    margin-top: 20px;
+    border: 1px dotted gray;
+    border-radius: 20px;
+}
+.upload-resume{
+    width: fit-content;
+}
+.resume-placeholder{
+    width: fit-content;
+}
+
+
+@media only screen and  ( max-width: 576px  ) {
+
+    .resume{
+        width: 100%;
+        }
+        .download-btn{
+            width: fit-content;
+            /* border-radius: 180px; */
+            align-items: center;
+            /* background-color: lightblue; */
+            background-color: transparent;
+        }
+        .delete-btn{
+            width: fit-content;
+            background-color: transparent;
+
+            /* background-color: lightblue; */
+            /* margin-left: 10px; */
+        }
+        .resume-content{
+            margin-top: 20px;
+            border: 1px dotted gray;
+            border-radius: 20px;
+        }
+        .upload-resume{
+            width: fit-content;
+        }
+        .resume-placeholder{
+            width: fit-content;
+        }
+        
+
+
+
+}
+
+
+@media only screen and (min-width:576px) and (max-width:768px) {
+    .resume{
+        width: 75%;
+        }
+        .download-btn{
+            /* width: fit-content; */
+            /* border-radius: 180px; */
+            align-items: center;
+            /* background-color: lightblue; */
+        }
+        .delete-btn{
+            /* width: fit-content; */
+            /* background-color: lightblue; */
+            margin-left: 10px;
+        }
+        .resume-content{
+            margin-top: 20px;
+            border: 1px dotted gray;
+            border-radius: 20px;
+        }
+        .upload-resume{
+            width: fit-content;
+        }
+        .resume-placeholder{
+            width: fit-content;
+        }
+        
+
+}
+@media only screen and (min-width:769px) and (max-width:1200px) {
+    .resume{
+        width: 75%;
+        }
+        .download-btn{
+            width: fit-content;
+            /* border-radius: 180px; */
+            align-items: center;
+            background-color: lightblue;
+        }
+        .delete-btn{
+            width: fit-content;
+            background-color: lightblue;
+            margin-left: 10px;
+        }
+        .resume-content{
+            margin-top: 20px;
+            border: 1px dotted gray;
+            border-radius: 20px;
+        }
+        .upload-resume{
+            width: fit-content;
+        }
+        .resume-placeholder{
+            width: fit-content;
+        }
+        
+
+
+}

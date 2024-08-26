@@ -1,0 +1,98 @@
+body{
+    background-color: #F8F9FA;
+}
+
+.application-first-body{
+    width: 35%;
+    margin-top: 10px;
+}
+.key{
+    font-size: 0.8rem;
+}
+.value{
+    font-size: 1rem;
+
+}
+.warning{
+    font-size: 0.7rem;
+}
+.submit-button{
+    width: 200px;
+    
+}
+
+
+
+@media only screen and  ( max-width: 576px  ) {
+
+    .application-first-body{
+        width: 100%;
+        margin-top: 10px;
+    }
+    .key{
+        font-size: 0.8rem;
+    }
+    .value{
+        font-size: 1rem;
+    
+    }
+    .warning{
+        font-size: 0.7rem;
+    }
+    .submit-button{
+        width: 150px;
+        
+    }
+    
+    
+    
+}
+
+
+@media only screen and (min-width:576px) and (max-width:768px) {
+    .application-first-body{
+        width: 90%;
+        margin-top: 10px;
+    }
+    .key{
+        font-size: 0.8rem;
+    }
+    .value{
+        font-size: 1rem;
+    
+    }
+    .warning{
+        font-size: 0.7rem;
+    }
+    .submit-button{
+        width: 200px;
+        
+    }
+    
+    
+    
+}
+    @media only screen and (min-width:769px) and (max-width:1200px) {
+        .application-first-body{
+            width: 70%;
+            margin-top: 10px;
+        }
+        .key{
+            font-size: 0.8rem;
+        }
+        .value{
+            font-size: 1rem;
+        
+        }
+        .warning{
+            font-size: 0.7rem;
+        }
+        .submit-button{
+            width: 200px;
+            
+        }
+        
+        
+       
+    }
+    

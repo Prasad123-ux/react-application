@@ -1,10 +1,12 @@
 
-
+.link{
+    text-decoration: none;
+}
 
 .box{
     width: 50%;
-    height: 70vh;
-    background-color: white;
+    height: 350px;
+    background-color: #FFFFFF;
     margin-left: 25%;
     border-radius: 30px;
     margin-top: 60px;
@@ -22,15 +24,26 @@
     margin-top: 0.5rem;
     padding: 10px;
 }
+.hide{
+    /* text-decoration: underline; */
+    &:hover{
+        color: blue;
+    }
+}
 .title{
     margin-left: 20px;
-    font-size: 1.7rem;
+    font-size: 1.4rem;
     font-weight: 700;
+    margin-top: 10px;
+     /* margin-bottom: 10px;  */
+    /* margin-top: 0px; */
 }
 .companyName{
     font-size: 1.2rem;
     font-weight: 500;
-    margin-left: 10%;
+    
+    color:#474D82
+    /* margin-left: 10%; */
     
 }
 .location{
@@ -73,7 +86,7 @@
 }
 
 .salary{
-    margin-bottom: 6%;
+    margin-bottom: 2%;
     margin-top: 2%;
 }
 .not-interested{
@@ -91,7 +104,10 @@
         width: 2px;
         height: 2px;
     }
-    @media (max-width:480px){
+
+
+    @media only screen and  ( max-width: 576px  ) {
+    /* @media (max-width:576px){ */
         .box{
             width: 90%;
             height: 70vh;
@@ -183,7 +199,8 @@
 
 
     }
-    @media only screen and (min-width: 480px) and (max-width: 767px) {
+    /* @media only screen and (min-width: 480px) and (max-width: 767px) { */
+    @media only screen and (min-width:576px) and (max-width:768px) {
     
       
         .box{
@@ -202,20 +219,44 @@
         }
 
     }
-    @media only screen and(min-width:767px) and (max-width:1024px){
+    /* @media only screen and(min-width:767px) and (max-width:1024px){ */
+    /* @media only screen and (max-width:768px ) { */
+    @media only screen and (min-width:769px) and (max-width:991px) {
         .box{
             width: 90%;
-            height: 150vh;
-            background-color: white;
-            
-            border-radius: 10px;
+            height: 350px;
+            background-color: #FFFFFF;
+            margin-left: 25%;
+            border-radius: 30px;
             margin-top: 60px;
-            margin-left: 0px;;
-            
         
             text-align: center;
             
             margin-bottom: 50px;
+        
+        
+           
+        }
+        
+        
+
+    }
+    /* @media only screen and (max-width:992px ) { */
+    @media only screen and (min-width:991px) and (max-width:1200px) {
+        .box{
+            width: 72%;
+            height: 350px;
+            background-color: #FFFFFF;
+            /* margin-left: 25%; */
+            border-radius: 30px;
+            margin-top: 60px;
+        
+            text-align: center;
+            
+            margin-bottom: 50px;
+        
+        
+           
         }
 
     }

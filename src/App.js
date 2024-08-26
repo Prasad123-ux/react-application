@@ -10,6 +10,9 @@ import Signin from './Componants/Signin'
  import {BrowserRouter, Routes, Route,} from 'react-router-dom'
 
 import Profile from './Componants/Profile'
+import Explain from './Componants/Explain'
+import Application from './Componants/Application'
+import SubmitApply from './Componants/SubmitApply'
 
 
 
@@ -67,6 +70,9 @@ const length=users.length
 <Route exact path='/registration' element={<Registration addUser={addUser} users={users}/>}/>
 <Route exact path='/main' element={<Main city={city} role={type} />} />
 <Route exact path='/profile' element={<Profile users={users}/>}/>
+<Route exact path="/job_detail/:id" element={<Explain/>}/>
+<Route exact path="job_detail/job_application/:id" element={<Application/>}/>
+<Route exact path="job_detail/job_application/application_success" element={<SubmitApply/>}/>
 </Routes>  
 
  

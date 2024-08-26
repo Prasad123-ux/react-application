@@ -1,81 +1,213 @@
-import React from 'react'
-import { useState } from 'react'
-import { Box, Avatar, VStack, FormControl, Input, Button, Text, Center, Alert, AlertDescription, AlertTitle, AlertIcon,CloseButton} from '@chakra-ui/react'
-import {Link} from 'react-router-dom'
+import React, { useState } from 'react'
+import 'C:/Users/metka/Desktop/jobNexus/react-application/src/Styles/login.css'
+// import {Link} from "react-router-dom"
+import { useToast } from '@chakra-ui/react';
+import { FcGoogle } from "react-icons/fc";
+import { IoCheckmark } from "react-icons/io5";
+import { useNavigate } from 'react-router-dom';
+import GoogleSignIn from './GoogleSignIn';
 
 
-export default function Login({users}) {
 
 
-  const [preMail, setPreMail]= useState()
-  const [preName, setPreName]= useState()
-  const [success, setSuccess]= useState(false)
-  const [dataNotFound, setDataNotFound]= useState(false)
+// const navigate=useNavigate()
+
+function Login() {
+  const toast= useToast()
+
+  const [loginData, setLoginData]= useState({email:"",password:""})
+  const [otpEmailValue,setOtpEmailValue]= useState()
+  const [otp,setOtp]= useState()
   
 
+  const navigate= useNavigate()
 
-  const getLoggedIN=()=>{
 
-    const userExist=users.find((u)=>u.email===preMail && u.password===preName);
+const navigateRegister=()=>{
+  navigate('/registration')
 
-    if(userExist){
-      setSuccess(true)
-  
+
+
+
+}
+const handleForgetPassword=(e)=>{
+      e.preventDefault()
+
+      fetch('http://localhost:5000/api/candidate/forgetPassword',{
+        method:"POST",
+        body:JSON.stringify({otpEmailValue}),
+        headers:{
+          "content-type":"application/json"
+        }
+      }).then((response)=>{
+        if(response.status===400){
+
+          addToast('User Not Found',response.statusText, "error")
+          throw new Error(response.statusText)
+        }else{
+          return response.json()
+        }
+
+        
+      }).then((data)=>{
+        if(!data.success){
+          addToast(data.message,data.error, "error")
+        }
+        addToast(data.message, data.message,"success")
+      
+
+      })
+      .catch((err)=>{
+        console.log(err)
+
+      })
+}
+
+
+
+const handleLoginData=async (e)=>{
+  e.preventDefault()
+
+   await fetch('http://localhost:5000/api/candidate/loginCandidate',{
+    method:"POST",
+    body:JSON.stringify({data:loginData}),
+    headers:{
+      "Content-type":"application/json"
     }
-    else{
-      setDataNotFound(true)
-    }
-  }
+  }).then((response)=>{
+    console.log(response)
+    if(response.status===404){
+      
 
+      
+      addToast('User Not Found',response.statusText, "error")
+      throw new Error(response.statusText)
+    }else{
+      return response.json()
+    }
+
+  }).then((data)=>{
+    
+    
+    if(data.success===false){
+       return addToast(data.message,data.error, "error")
+    }
+    navigate('/main')
+    addToast(data.message, data.message,"success")
+    console.log(data)
+
+
+  }).catch((err)=>{
+    console.log(err.message)
+
+  })
+
+}
+ const onchange=(e)=>{
+  setLoginData({...loginData,[e.target.name]:e.target.value})
+
+}
+
+
+
+const addToast=(title,message="", status)=>{
+  toast({
+    title: title,
+    description: message,
+    status: status,
+    duration: 10000,
+    isClosable: true,
+  })
+}
 
   return (
-    
-      <Center>
-       { !success && !dataNotFound && (<Box mt={{base:'150px',md:'200px',lg:'100px'}} className='login'  borderRadius={'20'} backgroundColor={'blue.200'} width={{base:'500px', md:'600px',lg:'800px'}} height={{ base:'35rem',md:'35rem',lg:'35rem'}}> 
- <VStack justifyContent={'start'}>
- <Text fontSize={{base:'2rem', md:'3rem', lg:'2rem'}} fontWeight={'500'} color={'blue.500'} textAlign={'center'} mb={'5'}> User Login </Text>
-<Avatar size={{base:'sm',sm:'md', md:'md', lg:'lg'}} mb={'10'}/>
-<FormControl>
-  <VStack spacing={'5'}>
-<Input  onChange={(e)=>{setPreMail(e.target.value)}} color={'white'} type='email' width={{ base:'250px',md:' ',lg:'400px'}} textAlign={'center'} fontWeight={'700'}  focusBorderColor='pink.400' placeholder='Email'  />
-<Input  onChange={(e)=>{setPreName(e.target.value)}} color={'white'} width={{ base:'250px',md:'300px ',lg:'400px'}} type='password' size='lg' textAlign={'center'} fontWeight={'700'} focusBorderColor='pink.400'  placeholder='Password'/>
- <Button onClick={getLoggedIN} colorScheme='teal'  variant={'solid'} size={{base:'sm',sm:'sm', md:'md', lg:'lg', xl:'lg'}} type='submit' w={{base:'100px',md:'150px',lg:'200px'}}> Submit</Button>
-</VStack>
-</FormControl>
-<Text  textAlign={'center'} fontSize={{base:'1rem', md:'1rem', lg:'1rem'}} mt={'5'}> <a href='/'>Forget Password ?</a> </Text>
+    <div className='login-page d-flex justify-content-center  ' style={{"backgroundColor":"#FAFAFA"}}>
+      <div className='login-form shadow  p-4  rounded-5  mt-5' style={{"backgroundColor":"#FFFFFF"}} >
+        <span className='fw-medium d-block fs-4'>Login</span>
+        <form onSubmit={handleLoginData}>
+        <div class="col-md-12 col-12 mt-3 ">
+    <label for="validationDefault01" class="form-label">Email</label>
+    <input type="email" class="form-control rounded-4" id="validationDefault01"  placeholder="Enter Email ID / Username" value={loginData.email}  onChange={onchange} name="email" style={{"backgroundColor":"#E8F0FE"}} required/>
+  </div>
+  <div class="col-md-12 col-12 mt-3">
+    <label for="validationDefault02" class="form-label">Password</label>
+    <input type="password" class="form-control rounded-4" id="validationDefault02"  name="password" value={loginData.password}  placeholder="Enter Password"  onChange={onchange} style={{"backgroundColor":"#E8F0FE"}} required/>
+  </div>
+  <button   className='d-flex forget-btn  btn-link justify-content-start mt-3 w-25' data-bs-toggle="modal" data-bs-target="#staticBackdrop">Forget Password ?</button>
+  <button   type='submit' className=' login-btn btn btn-primary  mt-4 w-50 ' style={{"backgroundColor":"#4A90E2"}}>Login</button>
+        </form>
+          <button   className='text-primary mx-auto btn-link d-flex justify-content-center mt-1 w-50'>Use OTP to Login</button>
+         <span className='d-flex justify-content-center mt-3'>or </span>
+         {/* <button className='btn shadow rounded-5 text-secondary fw-medium d-flex justify-content-around w-75 mx-auto mt-3' style={{backgroundColor:"white"}}>  <FcGoogle className='mt-1' style={{width:"30px"}} />Sign in with Google</button> */}
+       {/* <div><GoogleSignIn/></div> */}
 
-<Text textAlign={'center'} fontSize={{base:'1rem', md:'1rem', lg:'1rem'}}> Don't have an account ? <Link to='/registration'>Register Here.</Link> </Text>
+      </div>
+      <div className='login-detail shadow mt-5  ms-2 p-5 rounded-5' style={{"backgroundColor":"#FFFFFF"}} >
+        <div className='fw-medium fs-4'> New to Jobify ?</div>
+        <div className='d-flex justify-content-between mt-3'>
+          <IoCheckmark  className='fs-4 text-success' style={{"width":"20px"}} /> <span className='ms-3'>One click apply using Jobify profile.</span>
+        </div>
+        <div className='d-flex justify-content-between mt-3'>
+          <IoCheckmark  className='fs-4 text-success' style={{"width":"20px"}} /> <span className='ms-3'>Get relevant job recommendations.</span>
+        </div>
+        <div className='d-flex justify-content-between mt-3'>
+          <IoCheckmark  className='fs-4 text-success' style={{"width":"20px"}} /> <span className='ms-3'>Showcase profile to top companies and consultants.</span>
+        </div>
+        <div className='d-flex justify-content-between mt-3'>
+          <IoCheckmark  className='fs-4 text-success' style={{"width":"20px"}} /> <span className='ms-3'>Know application status on applied jobs.
+          </span>
+        </div>
+        <div className='d-flex justify-content-between mt-5'>
+          <button onClick={navigateRegister} className='text-primary bg-white btn   border w-50 p-2  border-primary' >Register for Free</button>
+        </div>
+        <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQY3kRO9-yVxLT6ParUDJkZLEVjVVvj3SOZgeuIkFhtQHd3Uh9U" className=' w-25 d-flex mt-5 mx-auto' alt=""/>
 
-</VStack>
+      </div>
+      
+{/* <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+  Launch static backdrop modal
+</button> */}
 
-    </Box>)}
-    { success &&(
-  <Alert  alignItems={'center'} status="success" mt={20} variant="solid" flexDirection="column" justifyContent="center" textAlign="center">
-            <AlertIcon boxSize="40px" mr={0} />
-            <AlertTitle mt={4} mb={1} fontSize="lg">
-              Login Successful!
-            </AlertTitle>
-            <AlertDescription>Enjoy your job search and discover exciting opportunities. Remember: "Success is not final, failure is not fatal: It is the courage to continue that counts."</AlertDescription>
-            <Button size={'sm'} width={'200px'}><Link to ="/main">Let's get Job</Link></Button>
-            <CloseButton position="absolute" right="8px" top="8px" onClick={() => setSuccess(false)} />
-          </Alert>)}
 
-          { dataNotFound &&(
-  <Alert  alignItems={'center'} status="warning" mt={20} variant="solid" flexDirection="column" justifyContent="center" textAlign="center">
-            <AlertIcon boxSize="40px" mr={0} />
-            <AlertTitle mt={4} mb={1} fontSize="lg">
-              Oops ! Data not Found
-            </AlertTitle>
-            <AlertDescription>It seems like there's no data available. Don't be discouraged. Keep looking, and you'll find the right opportunity. "The only limit to our realization of tomorrow will be our doubts of today."
-          </AlertDescription>
-            
-            <CloseButton position="absolute" right="8px" top="8px" onClick={() => setDataNotFound(false)} />
-          </Alert>)}
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Forget Password</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <button className='btn shadow rounded-5 text-secondary fw-medium d-flex justify-content-around w-75 mx-auto mt-3' style={{backgroundColor:"white"}}>  <FcGoogle className='mt-1' style={{width:"30px"}} />Sign in with Google</button>
+<form className='form  mt-5'>
 
-    
+<div class="col-md-12 ">
+    <label for="validationDefault01" class="form-label"> Email</label>
+    <input type="email" class="form-control text-center" id="validationDefault01" name="forgetEmail" placeholder="Enter Email ID" value={otpEmailValue}  onChange={(e)=>{setOtpEmailValue(e.target.value)}} required/>
+  </div>
+  <button disabled={otpEmailValue==="" ? true:false} onClick={handleForgetPassword}  className=' login-btn btn btn-primary  mt-4 w-50 '  style={{"backgroundColor":"#4A90E2"}}>Get OTP</button>
+
+
   
-      </Center>
   
-    
+  <div class="col-md-12 mt-3">
+    <label for="validationDefault02" class="form-label">OTP</label>
+    <input type="number" class="form-control text-center" id="validationDefault02"  name="otp" value={otp} placeholder="Enter OTP" onChange={(e)=>{setOtp(e.target.value)}} required/>
+  </div>
+  <button   to="/"  className='btn d-flex justify-content-start btn-link  '>Resend OTP</button>
+  <button disabled={otp=== "" ? true:false} type='submit' className=' login-btn btn btn-primary  mt-4 w-50 '  data-bs-dismiss="modal" style={{"backgroundColor":"#4A90E2"}}>Submit</button>
+
+  
+</form>
+        
+      </div>
+      <div class="modal-footer">
+      
+      </div>
+    </div>
+  </div>
+</div>
+    </div>
   )
 }
+
+export default Login
