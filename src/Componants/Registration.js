@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import "C:/Users/metka/Desktop/jobNexus/react-application/src/Styles/registration.css"
+import "../Styles/registration.css"
 import { useNavigate } from 'react-router-dom'
 import { Button, useToast } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'

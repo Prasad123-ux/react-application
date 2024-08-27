@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import 'C:/Users/metka/Desktop/jobNexus/react-application/src/Styles/application.css'
+import "../Styles/application.css"
 import { Text  } from '@chakra-ui/react'
 import { FaRegFilePdf } from "react-icons/fa6";
 import { Link, useParams } from 'react-router-dom';
