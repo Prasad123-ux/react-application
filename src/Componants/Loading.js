@@ -1,9 +1,8 @@
 import React from 'react'
-// import  loader from './loader2.gif'
-import loader from '../Componants/loader2.gif'; // Adjust the relative path if needed
-// import loader2 from '../Componants/animation.gif'
+import loader from '../Componants/loader2.gif'; 
 
-import {Box, SkeletonCircle, SkeletonText, VStack,Image, HStack, Avatar, Text, Button, Center, } from '@chakra-ui/react'
+
+import {Box, SkeletonCircle, SkeletonText, VStack,Image, Center, } from '@chakra-ui/react'
 
 export default function Loading() {
   

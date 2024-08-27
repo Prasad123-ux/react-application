@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import './footer.css'
+import "../Styles/footer.css"
 import { HStack , Box, VStack, Input, Button, Text, Stack, Heading, Textarea, Alert, AlertDescription, AlertIcon, AlertTitle, CloseButton} from '@chakra-ui/react'
 import { FaFacebook, FaGithub, FaInstagram, FaLinkedinIn, FaPaperPlane, FaTwitter, FaWhatsapp } from 'react-icons/fa'
 

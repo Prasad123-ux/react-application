@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import "../Styles/registration.css"
 import { useNavigate } from 'react-router-dom'
-import { Button, useToast } from '@chakra-ui/react'
+import {  useToast } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 
 

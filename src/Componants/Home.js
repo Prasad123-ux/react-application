@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
-import { useState } from 'react'
-import './Home.css'
-import { Button , Card, Image, CardBody, Stack, Heading,CardFooter, Flex, Text,Link as ChakraLink, HStack, ChakraProvider, color} from '@chakra-ui/react'
+import React from 'react'
+
+import "../Styles/Home.css"
+import { Button , Card, Image, CardBody, Stack, Heading,CardFooter, Text,Link as ChakraLink, HStack, ChakraProvider} from '@chakra-ui/react'
 import Footer from './Footer'
 import {Link} from 'react-router-dom'
 import { FaWhatsapp } from 'react-icons/fa'

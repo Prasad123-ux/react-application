@@ -1,4 +1,4 @@
-import { Avatar,Text, Divider } from '@chakra-ui/react'
+import { Avatar,Text} from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react' 
 import "../Styles/Profile.css"
 import { FiEdit2 } from "react-icons/fi";
@@ -7,8 +7,6 @@ import { BsPersonWorkspace } from "react-icons/bs";
 import { MdOutlineDateRange } from "react-icons/md";
 import { CiPhone } from "react-icons/ci";
 import { CiMail } from "react-icons/ci";
-import { GrDocument } from "react-icons/gr";
-import { IoArrowUp } from "react-icons/io5";
 import {Link} from 'react-router-dom'
 import ProfilePart from './ProfilePart';
 import Resume from './Resume';
@@ -127,7 +125,6 @@ const onchange=(e)=>{
    
       
         </div>
-        {/* <Divider orientation='vertical' /> */}
         <div className='col-12  col-md-6' >
         <Text className='d-block text-secondary '><CiPhone style={{"width":"30px" ,"height":"20px"}} className='d-inline' /><span className=''>9307173845</span>  </Text>
         <Text className='d-block text-secondary '><CiMail  style={{"width":"30px" ,"height":"20px"}} className='d-inline' /><span className=''>prasadmetkar333!gmail.com</span>  </Text>

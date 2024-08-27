@@ -5,8 +5,7 @@ import {Drawer, Button, Avatar, Input, HStack, Text, Box, DrawerOverlay, DrawerC
 
 import {Link } from 'react-router-dom'
 import { BiMenuAltLeft } from 'react-icons/bi'
-import './navbar.css'
-
+import "../Styles/navbar.css"
 
 
 

@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import "../Styles/login.css"
-// import {Link} from "react-router-dom"
 import { useToast } from '@chakra-ui/react';
 import { FcGoogle } from "react-icons/fc";
 import { IoCheckmark } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
-import GoogleSignIn from './GoogleSignIn';
+// import GoogleSignIn from './GoogleSignIn';
 
 
 

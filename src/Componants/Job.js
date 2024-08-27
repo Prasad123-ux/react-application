@@ -1,6 +1,6 @@
-import React, { createContext, useEffect, useState } from 'react'
-import {Box, HStack, Avatar, VStack,Text, Button} from '@chakra-ui/react'
-import './job.css'
+import React, { createContext,  useState } from 'react'
+import { HStack, Avatar,Text} from '@chakra-ui/react'
+import "../Styles/job.css"
 import { ViewOffIcon } from '@chakra-ui/icons'
  import {  FaSave} from 'react-icons/fa'  
 

@@ -1,10 +1,8 @@
 import React, {  useEffect, useState } from 'react';
 import Job from './Job.js';
-import Heading from './Heading.js'
-import { Button,Box  } from '@chakra-ui/react';
-import './main.css'
-import { ArrowRightIcon, ArrowLeftIcon } from '@chakra-ui/icons';
- import Loading from './Loading.js';
+import { Box  } from '@chakra-ui/react';
+import "../Styles/main.css"
+import Loading from './Loading.js';
 import Footer from './Footer.js';
 
  
@@ -15,9 +13,7 @@ const Main = () => {
 
 
 const [loading, setLoading]= useState(false)
-//  const [buttonDisabled, setButtonDisabled]= useState(false)
-//  const [page, setPage]= useState(1)
-//  const [receivedData, setReceivedData]= useState('')
+
   const [data, setData] = useState([]); // Initialize data as an object with a results property
   
 
@@ -53,7 +49,7 @@ const [loading, setLoading]= useState(false)
     fetchData();
   },[]);
 
-  // console.log(data)
+  
 
   const  handleDeleteJob=(id)=>{
     console.log(data.results)
@@ -61,10 +57,7 @@ const [loading, setLoading]= useState(false)
     setData(updatedJobs )
 
   }
-  // if(data.JobRequirements.EducationalRequirement  && data.JobRequirements.EducationalRequirement.length>1){
-  // console.log(data[3].JobRequirements[0].EducationalRequirement)
-  // }
-  
+ 
 
 
 
@@ -80,11 +73,7 @@ const [loading, setLoading]= useState(false)
     {loading ?  <Loading/>:
     <div>
       
-  {/* <Heading  onDataReceived={receivedDataFromChild}/> */}
-
-      
-
-      {/* Here we are mapping the data and passing to job component */}4
+ 
     {data && data.length>0 ?(
       
       data.map((job)=>{
