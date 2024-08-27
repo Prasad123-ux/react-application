@@ -5,7 +5,7 @@ import { BsPersonWorkspace } from "react-icons/bs";
 import { BsCurrencyRupee } from "react-icons/bs";
 import { Link } from 'react-router-dom';
 import { CiLocationOn, } from "react-icons/ci";
-import "C:/Users/metka/Desktop/jobNexus/react-application/src/Componants/explain.css"
+import "../Styles/explain.css"
 import { Text,Box } from '@chakra-ui/react';
 import { CgWebsite } from "react-icons/cg";
 import { FaFacebookSquare } from "react-icons/fa";
