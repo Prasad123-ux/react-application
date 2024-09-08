@@ -46,10 +46,19 @@
     ]
   },
   "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-plugin-react-hooks": "^4.6.2",
     "gh-pages": "^6.1.0"
   },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
   "author": "",
   "license": "ISC"
+  ,
+  
+    "resolutions": {
+      "eslint": "^8.0.0"
+    }
+  
+  
 }
