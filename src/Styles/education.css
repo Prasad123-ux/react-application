@@ -1,3 +1,215 @@
 .education-icon{
     width: fit-content;
 }
+.education-heading{
+    
+}
+.education-btn{
+    width: 130px;
+    /* width: fit-content; */
+}
+.add-icon{
+    width: fit-content;
+    
+}
+.add-btn-name{
+    width: fit-content;
+margin-left: 5px;
+}
+.user-education{
+    border: 1px solid gray;
+    border-radius: 10px;
+    opacity: 0.8;
+}
+.modal-footer{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+
+}
+.modal-close-btn{
+    width: 150px;
+
+}
+.modal-save-btn{
+    width: 150px;
+
+}
+.check-collage{
+width: fit-content;
+}
+.check-schoold{
+    width: fit-content;
+    
+}
+.check-input{
+
+    width: fit-content;
+}
+.check-find{
+    width: fit-content;
+}
+
+
+.education-option-btn{
+    width: fit-content;
+}
+
+@media only screen and  ( max-width: 576px  ) {
+    .education-icon{
+        width: fit-content;
+    }
+   
+    .education-btn{
+        /* width: 10px; */
+        width: fit-content;
+    }
+    /* .education-option-btn{
+        width: 100px;
+    } */
+    .add-icon{
+        /* width: fit-content; */
+        width: 10px;
+        
+    }
+    .add-btn-name{
+        width: fit-content;
+    }
+    .user-education{
+        border: 1px solid gray;
+        border-radius: 10px;
+        opacity: 0.8;
+    }
+    .modal-footer{
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+    
+    }
+    .modal-close-btn{
+        width: 150px;
+    
+    }
+    .modal-save-btn{
+        width: 150px;
+    
+    }
+    .check-collage{
+    width: fit-content;
+    }
+    .check-schoold{
+        width: fit-content;
+        
+    }
+    .check-input{
+    
+        width: fit-content;
+    }
+    .check-find{
+        width: fit-content;
+    }
+
+}
+@media only screen and (min-width:576px) and (max-width:768px) {
+    .education-icon{
+        width: fit-content;
+    }
+    .education-heading{
+        
+    }
+    .education-btn{
+        width: 170px;
+    }
+    .add-icon{
+        width: fit-content;
+        
+    }
+    .add-btn-name{
+        width: fit-content;
+    }
+    .user-education{
+        border: 1px solid gray;
+        border-radius: 10px;
+        opacity: 0.8;
+    }
+    .modal-footer{
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+    
+    }
+    .modal-close-btn{
+        width: 150px;
+    
+    }
+    .modal-save-btn{
+        width: 150px;
+    
+    }
+    .check-collage{
+    width: fit-content;
+    }
+    .check-schoold{
+        width: fit-content;
+        
+    }
+    .check-input{
+    
+        width: fit-content;
+    }
+    .check-find{
+        width: fit-content;
+    }
+
+}
+@media only screen and (min-width:769px) and (max-width:1140px) {
+    .education-icon{
+        width: fit-content;
+    }
+    .education-heading{
+        
+    }
+    .education-btn{
+        width: 180px;
+    }
+    .add-icon{
+        width: fit-content;
+        
+    }
+    .add-btn-name{
+        /* width: fit-content; */
+    }
+    .user-education{
+        border: 1px solid gray;
+        border-radius: 10px;
+        opacity: 0.8;
+    }
+    .modal-footer{
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+    
+    }
+    .modal-close-btn{
+        width: 150px;
+    
+    }
+    .modal-save-btn{
+        width: 150px;
+    
+    }
+    .check-collage{
+    width: fit-content;
+    }
+    .check-schoold{
+        width: fit-content;
+        
+    }
+    .check-input{
+    
+        width: fit-content;
+    }
+    .check-find{
+        width: fit-content;
+    }
+}

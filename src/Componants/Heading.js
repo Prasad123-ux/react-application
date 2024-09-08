@@ -1,7 +1,7 @@
 import { Button , Drawer , DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, useDisclosure, Checkbox, Box, Flex, AccordionProvider, DrawerFooter} from '@chakra-ui/react'
 import React  from 'react'
 import { useState } from 'react'
- import './heading.css'
+import "../Styles/heading.css"
 import {Accordion,AccordionItem,AccordionButton,AccordionPanel,AccordionIcon,Alert, AlertIcon} from '@chakra-ui/react'
 
  

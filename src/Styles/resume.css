@@ -23,6 +23,9 @@ width: 75%;
 .resume-placeholder{
     width: fit-content;
 }
+.upload-btn{
+    width: fit-content;
+}
 
 
 @media only screen and  ( max-width: 576px  ) {

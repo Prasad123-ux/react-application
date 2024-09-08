@@ -6,8 +6,7 @@ import { BsCurrencyRupee } from "react-icons/bs";
 import { Link } from 'react-router-dom';
 import { CiLocationOn, } from "react-icons/ci";
 import "../Styles/explain.css"
-import { Text,Box } from '@chakra-ui/react';
-import { CgWebsite } from "react-icons/cg";
+import { Text} from '@chakra-ui/react';
 import { FaFacebookSquare } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa6";
 import { FaTwitterSquare } from "react-icons/fa";

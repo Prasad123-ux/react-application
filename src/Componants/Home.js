@@ -69,7 +69,7 @@ export default function Home() {
            <div>
          <Card   width={{base:'175px', sm:'175px',md:'180px',lg:'250px'}} height={{base:'150px',sm:'190px',md:'220',lg:'230'}}  mt={'5'}>
   <CardBody>
-    <Image
+    <Image className='shadow'
       src={link[index]}
       alt='Green double couch with wooden legs'
       borderRadius='lg'
@@ -97,7 +97,7 @@ export default function Home() {
 {
   image.map((item, index)=>{
 
- return <Image width={{base:'800px', sm:'600px'}} height={{base:'5vh', sm:'5vh' , md:'5vh', lg:'7vh'}} key={index}   src={item}  alt='company' />
+ return <Image width={{base:'800px', sm:'600px'}} height={{base:'5vh', sm:'5vh' , md:'5vh', lg:'7vh'}} key={index}  className='shadow'  src={item}  alt='company' />
 
 
   })

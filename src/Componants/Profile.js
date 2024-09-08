@@ -10,53 +10,68 @@ import { CiMail } from "react-icons/ci";
 import {Link} from 'react-router-dom'
 import ProfilePart from './ProfilePart';
 import Resume from './Resume';
+import Education from './Education';
+import Experience from './Experience';
+import Project from './Project';
+import Work from './Certification';
+import Accomplishment from './Accomplishment';
 
 function Profile() {
   const [userData, setUserData]= useState([])
   const [userUpdatedData, setUserUpdatedData]= useState({name:"", location:"", workStatus:"",city:"", join:"", })
 
 const token= localStorage.getItem('token')
-
-
-const handleSubmitData=(e)=>{
-  e.preventDefault()
-  try{
-    fetch('http://localhost:5000/api/candidate/getProfileData', {
-      method:"PUT",
-      body:JSON.stringify({token:token, updatedData:userUpdatedData}),
-      headers:{
-    "Content-type":"application/json"
-      }
-    }).then((response)=>{
-      if(!response.ok){
-        throw new Error(response.statusText)
-        
-      }else{
-        return response.json()
-      }
-
-    }).then((data)=>{
-      console.log(data)
-
-    }).catch((err)=>{
-      console.error(err)
-
-    })
-
-  }catch(err){
-    console.log(err)
-
-  }
-
-
+const onchange=(e)=>{
+  
+  setUserUpdatedData({...userUpdatedData, [e.target.name]:e.target.value})
+ 
 
 }
 
+
+// const handleSubmitData=(e)=>{
+
+//   e.preventDefault()
+//   try{
+//     fetch('http://localhost:5000/api/candidate/getProfileData', {
+//       method:"PUT",
+//       body:JSON.stringify({token:token, updatedData:userUpdatedData}),
+//       headers:{
+//     "Content-type":"application/json"
+//       }
+//     }).then((response)=>{
+//       if(!response.ok){
+//         throw new Error(response.statusText)
+                                                         
+//       }else{
+//         return response.json()
+//       }
+
+//     }).then((data)=>{   
+//       console.log(data)
+
+//     }).catch((err)=>{
+//       console.error(err)
+
+//     })
+
+//   }catch(err){
+//     console.log(err)
+
+//   }
+
+
+
+// }
+// console.log(userData.extraFields.Education)
+
+
   
-useEffect(()=>{
-  const getUserData=()=>{
+
+  const handleGetUserData= async()=>{
+    console.log("function running")
     try{
-      fetch('http://localhost:5000/api/candidate/getProfileData', {
+       await fetch('http://localhost:5000/api/candidate/getProfileData', {
         method:"POST",
         body:JSON.stringify({token:token}),
         headers:{
@@ -70,7 +85,9 @@ useEffect(()=>{
         }
 
       }).then((data)=>{
-        setUserData(data.data)
+        console.log(data)
+        setUserData(data.Data)
+        
 
       }
       ).catch((err)=>{
@@ -82,18 +99,20 @@ useEffect(()=>{
     catch(err){
       console.log(err)
     }
-    getUserData()
+    
   }
-})
 
-const onchange=(e)=>{
-  
-  setUserUpdatedData({...userUpdatedData, [e.target.name]:e.target.value})
-  // const [name,value]= e.target
-  // setUserUpdatedData((prevData)=>({...prevData, [name]:value}))
 
-}
 
+// console.log(userData.MobileNumber)
+// console.log(userData.extraFields.resume)
+
+// console.log(userData.extraFields.resume)
+// console.log(userData.extraFields.resume)
+
+
+
+// console.log(userData.extraFields.Education)
 
   return (
     <>
@@ -106,10 +125,11 @@ const onchange=(e)=>{
         <div className='profile-info mx-auto text-center col-12 col-lg-7'>
        <div className='name-info'>
      
-        <span className=' name d-block fw-bold'>Prasad Metkar</span>  
+        <span className=' name d-block fw-bold'>{userData.FullName && userData.FullName.length>1  ? userData.FullName :"" }</span>  
         {/* <span className=''></span> */}
         <span className='profile-last fw-light'>Profile last updated</span>-<span className=' day text-secondary fw-medium '>Today</span>
-        
+        {/* <button className='btn btn-primary' onClick={getUserData}>  get the user data from </button> */}
+        <button className='btn btn-outline-danger' onClick={handleGetUserData}> getIUserData</button>
         
 
        </div>
@@ -118,16 +138,16 @@ const onchange=(e)=>{
        <div className='down-main row'>
         <div className='down-first col-12 col-md-6 '>
           
-          <Text className='d-block text-secondary '><CiLocationOn style={{"width":"30px"}}  className='d-inline' /> <span className=''>Hyderabad</span></Text>
-          <Text className='d-block text-secondary '><BsPersonWorkspace className='d-inline' style={{"width":"30px"}} /> <span className=''>Fresher</span>  </Text>
-          <Text className='d-block text-secondary '><MdOutlineDateRange className='d-inline' style={{"width":"30px"}} /><span className='d-inline'>Available </span></Text>
+          <Text className='d-block text-secondary '><CiLocationOn style={{"width":"30px"}}  className='d-inline' /> <span className=''>{userData.City && userData.City.length>1  ? userData.City :"" }</span></Text>
+          <Text className='d-block text-secondary '><BsPersonWorkspace className='d-inline' style={{"width":"30px"}} /> <span className=''>{userData.WorkStatus && userData.WorkStatus.length>1  ? userData.WorkStatus :"" }</span>  </Text>
+          <Text className='d-block text-secondary '><MdOutlineDateRange className='d-inline' style={{"width":"30px"}} /><span className='d-inline'> </span></Text>
           
    
       
         </div>
         <div className='col-12  col-md-6' >
-        <Text className='d-block text-secondary '><CiPhone style={{"width":"30px" ,"height":"20px"}} className='d-inline' /><span className=''>9307173845</span>  </Text>
-        <Text className='d-block text-secondary '><CiMail  style={{"width":"30px" ,"height":"20px"}} className='d-inline' /><span className=''>prasadmetkar333!gmail.com</span>  </Text>
+        <Text className='d-block text-secondary '><CiPhone style={{"width":"30px" ,"height":"20px"}} className='d-inline' /><span className=''>{userData.MobileNumber  ? userData.MobileNumber :"Not Found" }</span>  </Text>
+        <Text className='d-block text-secondary '><CiMail  style={{"width":"30px" ,"height":"20px"}} className='d-inline' /><span className=''>{userData.Email && userData.Email.length>1  ? userData.Email :"" }</span>  </Text>
         <button className='d-block text-secondary btn  w-50 mx-auto shadow bg-light  ' data-toggle="modal" data-target="#exampleModalLong"><FiEdit2 className='d-inline' style={{"width":"30px"}} /><span className='d-inline'>Edit </span></button>
 
 
@@ -174,7 +194,7 @@ const onchange=(e)=>{
         </button>
       </div>
       <div class="modal-body ">
-        <form  onSubmit={handleSubmitData}>
+        <form >
         <div className="form-group">
     <label htmlFor="nameInput">Name <span className='text-danger'>*</span></label>
     <input type="text" className="form-control" id="nameInput" placeholder="Prasad Metkar" value={userUpdatedData.name} name="name" onChange={onchange} required/>
@@ -270,12 +290,22 @@ const onchange=(e)=>{
 
       
     </div>
-    < ProfilePart/>
+    < ProfilePart />
     <div className=' d-block d-sm-none mt-5'>
     <div className='w-100 bg-gradient text-info d-flex justify-content-center fs-6 fw-bold  mt-5 section-heading shadow'> Resume</div>
 
-      <Resume/>
-      <div className='w-100 bg-gradient text-info d-flex justify-content-center fs-6 fw-bold mt-5 section-heading  shadow'> Education</div>
+      <Resume    />
+      <div className='w-100 bg-gradient text-info d-flex justify-content-center fs-6 fw-bold mt-5 section-heading  shadow mb-5'> Education</div>
+      <Education userEducation={userData.extraFields.Education}/>
+      <div className='w-100 bg-gradient text-info d-flex justify-content-center fs-6 fw-bold mt-5 section-heading  shadow mb-5'> Experience</div>
+      
+      <Experience/>
+      <div className='w-100 bg-gradient text-info d-flex justify-content-center fs-6 fw-bold mt-5 section-heading  shadow mb-5'> Work</div>
+     <Work/>
+      <div className='w-100 bg-gradient text-info d-flex justify-content-center fs-6 fw-bold mt-5 section-heading  shadow mb-5'> Projects</div>
+      <Project/>
+      <div className='w-100 bg-gradient text-info d-flex justify-content-center fs-6 fw-bold mt-5 section-heading  shadow mb-5'> Accomplishment</div>
+     <Accomplishment/>
 
     </div>
     </>

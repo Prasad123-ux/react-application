@@ -19,6 +19,9 @@ body{
     width: 100%;
     /* width: fit-content; */
     color: black;
+    overflow: scroll;
+    position: sticky;
+    /* position: fixed; */
     
 }
 .profile-section{
