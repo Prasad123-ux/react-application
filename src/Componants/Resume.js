@@ -10,7 +10,7 @@ import PropTypes from "prop-types"
 
 
 function Resume({ resumeValue}) {
-  const [buttonDisabled, setButtonDisabled]= useState(false)
+  // const [buttonDisabled, setButtonDisabled]= useState(false)
    const [resume, setResume]= useState()
   const toast= useToast()
   const token= localStorage.getItem("token")

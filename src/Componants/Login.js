@@ -125,11 +125,11 @@ const addToast=(title,message="", status)=>{
         <span className='fw-medium d-block fs-4'>Login</span>
         <form onSubmit={handleLoginData}>
         <div class="col-md-12 col-12 mt-3 ">
-    <label for="validationDefault01" class="form-label">Email</label>
+    <label htmlFor="validationDefault01" class="form-label">Email</label>
     <input type="email" class="form-control rounded-4" id="validationDefault01"  placeholder="Enter Email ID / Username" value={loginData.email}  onChange={onchange} name="email" style={{"backgroundColor":"#E8F0FE"}} required/>
   </div>
   <div class="col-md-12 col-12 mt-3">
-    <label for="validationDefault02" class="form-label">Password</label>
+    <label htmlFor="validationDefault02" class="form-label">Password</label>
     <input type="password" class="form-control rounded-4" id="validationDefault02"  name="password" value={loginData.password}  placeholder="Enter Password"  onChange={onchange} style={{"backgroundColor":"#E8F0FE"}} required/>
   </div>
   <button   className='d-flex forget-btn  btn-link justify-content-start mt-3 w-25' data-bs-toggle="modal" data-bs-target="#staticBackdrop">Forget Password ?</button>
@@ -168,7 +168,7 @@ const addToast=(title,message="", status)=>{
 </button> */}
 
 
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"  aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -180,7 +180,7 @@ const addToast=(title,message="", status)=>{
 <form className='form  mt-5'>
 
 <div class="col-md-12 ">
-    <label for="validationDefault01" class="form-label"> Email</label>
+    <label htmlFor="validationDefault01" class="form-label"> Email</label>
     <input type="email" class="form-control text-center" id="validationDefault01" name="forgetEmail" placeholder="Enter Email ID" value={otpEmailValue}  onChange={(e)=>{setOtpEmailValue(e.target.value)}} required/>
   </div>
   <button disabled={otpEmailValue==="" ? true:false} onClick={handleForgetPassword}  className=' login-btn btn btn-primary  mt-4 w-50 '  style={{"backgroundColor":"#4A90E2"}}>Get OTP</button>
@@ -189,7 +189,7 @@ const addToast=(title,message="", status)=>{
   
   
   <div class="col-md-12 mt-3">
-    <label for="validationDefault02" class="form-label">OTP</label>
+    <label htmlFor="validationDefault02" class="form-label">OTP</label>
     <input type="number" class="form-control text-center" id="validationDefault02"  name="otp" value={otp} placeholder="Enter OTP" onChange={(e)=>{setOtp(e.target.value)}} required/>
   </div>
   <button   to="/"  className='btn d-flex justify-content-start btn-link  '>Resend OTP</button>

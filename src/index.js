@@ -4,7 +4,7 @@ import * as ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
-import { ColorModeSwitcher, } from './ColorModeSwitcher';
+// import { ColorModeSwitcher, } from './ColorModeSwitcher';
 // import {theme} from './Navbar.js/theme'
 //  import  {theme} from './theme.js'
 //  import theme from './Componants/theme.js'

@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Application() {
     const [jobData , setJobData]= useState([])
-     const [profileData, setProfileData]= useState([])
+    //  const [profileData, setProfileData]= useState([])
      const [getError, setGetError   ]= useState([])
     const {id}=useParams()
     const token=localStorage.getItem('token')
@@ -65,7 +65,7 @@ useEffect(()=>{
         }
         const result = await response.json()
         console.log(result)
-        setProfileData(result.data)
+        // setProfileData(result.data)
     }
 catch(err){
     console.log(err)
@@ -74,7 +74,7 @@ catch(err){
     }
 
     findProfileData()
-},[])
+},[token])
 
 const handleHomePage=()=>{
     navigate('/main')
@@ -167,7 +167,7 @@ const appliedJob= async (value)=>{
 
 
 
-<div className="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div className="modal fade" id="exampleModalCenter"  role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div className="modal-dialog modal-dialog-centered" role="document">
     <div className="modal-content">
     

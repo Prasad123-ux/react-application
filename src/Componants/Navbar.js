@@ -15,7 +15,7 @@ const {isOpen:isLogOpen, onOpen:onLogOpen, onClose:onLogClose}= useDisclosure()
   const {isOpen, onOpen, onClose}=useDisclosure()
   const [userName, setUserName]= useState('UserName')
   const [email,setEmail]= useState('Email')
-   const [length, setLength]= useState()
+   
    const [location, setLocation]= useState()
    const [role, setRole]= useState()
     const cancelRef = React.useRef();
@@ -56,7 +56,7 @@ setDisable(false)
 
     const onLogOutDelete=async()=>{
      await onDelete();
-     setLength(users.length)
+     
      onLogClose()
       
     }

@@ -4,14 +4,13 @@ import { IoMdAdd } from "react-icons/io";
 import "../Styles/education.css"
 import { MdOutlineModeEditOutline } from "react-icons/md";
 import { FaGraduationCap } from "react-icons/fa";
-import options from "./data.json"
 // import { FaLink } from 'react-icons/fa';
 import {Link } from "react-router-dom"
 
 function Certification() {
   const [certificationDetail, setCertificationDetail]= useState({certification:"", description:"", certificationDate:"",link:"", skills:''})
   // const [updateCertification,setUpdateCertification]= useState()
-  const [certificationData, setCertificationData]= useState([])
+  // const [certificationData, setCertificationData]= useState([])
 
   
   const handleCertification=(e)=>{
@@ -54,26 +53,26 @@ try{
 }   
 
 
-const handleUpdateEducationDetail=async(e)=>{
-  e.preventDefault()
-  try{
-    const response=  await fetch('http://localhost:5000/api/candidate/Profile/addNew',{
-      method:"POST",
-      body:JSON.stringify({token:token, data:certificationDetail }),
-      headers:{
-        "Content-type":"application/json"
-      }
-    })
-    if(!response.ok){
-      throw new Error(response.statusText)
-    }else{
-      return await response.json()
-    }
-  }catch(err){
-    console.error(err)
+// const handleUpdateEducationDetail=async(e)=>{
+//   e.preventDefault()
+//   try{
+//     const response=  await fetch('http://localhost:5000/api/candidate/Profile/addNew',{
+//       method:"POST",
+//       body:JSON.stringify({token:token, data:certificationDetail }),
+//       headers:{
+//         "Content-type":"application/json"
+//       }
+//     })
+//     if(!response.ok){
+//       throw new Error(response.statusText)
+//     }else{
+//       return await response.json()
+//     }
+//   }catch(err){
+//     console.error(err)
 
-  }
-}
+//   }
+// }
 
 
 
@@ -130,10 +129,11 @@ const handleUpdateEducationDetail=async(e)=>{
 
 
 
-     {certificationData && certificationData.length>1 ? certificationData.map((item,index)=>{
+     {/* {certificationData && certificationData.length>1 ? certificationData.map((item,index)=>{return */}
 
-return <div className='education-first user-education p-3 mt-4'>
-<div className='  d-flex justify-content-between align-items-center ' key={index}> 
+
+<div className='education-first user-education p-3 mt-4'>
+<div className='  d-flex justify-content-between align-items-center '> 
         <div className='education-heading d-flex justify-content-start'>
           <span className='education-icon '><FaGraduationCap  className='fs-4'/> </span> 
           <div className='ms-4'>
@@ -173,8 +173,10 @@ return <div className='education-first user-education p-3 mt-4'>
       </div>
 
       </div>
-      }):""
-}
+
+
+       {/* }):"" */}
+
       
 
 
@@ -197,7 +199,7 @@ return <div className='education-first user-education p-3 mt-4'>
 {/* modal for adding new educational details */}
 
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal"  aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -211,23 +213,23 @@ return <div className='education-first user-education p-3 mt-4'>
 <div className='mt-4'>
   <form onSubmit={handleEducationalDetails}  >
   <div class="col-10 mt-3">
-    <label for="validationDefault01" class="form-label">Title</label>
+    <label htmlFor="validationDefault01" class="form-label">Title</label>
     <input type="text" class="form-control" id="validationDefault01" placeholder="Enter name of certification" name="certification" value={certificationDetail.certification}  onChange={handleCertification} required/>
   </div>
   <div class="col-10 mt-3">
-    <label for="validationDefault02" class="form-label"> Describe your certification</label>
+    <label htmlFor="validationDefault02" class="form-label"> Describe your certification</label>
     <input type="text" class="form-control" id="validationDefault02" placeholder="What did you learn from this certification" name="description" value={certificationDetail.description}  onChange={handleCertification} required/>
   </div>
   <div class="col-10 mt-3">
-    <label for="validationDefault03" class="form-label"> When you did the certification</label>
+    <label htmlFor="validationDefault03" class="form-label"> When you did the certification</label>
     <input type="date" class="form-control" id="validationDefault03" placeholder="dd-mm-yyyy" name="completionDate" value={certificationDetail.completionData}  onChange={handleCertification} required/>
   </div>
   <div class="col-10 mt-3">
-    <label for="validationDefault04" class="form-label"> Link</label>
+    <label htmlFor="validationDefault04" class="form-label"> Link</label>
     <input type="link" class="form-control" id="validationDefault04" placeholder="Certification Link" name="link" value={certificationDetail.link}  onChange={handleCertification} required/>
   </div>
   {/* <div class="col-10 mt-3">
-    <label for="validationDefault04" class="form-label">Skill used (Seperated by comma)</label>
+    <label htmlFor="validationDefault04" class="form-label">Skill used (Seperated by comma)</label>
     <input type="date" class="form-control" id="validationDefault04" placeholder="Type skills used" multiple name="skills" value={collageDetails.universityName}  onChange={onCollageChange} required/>
   </div> */}
  
@@ -267,7 +269,7 @@ return <div className='education-first user-education p-3 mt-4'>
 
 
 
-<div class="modal fade" id="exampleModalUpdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModalUpdate"  aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -278,23 +280,23 @@ return <div className='education-first user-education p-3 mt-4'>
         <form>
 
       <div class="col-10 mt-3">
-    <label for="validationDefault01" class="form-label">Title</label>
+    <label htmlFor="validationDefault01" class="form-label">Title</label>
     <input type="text" class="form-control" id="validationDefault01" placeholder="Enter name of certification" name="certification" value={certificationDetail.certification}  onChange={handleCertification} required/>
   </div>
   <div class="col-10 mt-3">
-    <label for="validationDefault02" class="form-label"> Describe your certification</label>
+    <label htmlFor="validationDefault02" class="form-label"> Describe your certification</label>
     <input type="text" class="form-control" id="validationDefault02" placeholder="What did you learn from this certification" name="description" value={certificationDetail.description}  onChange={handleCertification} required/>
   </div>
   <div class="col-10 mt-3">
-    <label for="validationDefault03" class="form-label"> When you did the certification</label>
+    <label htmlFor="validationDefault03" class="form-label"> When you did the certification</label>
     <input type="date" class="form-control" id="validationDefault03" placeholder="dd-mm-yyyy" name="completionDate" value={certificationDetail.completionData}  onChange={handleCertification} required/>
   </div>
   <div class="col-10 mt-3">
-    <label for="validationDefault04" class="form-label"> Link</label>
+    <label htmlFor="validationDefault04" class="form-label"> Link</label>
     <input type="link" class="form-control" id="validationDefault04" placeholder="Certification Link" name="link" value={certificationDetail.link}  onChange={handleCertification} required/>
   </div>
   {/* <div class="col-10 mt-3">
-    <label for="validationDefault04" class="form-label">Skill used (Seperated by comma)</label>
+    <label htmlFor="validationDefault04" class="form-label">Skill used (Seperated by comma)</label>
     <input type="date" class="form-control" id="validationDefault04" placeholder="Type skills used" name="skills" value={collageDetails.universityName}  onChange={onCollageChange} required/>
   </div>
        */}

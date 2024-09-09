@@ -5,16 +5,16 @@ import "../Styles/education.css"
 import { MdOutlineModeEditOutline } from "react-icons/md";
 import { FaGraduationCap } from "react-icons/fa";
 import options from "./data.json"
-import internshipType from "./data.json"
+
 
 function Experience() {
 
   const [EducationLevel,setEducationLevel]= useState("college")
   const [educationChecked,setEducationChecked]= useState(true)
-  const [updateValue, setUpdateValue]= useState(false)
+  // const [updateValue, setUpdateValue]= useState(false)
   const [schoolDetails, setSchoolDetails]= useState({schoolName:"", class:"", passingYear:"", cgpa:""})
   const [collageDetails,setCollegeDetails]= useState({universityName:"",fieldOfStudy:"",degree:"",startingYear:"", endingYear:"",cgpa:""})
-  const [educationDetail, setEducationDetail]= useState([])
+   const [educationDetail, setEducationDetail]= useState([])
 
 
   const getValue=()=>{
@@ -62,6 +62,7 @@ try{
      
   const result= await response.json()
   console.log(result)
+  setEducationDetail(result.educationDetail)
 }catch(err){
   console.error(err)
   setSchoolDetails({schoolName:"", class:"", passingYear:"", cgpa:""})
@@ -93,9 +94,9 @@ const handleUpdateEducationDetail=async(e)=>{
 }
 
 
-const handleUpdate=()=>{
-  updateValue(true)
-}
+// const handleUpdate=()=>{
+//   updateValue(true)
+// }
 
 
   return (
@@ -212,7 +213,7 @@ return <div className='education-first user-education p-3 mt-4'>
 {/* modal for adding new educational details */}
 
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal"  aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -228,12 +229,12 @@ return <div className='education-first user-education p-3 mt-4'>
 <div className='mt-4'>
   <form onSubmit={handleEducationalDetails}  >
   <div class="col-10 mt-3">
-    <label for="validationDefault01" class="form-label">Company Name*</label>
+    <label htmlFor="validationDefault01" class="form-label">Company Name*</label>
     <input type="text" class="form-control" id="validationDefault01" placeholder="Type company name" name="companyName" value={collageDetails.universityName}  onChange={onCollageChange} required/>
   </div>
  
   <div class="col-10 mt-3">
-    <label for="validationDefault2" class="form-label">Internship Type </label>
+    <label htmlFor="validationDefault2" class="form-label">Internship Type </label>
     <select type="text" class="form-select" id="validationDefault02" placeholder="Select internship type"  name="internshipType" value={collageDetails.fieldOfStudy} onChange={onCollageChange} required>
       {options.internshipType.map((item, index)=>{
         return  <option key={index}  value={item}>{item }</option>
@@ -245,17 +246,17 @@ return <div className='education-first user-education p-3 mt-4'>
     </select>
   </div>
   <div class="col-10 mt-3">
-    <label for="validationDefault03" class="form-label">Location*</label>
+    <label htmlFor="validationDefault03" class="form-label">Location*</label>
     <input type="text" class="form-control" id="validationDefault03" placeholder="Type Location" name="location" value={collageDetails.universityName}  onChange={onCollageChange} required/>
   </div>
  
   
   <div class="col-10 mt-3">
-    <label for="validationDefault04" class="form-label">Start Date* </label>
+    <label htmlFor="validationDefault04" class="form-label">Start Date* </label>
     <input type="date" class="form-control" id="validationDefault04"  placeholder="dd-mm-yyyy" name="startingDate" value={collageDetails.cgpa} onChange={onCollageChange} required/>
   </div>
   <div class="col-10 mt-3">
-    <label for="validationDefault05" class="form-label">End Date* </label>
+    <label htmlFor="validationDefault05" class="form-label">End Date* </label>
     <input type="date" class="form-control" id="validationDefault05"  placeholder="dd-mm-yyyy" name="endingDate" value={collageDetails.cgpa} onChange={onCollageChange} required/>
   </div>
   
@@ -313,7 +314,7 @@ return <div className='education-first user-education p-3 mt-4'>
 
 
 
-<div class="modal fade" id="exampleModalUpdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModalUpdate"  aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -332,7 +333,7 @@ return <div className='education-first user-education p-3 mt-4'>
 
       <div class="form-check form-switch check-input ms-5 ">
   <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" value={EducationLevel} name="educationalLevel" onChange={getValue} />
-  <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+  <label class="form-check-label" htmlFor="flexSwitchCheckChecked"></label>
 </div>
 {educationChecked===false ?
 <div className='d-inline check-school ms-3 fw-bold text-primary'>School</div>:
@@ -345,11 +346,11 @@ return <div className='education-first user-education p-3 mt-4'>
 <div className='mt-4'>
   <form onSubmit={handleUpdateEducationDetail}  >
   <div class="col-10 mt-3">
-    <label for="validationDefault01" class="form-label">University Name</label>
+    <label htmlFor="validationDefault01" class="form-label">University Name</label>
     <input type="text" class="form-control" id="validationDefault01" placeholder={""} name="universityName" value={collageDetails.universityName}  onChange={onCollageChange} required/>
   </div>
   <div class="col-10 mt-3">
-    <label for="validationDefault6" class="form-label">Field of Study </label>
+    <label htmlFor="validationDefault6" class="form-label">Field of Study </label>
     <select type="text" class="form-select" id="validationDefault06" placeholder="Type Field Of Study "  name="fieldOfStudy" value={collageDetails.fieldOfStudy} onChange={onCollageChange} required>
       {options.fieldOfStudy.map((item, index)=>{
         return  <option key={index}  value={item}>{item }</option>
@@ -361,7 +362,7 @@ return <div className='education-first user-education p-3 mt-4'>
     </select>
   </div>
   <div class="col-10 mt-3">
-    <label for="validationDefault02" class="form-label">Degree</label>
+    <label htmlFor="validationDefault02" class="form-label">Degree</label>
     <select type="text" class="form-select" id="validationDefault02" placeholder="Type Degree" name="degree" value={collageDetails.degree}  onChange={onCollageChange} required>
     {options.degrees.map((item, index)=>{
     return <option key={index} value={item}> {item}</option>
@@ -369,7 +370,7 @@ return <div className='education-first user-education p-3 mt-4'>
     </select>
   </div>
   <div class="col-10 mt-3">
-    <label for="validationDefault03" class="form-label">Starting Year</label>
+    <label htmlFor="validationDefault03" class="form-label">Starting Year</label>
     <select type="date" class="form-control" id="validationDefault03" placeholder="Choose Starting year"  name="startingYear" value={collageDetails.startingYear} onChange={onCollageChange} required>
     {options.startingYear.map((item, index)=>{
     return <option key={index} value={item}> {item}</option>
@@ -377,7 +378,7 @@ return <div className='education-first user-education p-3 mt-4'>
     </select>
   </div>
   <div class="col-10 mt-3">
-    <label for="validationDefault04" class="form-label">Ending Year</label>
+    <label htmlFor="validationDefault04" class="form-label">Ending Year</label>
     <select type="date" class="form-control" id="validationDefault04" placeholder="Choose Ending Year" max={10} name="endingYear" value={collageDetails.endingYear} onChange={onCollageChange}  required>
       {
         options.startingYear.map((item, index)=>{
@@ -389,7 +390,7 @@ return <div className='education-first user-education p-3 mt-4'>
   </div>
  
   <div class="col-10 mt-3">
-    <label for="validationDefault05" class="form-label">Final CGPA ( out of 10) </label>
+    <label htmlFor="validationDefault05" class="form-label">Final CGPA ( out of 10) </label>
     <input type="number" class="form-control" id="validationDefault05"  placeholde="Type Your CGPA" name="cgpa" value={collageDetails.cgpa} onChange={onCollageChange} required/>
   </div>
   <div class="  modal-footer d-flex justify-content-around flex-row" >
@@ -404,11 +405,11 @@ return <div className='education-first user-education p-3 mt-4'>
 :<div className='mt-4'>
 <form onSubmit={handleEducationalDetails}>
 <div class="col-10 mt-3">
-  <label for="validationDefault07" class="form-label">School</label>
+  <label htmlFor="validationDefault07" class="form-label">School</label>
   <input type="text" class="form-control" id="validationDefault07" placeholder="Type School Name"  name="schoolName" value={schoolDetails.schoolName} onChange={onSchoolChange} required/>
 </div>
 <div class="col-10 mt-3">
-  <label for="validationDefault8" class="form-label">Class </label>
+  <label htmlFor="validationDefault8" class="form-label">Class </label>
   <select type="text" class="form-control" id="validationDefault08" placeholder="Type Class "  name="class" value={schoolDetails.class} onChange={onSchoolChange} required>
     {options.schoolClasses.map((item, index)=>{
       return <option key={index} value={item}>{item}</option>
@@ -417,7 +418,7 @@ return <div className='education-first user-education p-3 mt-4'>
 </div>
 
 <div class="col-10 mt-3">
-  <label for="validationDefault10" class="form-label">Select Passing Year</label>
+  <label htmlFor="validationDefault10" class="form-label">Select Passing Year</label>
   <select type="date" class="form-control" id="validationDefault10" placeholder="Choose Passing year" name="passingYear" value={schoolDetails.passingYear}  onChange={onSchoolChange} required>
     {options.startingYear.map((item , index)=>{
       return <option key={index} value={item}>{item}</option>
@@ -426,7 +427,7 @@ return <div className='education-first user-education p-3 mt-4'>
 </div>
 
 <div class="col-10 mt-3">
-  <label for="validationDefault11" class="form-label">Final CGPA ( out of 10) </label>
+  <label htmlFor="validationDefault11" class="form-label">Final CGPA ( out of 10) </label>
   <input type="number" class="form-control" id="validationDefault11"  placeholde="Type Your CGPA" name="cgpa" value={schoolDetails.cgpa} onChange={onSchoolChange} required/>
 </div>
 <div class="  modal-footer d-flex justify-content-around flex-row" >

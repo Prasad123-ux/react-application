@@ -5,7 +5,6 @@ import Education from './Education'
 import Experience from './Experience'
 import Work from './Certification'
 import Accomplishment from './Accomplishment'
-import Footer from './Footer'
 import Project from './Project'
 
 function ProfilePart() {

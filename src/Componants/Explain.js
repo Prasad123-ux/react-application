@@ -108,7 +108,7 @@ useEffect(()=>{
     
     }
 
-}, [jobData.HREmail])
+}, [jobData.CompanyEmail])
 
 
 useEffect(()=>{
@@ -141,7 +141,7 @@ useEffect(()=>{
 
     findSimilarJob()
     }
-},[id])
+},[id, jobData, similarJobData])
 
 
 
