@@ -55,14 +55,14 @@ const findJobExplainDetail= async ()=>{
         }).then((data)=>{
             // console.log(data)
             setJobData(data.Data)
-            // console.log(jobData)
+            
 
         }).catch((err)=>{
             // console.log("error at fetching data",err)
 
         })
     }catch(err){
-        // console.log(err)
+        
 
     }
 }
