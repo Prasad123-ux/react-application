@@ -199,47 +199,47 @@ try{
 {/* modal for adding new educational details */}
 
 
-<div class="modal fade" id="exampleModal"  aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Certification & Courses</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div className="modal fade" id="exampleModal"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div className="modal-dialog">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h5 className="modal-title" id="exampleModalLabel">Certification & Courses</h5>
+        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div className="modal-body">
 
 
         
 <div className='mt-4'>
   <form onSubmit={handleEducationalDetails}  >
-  <div class="col-10 mt-3">
-    <label htmlFor="validationDefault01" class="form-label">Title</label>
-    <input type="text" class="form-control" id="validationDefault01" placeholder="Enter name of certification" name="certification" value={certificationDetail.certification}  onChange={handleCertification} required/>
+  <div className="col-10 mt-3">
+    <label htmlFor="validationDefault01" className="form-label">Title</label>
+    <input type="text" className="form-control" id="validationDefault01" placeholder="Enter name of certification" name="certification" value={certificationDetail.certification}  onChange={handleCertification} required/>
   </div>
-  <div class="col-10 mt-3">
-    <label htmlFor="validationDefault02" class="form-label"> Describe your certification</label>
-    <input type="text" class="form-control" id="validationDefault02" placeholder="What did you learn from this certification" name="description" value={certificationDetail.description}  onChange={handleCertification} required/>
+  <div className="col-10 mt-3">
+    <label htmlFor="validationDefault02" className="form-label"> Describe your certification</label>
+    <input type="text" className="form-control" id="validationDefault02" placeholder="What did you learn from this certification" name="description" value={certificationDetail.description}  onChange={handleCertification} required/>
   </div>
-  <div class="col-10 mt-3">
-    <label htmlFor="validationDefault03" class="form-label"> When you did the certification</label>
-    <input type="date" class="form-control" id="validationDefault03" placeholder="dd-mm-yyyy" name="completionDate" value={certificationDetail.completionData}  onChange={handleCertification} required/>
+  <div className="col-10 mt-3">
+    <label htmlFor="validationDefault03" className="form-label"> When you did the certification</label>
+    <input type="date" className="form-control" id="validationDefault03" placeholder="dd-mm-yyyy" name="completionDate" value={certificationDetail.completionData}  onChange={handleCertification} required/>
   </div>
-  <div class="col-10 mt-3">
-    <label htmlFor="validationDefault04" class="form-label"> Link</label>
-    <input type="link" class="form-control" id="validationDefault04" placeholder="Certification Link" name="link" value={certificationDetail.link}  onChange={handleCertification} required/>
+  <div className="col-10 mt-3">
+    <label htmlFor="validationDefault04" className="form-label"> Link</label>
+    <input type="link" className="form-control" id="validationDefault04" placeholder="Certification Link" name="link" value={certificationDetail.link}  onChange={handleCertification} required/>
   </div>
-  {/* <div class="col-10 mt-3">
-    <label htmlFor="validationDefault04" class="form-label">Skill used (Seperated by comma)</label>
-    <input type="date" class="form-control" id="validationDefault04" placeholder="Type skills used" multiple name="skills" value={collageDetails.universityName}  onChange={onCollageChange} required/>
+  {/* <div className="col-10 mt-3">
+    <label htmlFor="validationDefault04" className="form-label">Skill used (Seperated by comma)</label>
+    <input type="date" className="form-control" id="validationDefault04" placeholder="Type skills used" multiple name="skills" value={collageDetails.universityName}  onChange={onCollageChange} required/>
   </div> */}
  
  
  
  
  
-  <div class="  modal-footer d-flex justify-content-around flex-row" >
-        <button  class="btn btn-secondary  modal-close-btn  " data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary modal-save-btn ">Save changes</button>
+  <div className="  modal-footer d-flex justify-content-around flex-row" >
+        <button  className="btn btn-secondary  modal-close-btn  " data-bs-dismiss="modal">Close</button>
+        <button type="submit" className="btn btn-primary modal-save-btn ">Save changes</button>
 
       </div>
   </form>
@@ -269,43 +269,43 @@ try{
 
 
 
-<div class="modal fade" id="exampleModalUpdate"  aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Certification & Courses</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div className="modal fade" id="exampleModalUpdate"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div className="modal-dialog">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h5 className="modal-title" id="exampleModalLabel">Certification & Courses</h5>
+        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div className="modal-body">
         <form>
 
-      <div class="col-10 mt-3">
-    <label htmlFor="validationDefault01" class="form-label">Title</label>
-    <input type="text" class="form-control" id="validationDefault01" placeholder="Enter name of certification" name="certification" value={certificationDetail.certification}  onChange={handleCertification} required/>
+      <div className="col-10 mt-3">
+    <label htmlFor="validationDefault01" className="form-label">Title</label>
+    <input type="text" className="form-control" id="validationDefault01" placeholder="Enter name of certification" name="certification" value={certificationDetail.certification}  onChange={handleCertification} required/>
   </div>
-  <div class="col-10 mt-3">
-    <label htmlFor="validationDefault02" class="form-label"> Describe your certification</label>
-    <input type="text" class="form-control" id="validationDefault02" placeholder="What did you learn from this certification" name="description" value={certificationDetail.description}  onChange={handleCertification} required/>
+  <div className="col-10 mt-3">
+    <label htmlFor="validationDefault02" className="form-label"> Describe your certification</label>
+    <input type="text" className="form-control" id="validationDefault02" placeholder="What did you learn from this certification" name="description" value={certificationDetail.description}  onChange={handleCertification} required/>
   </div>
-  <div class="col-10 mt-3">
-    <label htmlFor="validationDefault03" class="form-label"> When you did the certification</label>
-    <input type="date" class="form-control" id="validationDefault03" placeholder="dd-mm-yyyy" name="completionDate" value={certificationDetail.completionData}  onChange={handleCertification} required/>
+  <div className="col-10 mt-3">
+    <label htmlFor="validationDefault03" className="form-label"> When you did the certification</label>
+    <input type="date" className="form-control" id="validationDefault03" placeholder="dd-mm-yyyy" name="completionDate" value={certificationDetail.completionData}  onChange={handleCertification} required/>
   </div>
-  <div class="col-10 mt-3">
-    <label htmlFor="validationDefault04" class="form-label"> Link</label>
-    <input type="link" class="form-control" id="validationDefault04" placeholder="Certification Link" name="link" value={certificationDetail.link}  onChange={handleCertification} required/>
+  <div className="col-10 mt-3">
+    <label htmlFor="validationDefault04" className="form-label"> Link</label>
+    <input type="link" className="form-control" id="validationDefault04" placeholder="Certification Link" name="link" value={certificationDetail.link}  onChange={handleCertification} required/>
   </div>
-  {/* <div class="col-10 mt-3">
-    <label htmlFor="validationDefault04" class="form-label">Skill used (Seperated by comma)</label>
-    <input type="date" class="form-control" id="validationDefault04" placeholder="Type skills used" name="skills" value={collageDetails.universityName}  onChange={onCollageChange} required/>
+  {/* <div className="col-10 mt-3">
+    <label htmlFor="validationDefault04" className="form-label">Skill used (Seperated by comma)</label>
+    <input type="date" className="form-control" id="validationDefault04" placeholder="Type skills used" name="skills" value={collageDetails.universityName}  onChange={onCollageChange} required/>
   </div>
        */}
 
   
 
-<div class="  modal-footer d-flex justify-content-around flex-row" >
-        <button class="btn btn-secondary  modal-close-btn  " data-bs-dismiss="modal">Close</button>
-        <button   type="submit"  class="btn btn-primary modal-save-btn ">Save changes</button>
+<div className="  modal-footer d-flex justify-content-around flex-row" >
+        <button className="btn btn-secondary  modal-close-btn  " data-bs-dismiss="modal">Close</button>
+        <button   type="submit"  className="btn btn-primary modal-save-btn ">Save changes</button>
       </div>
 </form>
 

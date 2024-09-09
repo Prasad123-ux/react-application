@@ -273,7 +273,7 @@ console.log(jobData)
     {/* <div className='experience-requirement'></div> */}
 
     { jobData.JobRequirements && jobData.JobRequirements.length>0 ? Object.entries(jobData.JobRequirements[0]).filter(([key,value])=>key!=="_id").map(([key, value],index)=>{
-     return  ( value !==" " ?<div className='mt-2' key={index}> <span className='fw-bold text-secondary'>{key}:</span>   <span>  {typeof value === 'boolean' ?  (String(value)==="true" ? "Yes":"No"): value[0].toUpperCase()+value.slice(1)}</span>
+     return  ( value !==" " ?<div className='mt-2' key={value}> <span className='fw-bold text-secondary'>{key}:</span>   <span>  {typeof value === 'boolean' ?  (String(value)==="true" ? "Yes":"No"): value[0].toUpperCase()+value.slice(1)}</span>
                   </div>:"")
     }):"nothing"}
 

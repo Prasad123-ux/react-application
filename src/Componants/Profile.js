@@ -185,33 +185,33 @@ const onchange=(e)=>{
 
 
 
-<div class="modal fade" id="exampleModalLong"  role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" >
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Basic Details</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<div className="modal fade" id="exampleModalLong"  role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" >
+  <div className="modal-dialog" role="document">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h5 className="modal-title" id="exampleModalLongTitle">Basic Details</h5>
+        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body ">
+      <div className="modal-body ">
         <form >
         <div className="form-group">
-    <label htmlhtmlFor="nameInput">Name <span className='text-danger'>*</span></label>
+    <label htmlFor="nameInput">Name <span className='text-danger'>*</span></label>
     <input type="text" className="form-control" id="nameInput" placeholder="Prasad Metkar" value={userUpdatedData.name} name="name" onChange={onchange} required/>
   </div>
   <span className='fw-bold d-block ' > Work Status</span>
   <span className='text-secondary'>We will personalize your Jobify experience based on this</span>
   <div className='radio-button d-flex mt-3  mb-3'>
-  <div class="form-check">
+  <div className="form-check">
   <input className="form-check-input" type="radio" name="workStatus" id="fresher"  value="Fresher" checked={userUpdatedData.workStatus==="Fresher" ||""} onChange={onchange}  required/>
-  <label className="form-check-label" htmlhtmlFor="fresher">
+  <label className="form-check-label" htmlFor="fresher">
     Fresher
   </label>
 </div>
-<div class="form-check">
+<div className="form-check">
   <input className="form-check-input" type="radio" name="workStatus" id="experienced" value="Experienced" checked={userUpdatedData.workStatus==="Experience"|| ""} onChange={onchange} required/>
-  <label className="form-check-label" htmlhtmlFor="experienced">
+  <label className="form-check-label" htmlFor="experienced">
     Experience
   </label>
 </div>
@@ -219,21 +219,21 @@ const onchange=(e)=>{
 <span className='fw-bold   ' > Current Location</span><span className='text-danger'>*</span>
   <span className='text-secondary d-block'>This helps us match you to relevant jobs</span> 
 <div className='radio-button d-flex mt-3 '>
-  <div class="form-check">
+  <div className="form-check">
   <input className="form-check-input" type="radio" name="location" id="location" value="India" checked={userUpdatedData.location ==="India"} onChange={onchange} required/>
-  <label className="form-check-label" htmlhtmlFor="location">
+  <label className="form-check-label" htmlFor="location">
     India
   </label>
 </div>
-<div class="form-check">
+<div className="form-check">
   <input className="form-check-input" type="radio" name="location" id="outsideIndia" value="Outside India" checked={userUpdatedData.location ==="Outside India"} onChange={onchange} required/>
-  <label className="form-check-label" htmlhtmlFor="outsideIndia">
+  <label className="form-check-label" htmlFor="outsideIndia">
     Outside India
   </label>
 </div>
 </div>
 <div className="form-group mt-3">
-    <label htmlhtmlFor="cityInput">City <span className='text-danger'>*</span></label>
+    <label htmlFor="cityInput">City <span className='text-danger'>*</span></label>
     <input type="text" className="form-control" id="cityInput" placeholder=" e.g.Hyderabad" value={userUpdatedData.city} name="city" onChange={onchange} required/>
   </div>
   <div>
@@ -251,36 +251,36 @@ const onchange=(e)=>{
     <span className='text-secondary fw-medium d-block'> We will send relevant jobs and updates to this email</span>
   </div>
   <div className='radio-button mt-3 mb-3'>
-  <div class="form-check">
+  <div className="form-check">
   <input className="form-check-input" type="radio" name="join" id="join15days" value="15 days" checked={userUpdatedData.join ==="15 days"} onChange={onchange} required/>
-  <label className="form-check-label" htmlhtmlFor="join15days">
+  <label className="form-check-label" htmlFor="join15days">
     15 days
   </label>
 </div>
-<div class="form-check">
+<div className="form-check">
   <input className="form-check-input" type="radio" name="join" id="join1month" value="1 Month" checked={userUpdatedData.join ==="1 Month"} onChange={onchange} required/>
-  <label className="form-check-label" htmlhtmlFor="join1month">
+  <label className="form-check-label" htmlFor="join1month">
     1 Month
   </label>
 </div>
-<div class="form-check">
+<div className="form-check">
   <input className="form-check-input" type="radio" name="join" id="join2month" value="2 Month" checked={userUpdatedData.join ==="2 Month"} onChange={onchange} required/>
-  <label className="form-check-label" htmlhtmlFor="join2month">
+  <label className="form-check-label" htmlFor="join2month">
     2 Months
   </label>
 </div>
-<div class="form-check">
+<div className="form-check">
   <input className="form-check-input" type="radio" name="join" id="join3month" value="3 Month" checked={userUpdatedData.join ==="3 Month"} onChange={onchange} required/>
-  <label className="form-check-label" htmlhtmlFor="join3month">
+  <label className="form-check-label" htmlFor="join3month">
     3 Months
   </label>
 </div>
 </div>
 
         
-        <div class="modal-footer d-flex">
-        <button type="button" class="btn  w-25" data-dismiss="modal">Close</button>
-        <button type='submit' class="btn btn-primary w-25">Save</button>
+        <div className="modal-footer d-flex">
+        <button type="button" className="btn  w-25" data-dismiss="modal">Close</button>
+        <button type='submit' className="btn btn-primary w-25">Save</button>
       </div>
       </form>
       </div>

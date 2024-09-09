@@ -84,25 +84,25 @@ const addToast=(title,message, status)=>{
         <div className='fw-medium fs-3' >Create your Jobify Profile</div>
         <span className='text-secondary'>Search & apply to jobs from India's No.1 Job Site</span>
         <form onSubmit={handleSubmitData}>
-        <div class="form-row mt-5">
-    <div class="form-group col-md-12">
+        <div className="form-row mt-5">
+    <div className="form-group col-md-12">
       <label htmlFor="inputFullName">Full Name <span className='text-danger'> *</span></label>
       <input type="name" className="form-control rounded-3" id="inputFullName" name="fullName" value={userData.fullName}  onChange={onchange} placeholder="FullName" required/>
     </div>
-    <div class="form-group col-md-12">
+    <div className="form-group col-md-12">
       <label htmlFor="inputEmail">Email <span className='text-danger'> *</span></label>
       <input type="email" className="form-control rounded-3" id="inputEmail" name="email"  value={userData.email} onChange={onchange} placeholder="Email" required/>
     </div>
-    <div class="form-group col-md-12">
+    <div className="form-group col-md-12">
       <label htmlFor="inputPassword">Password <span className='text-danger'> *</span></label>
       <input type="password" className="form-control rounded-3" id="inputPassword" name="password" value={userData.password} onChange={onchange} placeholder="Password" required/>
     </div>
-    <div class="form-group col-md-12">
+    <div className="form-group col-md-12">
       <label htmlFor="mobileNumberInput">Mobile Number <span className='text-danger'> *</span></label>
       <input type="number" className="form-control" rounded-3 id="mobileNumberInput" name="mobileNumber"  value={userData.mobileNumber}   onChange={onchange} placeholder="Mobile Number" required/>
     </div>
     <div className="form-group col-md-12 ">
-    <label htmlhtmlFor="cityInput">City <span className='text-danger'>*</span></label>
+    <label htmlFor="cityInput">City <span className='text-danger'>*</span></label>
     <input type="text" className="form-control" id="cityInput" placeholder="Mention your city you live in" value={userData.city} name="city" onChange={onchange} required/>
   </div>
 
@@ -110,22 +110,22 @@ const addToast=(title,message, status)=>{
   <span className=' d-block ' > Work Status</span>
   <span className='text-secondary'>We will personalize your Jobify experience based on this</span>
   <div className='radio-button d-flex mt-3  mb-3'>
-  <div class="form-check">
+  <div className="form-check">
   <input className="form-check-input" type="radio" name="workStatus" id="fresher"  value="Fresher"  onChange={onchange}  required/>
   <label className="form-check-label" htmlFor="fresher">
   I'm recently graduated !
   </label>
 </div>
-<div class="form-check">
+<div className="form-check">
   <input className="form-check-input" type="radio" name="workStatus" id="experienced" value="Experienced"  onChange={onchange} required/>
   <label className="form-check-label" htmlFor="experienced">
     I have Experience !
   </label>
 </div>
 </div>
-  <div class="form-check">
-      <input class="form-check-input " type="checkbox" value="" id="checkInput" required/>
-      <label class="form-check-label" htmlhtmlFor="checkInput">
+  <div className="form-check">
+      <input className="form-check-input " type="checkbox" value="" id="checkInput" required/>
+      <label className="form-check-label" htmlFor="checkInput">
         Agree to terms and conditions
       </label>
       </div>

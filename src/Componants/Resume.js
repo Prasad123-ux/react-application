@@ -98,6 +98,6 @@ export default Resume
 
 
 Resume.propTypes={
-  resumeValue:PropTypes.string.isRequired
+  resumeValue:PropTypes.string
 
 }

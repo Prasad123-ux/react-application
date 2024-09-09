@@ -124,13 +124,13 @@ const addToast=(title,message="", status)=>{
       <div className='login-form shadow  p-4  rounded-5  mt-5' style={{"backgroundColor":"#FFFFFF"}} >
         <span className='fw-medium d-block fs-4'>Login</span>
         <form onSubmit={handleLoginData}>
-        <div class="col-md-12 col-12 mt-3 ">
-    <label htmlFor="validationDefault01" class="form-label">Email</label>
-    <input type="email" class="form-control rounded-4" id="validationDefault01"  placeholder="Enter Email ID / Username" value={loginData.email}  onChange={onchange} name="email" style={{"backgroundColor":"#E8F0FE"}} required/>
+        <div className="col-md-12 col-12 mt-3 ">
+    <label htmlFor="validationDefault01" className="form-label">Email</label>
+    <input type="email" className="form-control rounded-4" id="validationDefault01"  placeholder="Enter Email ID / Username" value={loginData.email}  onChange={onchange} name="email" style={{"backgroundColor":"#E8F0FE"}} required/>
   </div>
-  <div class="col-md-12 col-12 mt-3">
-    <label htmlFor="validationDefault02" class="form-label">Password</label>
-    <input type="password" class="form-control rounded-4" id="validationDefault02"  name="password" value={loginData.password}  placeholder="Enter Password"  onChange={onchange} style={{"backgroundColor":"#E8F0FE"}} required/>
+  <div className="col-md-12 col-12 mt-3">
+    <label htmlFor="validationDefault02" className="form-label">Password</label>
+    <input type="password" className="form-control rounded-4" id="validationDefault02"  name="password" value={loginData.password}  placeholder="Enter Password"  onChange={onchange} style={{"backgroundColor":"#E8F0FE"}} required/>
   </div>
   <button   className='d-flex forget-btn  btn-link justify-content-start mt-3 w-25' data-bs-toggle="modal" data-bs-target="#staticBackdrop">Forget Password ?</button>
   <button   type='submit' className=' login-btn btn btn-primary  mt-4 w-50 ' style={{"backgroundColor":"#4A90E2"}}>Login</button>
@@ -163,34 +163,34 @@ const addToast=(title,message="", status)=>{
 
       </div>
       
-{/* <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+{/* <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
   Launch static backdrop modal
 </button> */}
 
 
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"  aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Forget Password</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div className="modal-dialog">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h1 className="modal-title fs-5" id="staticBackdropLabel">Forget Password</h1>
+        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div className="modal-body">
       <button className='btn shadow rounded-5 text-secondary fw-medium d-flex justify-content-around w-75 mx-auto mt-3' style={{backgroundColor:"white"}}>  <FcGoogle className='mt-1' style={{width:"30px"}} />Sign in with Google</button>
 <form className='form  mt-5'>
 
-<div class="col-md-12 ">
-    <label htmlFor="validationDefault01" class="form-label"> Email</label>
-    <input type="email" class="form-control text-center" id="validationDefault01" name="forgetEmail" placeholder="Enter Email ID" value={otpEmailValue}  onChange={(e)=>{setOtpEmailValue(e.target.value)}} required/>
+<div className="col-md-12 ">
+    <label htmlFor="validationDefault01" className="form-label"> Email</label>
+    <input type="email" className="form-control text-center" id="validationDefault01" name="forgetEmail" placeholder="Enter Email ID" value={otpEmailValue}  onChange={(e)=>{setOtpEmailValue(e.target.value)}} required/>
   </div>
   <button disabled={otpEmailValue==="" ? true:false} onClick={handleForgetPassword}  className=' login-btn btn btn-primary  mt-4 w-50 '  style={{"backgroundColor":"#4A90E2"}}>Get OTP</button>
 
 
   
   
-  <div class="col-md-12 mt-3">
-    <label htmlFor="validationDefault02" class="form-label">OTP</label>
-    <input type="number" class="form-control text-center" id="validationDefault02"  name="otp" value={otp} placeholder="Enter OTP" onChange={(e)=>{setOtp(e.target.value)}} required/>
+  <div className="col-md-12 mt-3">
+    <label htmlFor="validationDefault02" className="form-label">OTP</label>
+    <input type="number" className="form-control text-center" id="validationDefault02"  name="otp" value={otp} placeholder="Enter OTP" onChange={(e)=>{setOtp(e.target.value)}} required/>
   </div>
   <button   to="/"  className='btn d-flex justify-content-start btn-link  '>Resend OTP</button>
   <button disabled={otp=== "" ? true:false} type='submit' className=' login-btn btn btn-primary  mt-4 w-50 '  data-bs-dismiss="modal" style={{"backgroundColor":"#4A90E2"}}>Submit</button>
@@ -199,7 +199,7 @@ const addToast=(title,message="", status)=>{
 </form>
         
       </div>
-      <div class="modal-footer">
+      <div className="modal-footer">
       
       </div>
     </div>

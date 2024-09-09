@@ -39,7 +39,7 @@ const GoogleSignIn = () => {
                  data-client_id="940799872663-6cu5gsjqgi5iji4m17el67hm170tm86e.apps.googleusercontent.com"
                  data-callback="handleCredentialResponse">
             </div>
-            <div id="g_id_signin">  google sign in button</div>
+            <div id="g_id_signin">  google sign in  button</div>
         </div>
     );
 };
