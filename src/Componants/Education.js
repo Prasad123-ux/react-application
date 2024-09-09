@@ -449,7 +449,7 @@ return <div className='education-first user-education p-3 mt-4'>
     })}
     </select>
   </div>
-  <div className="col-10 mt-3">
+  <div className="col-10 mt-3">  
     <label htmlFor="validationDefault03" className="form-label">Starting Year</label>
     <select type="date" className="form-control" id="validationDefault03" placeholder="Choose Starting year"  name="startingYear" value={collageDetails.startingYear} onChange={onCollageChange} required>
     <option value="1" default >Choose Starting Year</option>
