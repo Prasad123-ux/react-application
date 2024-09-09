@@ -40,7 +40,7 @@ function Application() {
         
                 })
             }catch(err){
-                // console.log(err)
+                
         
             }
         }
@@ -65,7 +65,7 @@ useEffect(()=>{
         }
         const result = await response.json()
         console.log(result)
-        // setProfileData(result.data)
+        
     }
 catch(err){
     console.log(err)
