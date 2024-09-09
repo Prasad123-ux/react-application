@@ -17,10 +17,13 @@ function Education( {userEducation}) {
   const [educationDetail, setEducationDetail]= useState([])
     // setEducationDetail(userEducation)  
     useEffect(()=>{
-      setEducationDetail(userEducation)
+      setEducationDetail(userEducation)  
     }, [userEducation])
+ 
+    console.log(userEducation)
+     
 
-    console.log(educationDetail[0])
+    // console.log(educationDetail[0])   
   const getValue=()=>{
     if(educationChecked===true){
       setEducationChecked(false)
@@ -111,15 +114,17 @@ const handleUpdateEducationDetail=async(e)=>{
 const handleUpdate=()=>{
   updateValue(true)   
 }
-console.log(educationDetail)
+// console.log(userEducation)
+// console.log(educationDetail) 
 // console.log(userEducation)   
 // console.log(educationDetail[0] && educationDetail[0].length>0 ? educationDetail[0]:"" )
 
+  console.log(userEducation)  
 
   return (
 
     <div className='bg-light rounded-3 mx-auto  p-3 p-sm-3 p-md-3 p-lg-5 align-items-center  shadow resume'>
- +
+ 
 
       {  educationDetail && educationDetail.length>1    ?   educationDetail.map((item, index)=>{
       return <div className='education-first d-flex justify-content-between align-items-center'> 
@@ -136,7 +141,7 @@ console.log(educationDetail)
              <span className='add-icon mt-1 fw-bolder'> <IoMdAdd /></span>  <span className='add-btn-name'> Add New</span> </button>
         </div>
 
-      </div> 
+      </div>     
       })
 :
 
@@ -532,8 +537,8 @@ return <div className='education-first user-education p-3 mt-4'>
       
     </div>
   </div>
-</div>
-  
+</div>  
+
 
       
       
@@ -545,6 +550,6 @@ return <div className='education-first user-education p-3 mt-4'>
 export default Education
 
 Education.propTypes={
-  userEducation:PropTypes.string.isRequired,
+  userEducation:PropTypes.object.isRequired,
 }
 

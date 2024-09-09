@@ -16,7 +16,8 @@ import Project from './Project';
 import Work from './Certification';
 import Accomplishment from './Accomplishment';
 
-function Profile() {
+function Profile() {  
+
   const [userData, setUserData]= useState([])
   const [userUpdatedData, setUserUpdatedData]= useState({name:"", location:"", workStatus:"",city:"", join:"", })
 
@@ -112,8 +113,8 @@ const onchange=(e)=>{
 
 
 
-// console.log(userData.extraFields.Education)
-
+ console.log(userData.extraFields.Education)
+console.log(userData)
   return (
     <>
     <div className='base' >
@@ -296,7 +297,7 @@ const onchange=(e)=>{
 
       <Resume    />
       <div className='w-100 bg-gradient text-info d-flex justify-content-center fs-6 fw-bold mt-5 section-heading  shadow mb-5'> Education</div>
-      <Education userEducation={userData.extraFields.Education}/>
+     {  userData && userData.length>0  ? <Education userEducation={userData.extraFields.Education[0]}/> :""}
       <div className='w-100 bg-gradient text-info d-flex justify-content-center fs-6 fw-bold mt-5 section-heading  shadow mb-5'> Experience</div>
       
       <Experience/>
