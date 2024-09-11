@@ -354,7 +354,7 @@ return <div className='education-first user-education p-3 mt-4'>
       return <option key={index} value={item}>{item}</option>
     })}
     </select>
-</div>
+</div>   
 
 <div className="col-10 mt-3">
   <label htmlFor="validationDefault11" className="form-label">Final CGPA ( out of 10) </label>
