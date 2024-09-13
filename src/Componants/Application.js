@@ -6,6 +6,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+
 function Application() {
     const [jobData , setJobData]= useState([])
     //  const [profileData, setProfileData]= useState([])

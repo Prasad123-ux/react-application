@@ -14,9 +14,9 @@ function Education( ) {
   // const [updateValue, setUpdateValue]= useState(false)
   const [schoolDetails, setSchoolDetails]= useState({schoolName:"", class:"", passingYear:"", cgpa:""})
   const [collageDetails,setCollegeDetails]= useState({universityName:"",fieldOfStudy:"",degree:"",startingYear:"", endingYear:"",cgpa:""})
-  const [educationDetail, setEducationDetail]= useState([])
+  const [educationDetail, setEducationDetail]= useState([])  
     // setEducationDetail(userEducation)  
-    
+       
  
     
      
@@ -176,7 +176,7 @@ return <div className='education-first user-education p-3 mt-4'>
             <span className='d-block fw-bold '>Yeshwant College Nanded</span>
             {/* <span className='d-block'> Master of Computer Application (MCA) | Computer Science & Information Technology </span> 
             <span className='d-block fw-light'> 2019-2025</span>  */}
-
+                
           </div>
           <div className='education-btn d-block d-sm-none '>
         <button className='btn btn-outline-info  ' type='button' data-bs-toggle="modal" data-bs-target="#exampleModalUpdate">
@@ -185,7 +185,7 @@ return <div className='education-first user-education p-3 mt-4'>
         </button>
         </div>
         
-           
+                
           
         </div> 
         

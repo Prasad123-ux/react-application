@@ -87,8 +87,9 @@ try{
 
 
       {certificationDetail && certificationDetail.length>1  ?
-     
-
+ 
+                     
+        
        <div className='education-first d-flex justify-content-between align-items-center'> 
         <div className='education-heading d-flex justify-content-start'>
           <span className='education-icon'><MdCastForEducation className='fs-4' /> </span> 

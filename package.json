@@ -1,5 +1,5 @@
 {
-   "homepage": "https://Prasad123-ux.github.io/react-application",
+  "homepage": "https://Prasad123-ux.github.io/react-application",
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
@@ -19,15 +19,15 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.5.1",
     "axios": "^1.7.3",
-    "framer-motion": "^6.5.1",
+    "framer-motion": "^6.5.1",       
     "postcss": "^8.4.45",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-dropzone": "^14.2.3",
+    "react-dropzone": "^14.2.3",  
     "react-icons": "^5.2.1",
     "react-router-dom": "^6.18.0",
     "react-scripts": "^5.0.1",
-    "svgo": "^2.8.0",
+    "svgo": "^2.8.0",             
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -39,7 +39,7 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app"  
   },
   "browserslist": {
     "production": [
@@ -49,15 +49,15 @@
     ],
     "development": [
       "last 1 chrome version",
-      "last 1 firefox version",
+      "last 1 firefox version",                                                                                      
       "last 1 safari version"
     ]
   },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
   "author": "",
-  "license": "ISC"
- 
-
-
+  "license": "ISC",
+  "resolutions": {
+    "postcss": "^8.4.31"
+  }
 }
