@@ -130,7 +130,7 @@ const onchange=(e)=>{
         {/* <span className=''></span> */}
         <span className='profile-last fw-light'>Profile last updated</span>-<span className=' day text-secondary fw-medium '>Today</span>
         {/* <button className='btn btn-primary' onClick={getUserData}>  get the user data from </button> */}
-        <button className='btn btn-outline-danger' onClick={handleGetUserData}> getIUserData</button>
+        <button className='btn btn-outline-danger' onClick={handleGetUserData}> getUserData</button>
         
 
        </div>
