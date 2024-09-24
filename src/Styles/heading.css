@@ -4,14 +4,22 @@
     box-sizing: border-box;
     width: 100%;
 }
+.filter-type{
+    width: fit-content;
+    /* overflow: scroll; */
+} 
 
 
 
-.main{
-    width: 100%;
+ 
+
+.main-heading{
+    /* width:fit-content; */
+
+    
     
     >.main-head{
-        width: 100%;
+        /* width: fit-content; */
         
         display: flex;
         flex-direction: column;
@@ -40,4 +48,7 @@ margin-right: 10px;
     display: flex;
     flex-direction: row;
     justify-content: center;
+}
+.heading-drawer{
+    display: none;
 }

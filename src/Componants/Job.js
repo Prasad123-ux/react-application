@@ -33,12 +33,13 @@ console.log(requirement)
 
 
 
-
  const [values, setValues] =useState([])
   
  const handleSaveJob= async (key)=>{
 try{
-  const response = await fetch('http://localhost:5000/api/candidate/save_job', {
+  // const response = await fetch('http://localhost:5000/api/candidate/save_job', {
+     const response = await fetch('http://localhost:5000/api/candidate/save_job', {
+
     method:"POST",
     body:JSON.stringify({token:token, id:key}),
     headers:{
@@ -92,12 +93,12 @@ try{
   <>
     <UserContext.Provider value={{values, setValues}}>
       {/* <Link className='link ' to="/job_detail" > */}
-  <button   onClick={()=>{handleButtonClick(id)}}   className='box shadow'  >
+  <button   onClick={()=>{handleButtonClick(id)}}   className='box shadow'   >
       
       <div className=' d-flex justify-content-between flex-column' >
-    <HStack justifyContent={{base:'start',md:'start', sm:'start'}}>
+    <HStack justifyContent={{base:'start',md:'start', sm:'start'}} className='mx-auto'>
     <Avatar className='avatar' size={{base:'sm', sm:'md', md:'md', lg:'md',xl:'md'}}  name={company_name} />
-    <span className='title'>{title} </span>
+    <span className='title mx-auto'>{title} </span>
     </HStack >
     <Text className='companyName'>{company_name}</Text>
     <div className='d-flex flex-row justify-content-around mt-2'   >
@@ -119,7 +120,9 @@ try{
     {/* <HStack justifyContent={{base:'end',sm:'space-evenly',md:'space-evenly'}} mt={{base:'2', sm:'7',md:'10', lg:'10', xl:'10'}}  ml={{base:'4',sm:'0', md:'0', lg:'0', xl:'0'}}> */}
       {/* <Button width={{base:'100px',sm:'',md:'200px', lg:'200px'}}  backgroundColor={'transparent'} fontSize={{base:'0.5rem',md:'0.8rem'}} className='not-interested' onClick={handleDelete}> <ViewOffIcon />  Hide</Button> */}
     {/* <a href={href}><Button className='button' width={{base:'20', sm:'35', md:'40', lg:'40', xl:'40'}}  fontSize={{base:'10',md:'18'}} height={{base:'8'}} colorScheme='messenger'><ExternalLinkIcon/>Apply</Button></a> */}
-   {/* <Button width={{base:'40', sm:'30',md:'200px'}} backgroundColor={'gray.300'}  height={{base:'7', sm:'', md:'', lg:'', xl:''}} className='save' fontSize={{base:'0.7rem', sm:'0.9rem', md:'1rem', lg:'1rem', xl:'1.2rem'}}  mr={'10'}> <FaSave/><FaSave className='icon' fontSize={'1rem'}/> {save}</Button> */}
+   {/* <Button width={{base:'40', sm:'30',md:'200px'}} backgroundColor={'gray.300'}  height={{base:'7', sm:'', md:'', lg:'', xl:''}} className='save' fontSize={{base:'0.7rem', sm:'0.9rem', md:'1rem', lg:'1rem', xl:'1.2rem'}}  mr={'10'}> <FaSave/><FaSave className='icon' fontSize={'1rem'}/> {save}</Button> */}   accordion
+
+   
    <div className='jobBoardFooterSide  d-flex justify-content-start mt-2 '> 
     <div  className='posted   d-flex  w-100     '>
       <span className=' ms-5  mt-1      '><FaRegCalendarAlt   className='  '/> </span>

@@ -1,103 +1,120 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { CiSaveDown2 } from "react-icons/ci";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import "../Styles/resume.css"
+import "../Styles/resume.css";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { useToast } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import PropTypes from "prop-types"
 
+function Resume({ resumeData }) {
+  const [resume, setResume] = useState(null);
+  const toast = useToast();
+  const token = localStorage.getItem("token");
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
 
-function Resume({ resumeValue}) {
-  // const [buttonDisabled, setButtonDisabled]= useState(false)
-   const [resume, setResume]= useState()
-  const toast= useToast()
-  const token= localStorage.getItem("token")
-  
-  const handleResumeUpdate=async ()=>{ 
-    console.log(resume.type)
+    // Check file size (2MB limit)
+    if (file && file.size > 2 * 1024 * 1024) {
+      addToast("File too large", "Please upload a file smaller than 2MB.", "error");
+      setResume(null);  // Reset the file state if file is too large
+    } else {
+      setResume(file);  // Capture the actual file object
+    }
+  };
 
-    
-
-    
-    if(!navigator.onLine){
-      addToast("Your are offline!", 'Please check your internet connection !', 'warning')
-    }else{
-
-    
-      try{
-    const response=  await fetch("http://localhost:5000/api/candidate/profile/add_resume",{
-      method:"POST",
-      body:JSON.stringify({resume:resume, token:token}),
-      headers:{
-        "Content-type":"application/json"
-      }
-
-    })
-    if(!response.ok){
-      console.log(response)
-      console.log(response.statusText)
-      addToast("Resume Not Uploaded", response.statusText,"error")
-      throw new Error(response.statusText)
-    }else{
-      const data=  response.json()
-      console.log(data)
-      addToast("Updated Successfully", " Resume Updated Successfully", "success")
+  const handleResumeUpdate = async () => {
+    if (!navigator.onLine) {
+      addToast("You are offline!", "Please check your internet connection!", "warning");
+      return;
     }
 
-  }catch(err){
-    console.log(err)
+    if (!resume) {
+      addToast("No file selected!", "Please select a file to upload.", "error");
+      return;
+    }
 
-  }
-}
-   
-  }    
-  //  console.log(resumeValue)
-   
-  const addToast=(title,message="", status)=>{
+    const formData = new FormData();
+    formData.append("resume", resume);
+
+    try {
+      const response = await fetch("http://localhost:5000/api/candidate/profile/add_resume", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`  // Use Authorization header instead of appending in formData
+        },
+        body: formData
+      });
+
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        addToast("Resume Not Uploaded", errorMessage, "error");
+        throw new Error(errorMessage);
+      }
+
+      const data = await response.json();
+      addToast("Updated Successfully", "Resume updated successfully", "success");
+      console.log(data);
+    } catch (err) {
+      console.error(err);
+      addToast("Error", err.message, "error");
+    }
+  };
+
+  const addToast = (title, message = "", status) => {
     toast({
       title: title,
       description: message,
       status: status,
-      duration: 10000,
-      isClosable: true,
-    })
-  }
-  
+      duration: 5000,
+      isClosable: true
+    });
+  };
 
+  const handleResumeDownload = () => {
+    if (resumeData) {
+      window.open(resumeData, "_blank");
+    } else {
+      addToast("No Resume Found", "Please upload a resume first.", "error");
+    }
+  };
+
+  const handleResumeDelete = () => {
+    addToast("Feature Coming Soon", "Resume delete functionality will be implemented soon.", "info");
+    // You can add your API call for deleting the resume here.
+  };
 
   return (
-    <div className='bg-light rounded-3 mx-auto  p-3 p-sm-3 p-md-3 p-lg-5  shadow resume'>
-      <div className='d-flex justify-content-between resume-header'>  
-        <div>
-          <Link  className='fw-bold  '>{resumeValue}</Link> <br></br>
-          <span className='fw-light'>Uploaded on aug 06, 2024 {resumeValue}</span>
-        </div>
+    <div className='bg-light rounded-3 mx-auto p-3 p-sm-3 p-md-3 p-lg-5 shadow resume'>
+      <div className='d-flex justify-content-between resume-header'>
+        {resumeData ? (
+          <Link to={resumeData} target="_blank" className='fw-bold'>Your resume</Link>
+        ) : (
+          <span>No resume uploaded</span>
+        )}
         <div className='d-flex justify-content-end'>
-        <span className='text-primary btn download-btn rounded-circle   '> <CiSaveDown2  className='mt-1 fs-5 '/></span>
-        <span className='text-primary btn delete-btn  rounded-circle  '><RiDeleteBin6Line className='mt-1 fs-5 ' /> </span>
-        </div>    
+          <span className='text-primary btn download-btn rounded-circle' onClick={handleResumeDownload}>
+            <CiSaveDown2 className='mt-1 fs-5' />
+          </span>
+          <span className='text-primary btn delete-btn rounded-circle' onClick={handleResumeDelete}>
+            <RiDeleteBin6Line className='mt-1 fs-5' />
+          </span>
+        </div>
       </div>
-   <div className='resume-content p-5 mx-auto d-flex justify-content-center  flex-column ' >
-    <input type='file' onChange={(e)=>{setResume(e.target.value)}}  accept='.pdf' className='upload-resume mx-auto' />
-    <span className='text-secondary resume-placeholder mx-auto'>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</span>
-    { resume === undefined ?
-    <button  disabled  className='  btn btn-outline-primary upload-btn mx-auto mt-4 d-flex justify-content-around'> <span className='mt-1'> <FaCloudUploadAlt /></span> <span className='ms-2'> Upload</span></button>:
-    <button   className='  btn btn-outline-primary upload-btn mx-auto mt-4 d-flex justify-content-around' onClick={handleResumeUpdate}> <span className='mt-1'> <FaCloudUploadAlt /></span> <span className='ms-2'> Upload</span></button>
-
-    }
-   </div>
-
-      
+      <div className='resume-content p-5 mx-auto d-flex justify-content-center flex-column'>
+        <input type='file' onChange={handleFileChange} accept='.pdf' className='upload-resume mx-auto' />
+        <span className='text-secondary resume-placeholder mx-auto'>Supported Formats: PDF, up to 2 MB</span>
+        <button
+          className='btn btn-outline-primary upload-btn mx-auto mt-4 d-flex justify-content-around'
+          onClick={handleResumeUpdate}
+          disabled={!resume}  // Disable button if no file selected
+        >
+          <FaCloudUploadAlt className='mt-1' />
+          <span className='ms-2'>Upload</span>
+        </button>
+      </div>
     </div>
-  )
+  );
 }
 
-export default Resume
-
-
-Resume.propTypes={
-  resumeValue:PropTypes.string
-
-}
+export default Resume;

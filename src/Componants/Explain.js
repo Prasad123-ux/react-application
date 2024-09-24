@@ -21,9 +21,8 @@ function Explain() {
      const navigate= useNavigate()
 
 
-     const token= localStorage.getItem('token')
-     console.log(token)
-     console.log(id)
+    
+     
 
 
      const months=["jan", "Feb", "March", "April", "May", "Jun","July", "Aug", "Sep", "Oct", "Nov", "Dec"]
@@ -31,8 +30,13 @@ function Explain() {
      let monthName=months[new Date(jobData.createdAt ).getMonth()]
     let day=new Date(jobData.createdAt ).toUTCString().slice(5,7)
     console.log(monthName,day)
-
+const token= localStorage.getItem("token") 
+console.log(token)
     // const CompanyFindEmail=jobData.HREmail
+
+    useEffect(()=>{
+        window.scrollTo(0,0)
+    }, [])
     
 
 
@@ -112,6 +116,7 @@ useEffect(()=>{
 
 
 useEffect(()=>{
+   
     if(jobData){
     const findSimilarJob=async ()=>{
        await fetch(`http://localhost:5000/api/candidate/getSimilarJob?location=${encodeURIComponent(jobData.JobLocation)}&role=${encodeURIComponent(jobData.JobTitle)}`,{
@@ -141,7 +146,7 @@ useEffect(()=>{
 
     findSimilarJob()
     }
-},[id, jobData, similarJobData])
+},[])
 
 
 
@@ -190,6 +195,8 @@ const handleButtonClick=(id)=>{
 
 
 console.log(jobData)
+
+
   return (
    <> 
 
@@ -240,9 +247,8 @@ console.log(jobData)
        {saveValue}
         </button>:<button disabled className=' save-button  btn btn-outline-primary   rounded '> {saveValue}</button>
 }
-       {token=== null ? <button  onClick={()=>{handleApplyJobClick(jobData._id)}} className='apply-button btn-primary bg-primary  rounded'>Apply
-
-        </button>:<button disabled className=' apply-button  btn btn-outline-primary    rounded '> Apply</button>}
+       {token && token.length>1 ? <button  onClick={()=>{handleApplyJobClick(jobData._id)}} className='apply-button btn-primary bg-primary  rounded'>Apply</button>
+       :<button disabled className=' apply-button  btn btn-outline-primary    rounded '> Apply</button>}
     </div>
 
 

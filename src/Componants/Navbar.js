@@ -6,10 +6,11 @@ import {Drawer, Button, Avatar, Input, HStack, Text, Box, DrawerOverlay, DrawerC
 import {Link } from 'react-router-dom'
 import { BiMenuAltLeft } from 'react-icons/bi'
 import "../Styles/navbar.css"
+import Heading from './Heading';
 
 
 
-export default function Navbar({users, onDelete, getCity, getRole}) {
+export default function Navbar({users, onDelete, getCity, getRole, color}) {
 
 const {isOpen:isLogOpen, onOpen:onLogOpen, onClose:onLogClose}= useDisclosure()
   const {isOpen, onOpen, onClose}=useDisclosure()
@@ -20,54 +21,50 @@ const {isOpen:isLogOpen, onOpen:onLogOpen, onClose:onLogClose}= useDisclosure()
    const [role, setRole]= useState()
     const cancelRef = React.useRef();
     const [disable, setDisable]= useState(true)
+    const [isScrolling,setIsScrolling]= useState(false)  
+    const [tokenValue,setTokenValue]= useState()
+
+
+
+    useEffect(()=>{
+      const token= localStorage.getItem('token')
+      setTokenValue(token)
+
+
+    }, [])
+   
+
+
+
+
+
+
+
+ 
  
 
 
-
-
-
- const onsubmit=(event)=>{
-  event.preventDefault()
-  getCity(location)
-  getRole(role)
-
-
- }
- useEffect(()=>{
-if(location && location.length>0){
-setDisable(false)
-}else{
-  setDisable(true)
-}
-
- }, [location])
-
-
-     useEffect(()=>{
-      if(users.length>0 && users[0]?.name ){
-        setUserName(users[0].name)
-      }
-      if(users.length>0 && users[0]?.email ){
-        setEmail(users[0].email)
-      }
-      
-    
-      }, [users, email,])
+     
 
     const onLogOutDelete=async()=>{
-     await onDelete();
+     localStorage.removeItem('token')
+     setTokenValue('')
      
      onLogClose()
       
     }
+
+
+
     
 
 
   return (
- <Box  width={'full'} className='navbar' >
+ <Box  width={'full'} className='navbar fixed'  >
       <HStack justifyContent={'space-evenly'} >
+        {/* <Heading/> */}
       
-        <Text fontSize={{base:'2rem',sm:'2.5rem',md:'3rem',lg:'3rem' }} color={'yellow'} fontWeight={'800'}> Jobify</Text>
+        <Link to="/" className='link'>  <Text fontSize={{base:'2rem',sm:'2.5rem',md:'3rem',lg:'3rem' }} color={'yellow'} fontWeight={'800'}> Jobify</Text></Link>
         
         <Input textAlign={'center'}   onChange={((e)=>{ setRole(e.target.value)})} display={{ base:'none' ,md:'block ' ,sm:'none' ,lg:'block' }}fontSize={{base:'1rem',md:'1rem'}}  fontWeight={'700'} placeholder ='Search for your role' />
 
@@ -80,12 +77,9 @@ setDisable(false)
         <Box width={{ base:'10px' ,sm:'300px',md:'500px' ,lg:'500px'}}  mr={{base:'5' , sm:'5', md:'2',lg:'2'}}>     
          
 
-         { users.length >= 1 ? (
-  <Box >
-
-    
-    <Button  backgroundColor={'white'} display={{base:'none', sm:'block',md:'block',lg:'block'}}  size={{base:'xs', sm:'xs', md:'md'}} borderRadius={'100px'}  onClick={onLogOpen}>Log out</Button>
-  </Box>
+         { tokenValue && tokenValue.length >= 1 ? (
+  // <Box > <Button  backgroundColor={'white'} display={{base:'none', sm:'block',md:'block',lg:'block'}}  size={{base:'xs', sm:'xs', md:'md'}} borderRadius={'100px'}  onClick={onLogOpen}>Log out</Button></Box>
+  <></>
 ):(
   <Box  display={'flex'} justifyContent={'space-between'} flexDirection={'row'}>
   <Text ><Link to  ="/login"><Button width={'100px'} display={{base:'none', sm:'block', md:'block', lg:'block'}} backgroundColor={'white'}  borderRadius={'50px'}padding={''} >Log in</Button></Link></Text>

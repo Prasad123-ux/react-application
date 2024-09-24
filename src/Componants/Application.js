@@ -50,7 +50,7 @@ function Application() {
         
         
         },[id])
-        
+    
 useEffect(()=>{
     const findProfileData=async ()=>{
         try{

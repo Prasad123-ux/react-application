@@ -35,9 +35,14 @@ function Registration() {
         }
   
       }).then((data)=>{
+
+
+
         if(!data.success){
           addToast(data.message,data.error, "error")
 }
+
+else{
         
       
         // console.log(data.token)
@@ -48,7 +53,7 @@ function Registration() {
           addToast(  "Account Created",data.message, "success")
           // getToast(data.message,"success")
         
-        
+}
   
       }).catch((err)=>{
         console.error(err)

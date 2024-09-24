@@ -1,27 +1,37 @@
-import React, {  useState } from 'react'
+import React, {  useEffect, useState } from 'react'
 import { MdCastForEducation } from "react-icons/md";
 import { IoMdAdd } from "react-icons/io";
 import "../Styles/education.css"
 import { MdOutlineModeEditOutline } from "react-icons/md";
 import { FaGraduationCap } from "react-icons/fa";
 import options from "./data.json"
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'    
 
-function Education( ) {
+function Education({api, educationData} ) {
 
   const [EducationLevel,setEducationLevel]= useState("college")
   const [educationChecked,setEducationChecked]= useState(true)
-  // const [updateValue, setUpdateValue]= useState(false)
   const [schoolDetails, setSchoolDetails]= useState({schoolName:"", class:"", passingYear:"", cgpa:""})
   const [collageDetails,setCollegeDetails]= useState({universityName:"",fieldOfStudy:"",degree:"",startingYear:"", endingYear:"",cgpa:""})
-  const [educationDetail, setEducationDetail]= useState([])  
-    // setEducationDetail(userEducation)  
-       
+  const [educationDetail, setEducationDetail]= useState()  
+  const [educationArray, setEducationArray]= useState([])
+  const token= localStorage.getItem("token")  
+
+
+
+  // setArrayData(prevArray => [...prevArray, newItem]); // Create a new array reference    
+
+
  
     
-     
-
-    // console.log(educationDetail[0])   
+   
+ useEffect(() => {
+    if (educationData) {
+      console.log("Received educationData: ", educationData);
+      setEducationArray(educationData.extraFields?.Education || []);
+    }
+  }, [educationData]);
+    
   const getValue=()=>{
     if(educationChecked===true){
       setEducationChecked(false)
@@ -41,9 +51,14 @@ const onCollageChange=(e)=>{
 }
 
 
-const token= localStorage.getItem("token")
 
 
+
+  //getting token from localStorage
+
+
+  
+ 
 
 
 const handleEducationalDetails=async (e)=>{
@@ -54,7 +69,9 @@ alert("data is not proper")
   e.preventDefault()
 
 try{
-  const response= await fetch('http://localhost:5000/api/candidate/Profile/addProfileDetail',{
+  // const response= await fetch('http://localhost:5000/api/candidate/Profile/addProfileDetail',{
+    const response= await fetch('http://localhost:5000/api/candidate/Profile/addProfileDetail',{
+
     method:"POST",
     body:JSON.stringify({token:token, data:educationChecked===true ? collageDetails :schoolDetails,  dataType:'Education'  }),
     headers:{
@@ -110,41 +127,41 @@ const handleUpdateEducationDetail=async(e)=>{
 }
 
 
-// const handleUpdate=()=>{
-//   updateValue(true)   
-// }
-// console.log(userEducation)
-// console.log(educationDetail) 
-// console.log(userEducation)   
-// console.log(educationDetail[0] && educationDetail[0].length>0 ? educationDetail[0]:"" )
+
+console.log( educationData.extraFields?.Education &&  educationData.extraFields.Education.length>0   ? educationData.extraFields.Education[0].universityName:"no data")
+
+
+
+ 
+ 
 
   
 
+    
   return (
 
     <div className='bg-light rounded-3 mx-auto  p-3 p-sm-3 p-md-3 p-lg-5 align-items-center  shadow resume'>
- 
+      {/* <button onClick={handleRefreshStatus}>Refresh</button> */}
+   {/* {   educationData &&   educationData.length>0?  educationData.length:educationData} */}
 
-      {/* {  educationDetail && educationDetail.length>1    ?   educationDetail.map((item, index)=>{ return  */}
-      <div className='education-first d-flex justify-content-between align-items-center'> 
-        <div className='education-heading d-flex justify-content-start'>
-          <span className='education-icon'><MdCastForEducation className='fs-4' /> </span> 
-          <div className='ms-4'>
-            <span className='d-block fw-bold '></span>
-            <span className='d-block'> Your school/college details</span> 
-          </div>
-          
-        </div>
-        <div className='education-btn'>
-          <button className='btn btn-outline-info d-flex justify-content-center ' type='button'  data-bs-toggle="modal" data-bs-target="#exampleModal">
-             <span className='add-icon mt-1 fw-bolder'> <IoMdAdd /></span>  <span className='add-btn-name'> Add New</span> </button>
-        </div>
+       {  educationData  ? (  <div className='education-first d-flex justify-content-between align-items-center'> 
+<div className='education-heading d-flex justify-content-start'>
+  <span className='education-icon'><MdCastForEducation className='fs-4' /> </span> 
+  <div className='ms-4'>
+    <span className='d-block fw-bold '>Add Project Details</span>
+    <span className='d-block'> Projects that you have worked on before</span> 
+  </div>
+  
+</div>
+<div className='education-btn'>
+  <button className='btn btn-outline-info d-flex justify-content-center ' type='button'  data-bs-toggle="modal" data-bs-target="#exampleModal">
+     <span className='add-icon mt-1 fw-bolder'> <IoMdAdd /></span>  <span className='add-btn-name'> Add New</span> </button>
+</div>
 
-      </div>     
-      {/* }) */}
+</div> )
 
-
-      <div className='d-flex flex-column align-items-center'>
+:
+  (<div className='d-flex flex-column align-items-center'>
     <div className='education-heading'>
         <span className='education-icon'><MdCastForEducation className='fs-4' /> </span> 
     </div>
@@ -155,28 +172,29 @@ const handleUpdateEducationDetail=async(e)=>{
     <div className='education-option-btn mt-2'>
         <button className='btn btn-outline-info d-flex justify-content-center' type='button' data-bs-toggle="modal" data-bs-target="#exampleModal">
             <span className='add-icon mt-1 fw-bolder'><IoMdAdd /></span>
-            <span className='add-btn-name'>Add New </span>
+            <span className='add-btn-name'>Add New</span>
+           
         </button>
     </div>
-</div>
-
-      {/* } */}
+</div>)
+}
 
 {/* USER EDUCATION FOR  */}
 
 
 
-     { educationDetail && educationDetail.length>1 ? educationDetail.map((item,index)=>{
+     { educationData.extraFields?.Education &&  educationData.extraFields.Education.length>0   ?  educationData.extraFields.Education.map((item,index)=>{  
 
-return <div className='education-first user-education p-3 mt-4'>
-<div className='  d-flex justify-content-between align-items-center ' key={index}> 
+         return <div className='education-first user-education p-3 mt-4'>
+       <div className='  d-flex justify-content-between align-items-center ' key={index}> 
+
         <div className='education-heading d-flex justify-content-start'>
           <span className='education-icon '><FaGraduationCap  className='fs-4'/> </span> 
           <div className='ms-4'>
-            <span className='d-block fw-bold '>Yeshwant College Nanded</span>
+            <span className='d-block fw-bold '>{item.universityName}</span>
             {/* <span className='d-block'> Master of Computer Application (MCA) | Computer Science & Information Technology </span> 
             <span className='d-block fw-light'> 2019-2025</span>  */}
-                
+                {item.fieldOfStudy}
           </div>
           <div className='education-btn d-block d-sm-none '>
         <button className='btn btn-outline-info  ' type='button' data-bs-toggle="modal" data-bs-target="#exampleModalUpdate">
@@ -208,11 +226,12 @@ return <div className='education-first user-education p-3 mt-4'>
       </div>
 
       </div>
-      }):""
+
+      }):"No Data Availables"
 }
       
 
-
+ 
 
 
 
@@ -514,6 +533,7 @@ return <div className='education-first user-education p-3 mt-4'>
     </select>
 </div>
 
+
 <div className="col-10 mt-3">
   <label htmlFor="validationDefault11" className="form-label">Final CGPA ( out of 10) </label>
   <select type="number" className="form-control" id="validationDefault11" min="1" max="10" step="0.1"  placeholder="Type Your CGPA" name="cgpa" value={schoolDetails.cgpa} onChange={onSchoolChange} required>
@@ -549,6 +569,14 @@ return <div className='education-first user-education p-3 mt-4'>
 export default Education
 
  Education.propTypes={
-   userEducation:PropTypes.object,
+  educationData:PropTypes.object.isRequired,
  }
 
+
+Education.defaultProps = {
+  educationData: {
+    extraFields: {
+      Education: []
+    }
+  }
+};

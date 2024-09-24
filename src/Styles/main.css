@@ -1,15 +1,33 @@
 
 *{
-    margin: 0px;
-    padding: 0px;
+    /* margin: 0px; */
+    /* padding: 0px; */
     width: 100%;
-    
     box-sizing: border-box;
 }
 .main-box{
   width: 100%;
+  margin-top: 100px;
 }
 
+.jobs{
+  height:100vh; 
+  overflow: scroll;
+}
+
+.filters{
+  
+ overflow: scroll;    
+ height: fit-content;
+   
+  top: 100px;      /* Adjust according to your layout */
+  left: 20px;      /* Distance from the left side of the page */
+  /* width: 300px;     Set the width of the filters section */
+  /* background-color: #fff; */
+  padding: 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for aesthetics */
+  z-index: 1000;
+}
 body {
   /* width: 100%; */
     scrollbar-width: thin;
@@ -26,4 +44,178 @@ body {
 
 
 
+@media only screen and  ( max-width: 576px  ) {
+
+
+  *{
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    
+    box-sizing: border-box;
+}
+.main-box{
+  width: 100%;
+  margin-top: 100px;
+}
+
+.jobs{
+  height:100%; 
+  overflow: none;
+}
+
+.filters{
   
+ overflow: scroll;    
+ height: fit-content;
+   
+  top: 100px;      /* Adjust according to your layout */
+  left: 20px;      /* Distance from the left side of the page */
+  /* width: 300px;     Set the width of the filters section */
+  /* background-color: #fff; */
+  padding: 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for aesthetics */
+  z-index: 1000;
+}
+body {
+  /* width: 100%; */
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+  }
+
+.pagination{
+    margin-top: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+}
+
+@media only screen and (min-width:576px) and (max-width:768px) {
+
+  *{
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    
+    box-sizing: border-box;
+}
+.main-box{
+  width: 100%;
+  margin-top: 100px;
+}
+
+
+.jobs{
+  height:100%; 
+  overflow: none;
+}
+
+.filters{
+  
+ overflow: scroll;    
+ height: fit-content;
+   
+  top: 100px;      /* Adjust according to your layout */
+  left: 20px;      /* Distance from the left side of the page */
+  /* width: 300px;     Set the width of the filters section */
+  /* background-color: #fff; */
+  padding: 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for aesthetics */
+  z-index: 1000;
+}
+body {
+  /* width: 100%; */
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+  }
+
+.pagination{
+    margin-top: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+
+}
+@media only screen and (min-width:769px) and (max-width:992px) { 
+
+  
+.main-box{
+  width: 100%;
+  margin-top: 100px;
+}
+
+.jobs{
+  height:100%; 
+  overflow: none;
+}
+
+
+body {
+  /* width: 100%; */
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+  }
+
+.pagination{
+    margin-top: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+
+}
+
+@media only screen and (min-width:993px) and (max-width:1280px) {   
+  *{
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    
+    box-sizing: border-box;
+}
+.main-box{
+  width: 100%;
+  margin-top: 100px;
+}
+
+.jobs{
+  height:100%; 
+  overflow: none;
+}
+
+.filters{
+  
+ overflow: scroll;    
+ height: fit-content;
+   
+  top: 100px;      /* Adjust according to your layout */
+  left: 20px;      /* Distance from the left side of the page */
+  /* width: 300px;     Set the width of the filters section */
+  /* background-color: #fff; */
+  padding: 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for aesthetics */
+  z-index: 1000;
+}
+body {
+  /* width: 100%; */
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+  }
+
+.pagination{
+    margin-top: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+
+
+  
+
+}

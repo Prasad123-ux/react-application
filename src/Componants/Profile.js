@@ -1,5 +1,5 @@
 import { Avatar,Text} from '@chakra-ui/react'
-import React, {  useState } from 'react' 
+import React, {  useEffect, useState } from 'react' 
 import "../Styles/Profile.css"
 import { FiEdit2 } from "react-icons/fi";
 import { CiLocationOn } from "react-icons/ci";
@@ -16,18 +16,71 @@ import Project from './Project';
 import Work from './Certification';
 import Accomplishment from './Accomplishment';
 
-function Profile() {  
+
+
+function Profile({api}) {  
 
   const [userData, setUserData]= useState([])
   const [userUpdatedData, setUserUpdatedData]= useState({name:"", location:"", workStatus:"",city:"", join:"", })
 
-const token= localStorage.getItem('token')
+ const token = localStorage.getItem('token')
+
+// console.log(userData)
+  const handleGetUserData = async () => {
+    console.log("Fetching user data...");
+    try {
+      const response = await fetch('http://localhost:5000/api/candidate/getProfileData', {
+        method: "POST",
+        body: JSON.stringify({ token: token }),
+        headers: {
+          "Content-type": "application/json"
+        }
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+  
+      const data = await response.json();
+      console.log("Data received:", data);
+      setUserData(data.Data || {});
+  
+    } catch (err) {
+      console.error("Error fetching user data:", err.message);
+    }
+  };
+  
+
+  useEffect(() => {
+    // Call the function to fetch user data when component mounts
+    handleGetUserData();
+  }, []); // Empty dependency array means this effect runs once when the component mounts
+
+  useEffect(() => {
+    if (userData && Object.keys(userData).length > 0) {
+      // Perform actions with userData here
+      console.log("UserData available:", userData);
+
+      // Example: Add data to recommended array
+      // setRecommendedArray([...recommendedArray, userData]);
+    } else {
+      console.log("No user data available.");
+    }
+  }, [userData]); // This effect runs when userData changes
+
+
+
+  console.log(userData)
+
 const onchange=(e)=>{
   
   setUserUpdatedData({...userUpdatedData, [e.target.name]:e.target.value})
  
 
 }
+// console.log(userData)   
+
+// console.log(userData)
 
 
 // const handleSubmitData=(e)=>{
@@ -64,55 +117,27 @@ const onchange=(e)=>{
 
 
 // }
-// console.log(userData.extraFields.Education)
+//  console.log(userData.extraFields.Education)
 
+
+// console.log(userData)
 
   
 
-  const handleGetUserData= async()=>{
-    console.log("function running")
-    try{
-       await fetch('http://localhost:5000/api/candidate/getProfileData', {
-        method:"POST",
-        body:JSON.stringify({token:token}),
-        headers:{
-          "Content-type":"application/json"
-        }
-      }).then((response)=>{
-        if(!response.ok){
-          throw new Error(response.statusText)
-        }else{
-          return response.json()
-        }
 
-      }).then((data)=>{
-        console.log(data)
-        setUserData(data.Data)
-        
-
-      }
-      ).catch((err)=>{
-     console.error(err.message)
-
-      })
-
-    }
-    catch(err){
-      console.log(err)
-    }
-    
-  }
+console.log(userData)
+  
 
 
 
 // console.log(userData.MobileNumber)
-// console.log(userData.extraFields.resume)
+//  console.log(userData.extraFields.resume)
 
-// console.log(userData.extraFields.resume)
-// console.log(userData.extraFields.resume)
+  // console.log(userData.extraFields.Education)
+    // console.log(userData.extraFields.resume)
 
-
-
+  // console.log(userData.extraFields?.Education  ? userData:"Data not available" )
+  // console.log(userData)
  
 
   return (
@@ -122,7 +147,7 @@ const onchange=(e)=>{
         <div className='profile-photo col-12 col-lg-1 d-flex justify-content-center '>    
           <Avatar size="xl" />
           {/* <button className='ms-5 mt-2 btn btn-primary  cursor-pointer ' style={{"height":"40px"}}> EDIT</button> */}
-        </div>
+        </div>                              
         <div className='profile-info mx-auto text-center col-12 col-lg-7'>
        <div className='name-info'>
      
@@ -132,7 +157,7 @@ const onchange=(e)=>{
         {/* <button className='btn btn-primary' onClick={getUserData}>  get the user data from </button> */}
         <button className='btn btn-outline-danger' onClick={handleGetUserData}> getUserData</button>
         
-
+    
        </div>
 
        <hr className=' mt-3 line'></hr>
@@ -153,6 +178,8 @@ const onchange=(e)=>{
 
 
         </div>
+
+
 
        </div>
 
@@ -283,21 +310,28 @@ const onchange=(e)=>{
         <button type='submit' className="btn btn-primary w-25">Save</button>
       </div>
       </form>
-      </div>
+      </div>   
+
+
     
     </div>
   </div>
 </div>
 
-      
+
+
+
+
+
+
+          
     </div>
     < ProfilePart />
     <div className=' d-block d-sm-none mt-5'>
     <div className='w-100 bg-gradient text-info d-flex justify-content-center fs-6 fw-bold  mt-5 section-heading shadow'> Resume</div>
-
-      <Resume    />
+    {userData.extraFields?.resume  ? <Resume   resumeData={userData.extraFields.resume} />:"no"} 
       <div className='w-100 bg-gradient text-info d-flex justify-content-center fs-6 fw-bold mt-5 section-heading  shadow mb-5'> Education</div>
-      <Education />
+      {userData.length>0  ? <Education api={api} educationData= {userData} />:"No Education Data Available"}   
       <div className='w-100 bg-gradient text-info d-flex justify-content-center fs-6 fw-bold mt-5 section-heading  shadow mb-5'> Experience</div>
       
       <Experience/>

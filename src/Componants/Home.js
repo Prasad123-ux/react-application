@@ -21,7 +21,7 @@ export default function Home() {
     <div className='home'>
       <HStack>
     
-      <Text fontSize={{base:'2rem',sm:'4rem', md:'5rem', lg:'5rem'}} fontWeight={'700'} color={'yellow'} >Jobify</Text>
+       <Link to="/"  ><Text fontSize={{base:'2rem',sm:'4rem', md:'5rem', lg:'5rem'}} fontWeight={'700'} color={'yellow'} >Jobify</Text></Link>
     
     
       <ChakraLink

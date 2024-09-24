@@ -18,10 +18,50 @@ import SubmitApply from './Componants/SubmitApply'
 
 export default function App() {
 
+   const api='https://jobnexus-backend.onrender.com'
+
 const [users, setUsers]= useState([]);
 const [type, setType]= useState()
 const [city, setCity]= useState()
+const [scrollValue,setScrollValue]= useState(false)
+const [isScrolling, setIsScrolling] = useState(true);
+
+
+  useEffect(() => {
+    
   
+    // Function to handle scroll event
+    const handleScroll = () => {
+      // Set scrolling to true as soon as a scroll event is detected
+     setIsScrolling(false)
+
+      // Clear the timeout if the user is still scrolling
+     
+
+      // Set a timeout to change the state after the user has stopped scrolling
+      };
+
+
+   
+ const handleNextScroll=()=>{
+  setTimeout(()=>{
+    setIsScrolling(true)
+  },400 )
+ 
+ }
+  
+
+    // Add event listener to window scroll
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scrollend', handleNextScroll);
+    console.log(setIsScrolling)
+
+    // Cleanup function to remove the event listener
+   
+    
+  }, []);
+
+
 useEffect(()=>{
   const storedUsers=JSON.parse(localStorage.getItem('users')) ||[]
 
@@ -61,18 +101,18 @@ const length=users.length
       
 
       <BrowserRouter basename={process.env.PUBLIC_URL}>
-    <Navbar users={users} getCity={onCityChange} getRole={onRoleChange} onDelete={handleDelete} length={length}/>
-    
+     {/* { isScrolling===true ?<Navbar users={users} getCity={onCityChange} getRole={onRoleChange} onDelete={handleDelete} length={length}/>:""}  */}  
+     <Navbar/>
 <Routes>
 <Route  path='/' element={<Home users={users} />} />
-<Route exact path='/login' element={<Login users={users}/>} />
-<Route exact path='/signin' element={<Signin users={users}/>}/>
-<Route exact path='/registration' element={<Registration addUser={addUser} users={users}/>}/>
-<Route exact path='/main' element={<Main city={city} role={type} />} />
-<Route exact path='/profile' element={<Profile users={users}/>}/>
-<Route exact path="/job_detail/:id" element={<Explain/>}/>
-<Route exact path="job_detail/job_application/:id" element={<Application/>}/>
-<Route exact path="job_detail/job_application/application_success" element={<SubmitApply/>}/>
+<Route exact path='/login' element={<Login users={users} api={api}/>} />
+<Route exact path='/signin' element={<Signin users={users}   api={api}/>}/>
+<Route exact path='/registration' element={<Registration addUser={addUser} users={users}  api={api}/>}/>
+<Route exact path='/main' element={<Main city={city} role={type}  api={api} />} />
+<Route exact path='/profile' element={<Profile users={users}  api={api}/>}/>
+<Route exact path="/job_detail/:id" element={<Explain/>}  api={api}/>
+<Route exact path="job_detail/job_application/:id" element={<Application/>}  api={api}/>
+<Route exact path="job_detail/job_application/application_success" element={<SubmitApply/>} api={api}/>
 </Routes>  
 
  

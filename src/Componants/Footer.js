@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import "../Styles/footer.css"
 import { HStack , Box, VStack, Input, Button, Text, Stack, Heading, Textarea, Alert, AlertDescription, AlertIcon, AlertTitle, CloseButton} from '@chakra-ui/react'
-import { FaFacebook, FaGithub, FaInstagram, FaLinkedinIn, FaPaperPlane, FaTwitter, FaWhatsapp } from 'react-icons/fa'
+import { FaFacebook, FaGithub, FaInstagram, FaLinkedinIn, FaPaperPlane, FaTwitter, FaWhatsapp } from 'react-icons/fa' 
 
 import {Link } from 'react-router-dom'
 
@@ -61,7 +61,7 @@ const handleSubmit= async(e)=>{
 
   
   return (
-    <div className='footer'>
+    <Box className='footer '  width={'full'}>
 
 
 
@@ -199,6 +199,6 @@ const handleSubmit= async(e)=>{
           </Alert>)
 }
 
-    </div>
+    </Box>
   )
 }

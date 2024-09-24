@@ -205,41 +205,39 @@ content:(
 
 
   return (
-  
-    <div>
+  <>
+    <Box className='landscape-filter'  display={{ base: 'none', sm: 'none', md: 'none', lg: 'block' }}>
     
 
-      <Button pos={'fixed'}  mt={{base:'2rem',sm:'3rem',md:'4rem',lg:'5rem'}}  top={'6'} colorScheme='whatsapp' width={{base:'100px', md:'200px',lg:'200px'}} height={'40px'} variant={'solid'}  onClick={onOpen} fontSize={'20'} size={{base:'sm', sm:'sm', md:'md', lg:'lg', xl:'xl'}} > Apply Filters</Button>
+       {/* <Button pos={'fixed'}  mt={{base:'2rem',sm:'3rem',md:'4rem',lg:'5rem'}}  top={'6'} colorScheme='whatsapp' width={{base:'100px', md:'200px',lg:'200px'}} height={'40px'} variant={'solid'}  onClick={onOpen} fontSize={'20'} size={{base:'sm', sm:'sm', md:'md', lg:'lg', xl:'xl'}} > Apply Filters</Button>  */}
 
-      <Drawer isOpen={isOpen} placement='left'  onClose={onClose}  size={'xs'}> 
+     {/* <Drawer className="heading-drawer" isOpen={isOpen} placement='left'  onClose={onClose}  size={'xs'}>   */}
+        
 
-    <DrawerOverlay/>
+     {/* <DrawerOverlay/>  */}
 
-    <DrawerContent>
-   <DrawerCloseButton/>
-  <DrawerHeader color={'yellow'}>Jobify</DrawerHeader>
-  <DrawerBody >
-     <div className='main'>
+     {/* <DrawerContent>  */}
+    {/* <DrawerCloseButton/>  */}
+   {/* <DrawerHeader color={'yellow'}>Jobify</DrawerHeader>  */}
+   {/* <DrawerBody >  */}
+     <div className='main-heading '>
       <div className='main-head'>
         <span className="filter">Filter Job</span>
         
-        <Alert status='info'>
-    <AlertIcon />
-    Please select only one filter at a time. If the page is unresponsive, please refresh it.
-  </Alert>
+   
       </div>
-      <Accordion  mt={'10'}  allowMultiple >
+      <Accordion    mt={'5'} allowMultiple  className='accord'>
         {
           accordionSize.map((item, index)=>{
-       return <AccordionItem key={index}>
+       return <AccordionItem className='' key={index}>
          
-         <AccordionButton>
+         <AccordionButton >
           
-          <Box as='span' textAlign={'left'} flex={'1'} fontSize={'20'} fontWeight={'500'}>{item.heading}</Box>
+          <Box className='' fontWeight={'600'} fontSize={'15'} as='span' textAlign={'left'} flex={'1'} >{item.heading}</Box>
 
-          <AccordionIcon/>
+          <AccordionIcon className="ms-2"/>
          </AccordionButton>
-         <AccordionPanel fontSize={'25'} fontWeight={'500'}>
+         <AccordionPanel  className=''>
           {item.content}
          </AccordionPanel>
          </AccordionItem>
@@ -250,14 +248,69 @@ content:(
       </Accordion>
 
     </div>
-     </DrawerBody>
-     <DrawerFooter><Button fontSize={'20'} width={'100px'} alignItems={'center'} border={'1px solid gray'} onClick={onClose}>Submit</Button></DrawerFooter>
-    </DrawerContent>
+     {/* </DrawerBody>  */}
+    {/* <DrawerFooter>  */}
+      <Button fontSize={'20'} width={'100px'} alignItems={'center'} border={'1px solid gray'} onClick={onClose}>Submit</Button>
+       {/* </DrawerFooter>  */}
+     {/* </Drawer/</>Content>  */}
 
 
-      </Drawer>
+       {/* </Drawer>  */}
+
+    </Box>
+    <Box  display={{ base: 'block', sm: 'block', md: 'block', lg: 'none' }}>
+    
+
+       <Button pos={'fixed'}  mt={{base:'2rem',sm:'3rem',md:'4rem',lg:'5rem'}}  top={'6'} colorScheme='whatsapp' width={{base:'100px', md:'200px',lg:'200px'}} height={'40px'} variant={'solid'}  onClick={onOpen} fontSize={'20'} size={{base:'sm', sm:'sm', md:'md', lg:'lg', xl:'xl'}} > Apply Filters</Button> 
+
+     <Drawer className="heading-drawer" isOpen={isOpen} placement='left'  onClose={onClose}  size={'xs'}>  
+        
+
+     <DrawerOverlay/> 
+
+     <DrawerContent> 
+    <DrawerCloseButton/> 
+   <DrawerHeader color={'yellow'}>Jobify</DrawerHeader> 
+   <DrawerBody > 
+     <div className='main-heading ' >
+      <div className='main-head'>
+        <span className="filter">Filter Job</span>
+        
+   
+      </div>
+      <Accordion    mt={'5'} allowMultiple  className='accord'>
+        {
+          accordionSize.map((item, index)=>{
+       return <AccordionItem className='' key={index}>
+         
+         <AccordionButton >
+          
+          <Box className='' fontWeight={'600'} fontSize={'15'} as='span' textAlign={'left'} flex={'1'} >{item.heading}</Box>
+
+          <AccordionIcon className="ms-2"/>
+         </AccordionButton>
+         <AccordionPanel  className=''>
+          {item.content}
+         </AccordionPanel>
+         </AccordionItem>
+         
+          })
+        }
+        
+      </Accordion>
 
     </div>
+     </DrawerBody> 
+    <DrawerFooter> 
+      <Button fontSize={'20'} width={'100px'} alignItems={'center'} border={'1px solid gray'} onClick={onClose}>Submit</Button>
+       </DrawerFooter> 
+     </DrawerContent> 
+
+
+       </Drawer> 
+
+    </Box>
+    </>
     
 
   )
