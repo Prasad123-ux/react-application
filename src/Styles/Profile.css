@@ -1,6 +1,13 @@
+
+
+
 .body{
     background-color: #F8F8F8;
     width: 100%;
+}
+
+.base{
+    margin-top: 120px;
 }
 .base-first{
     height: fit-content;

@@ -21,7 +21,9 @@ body{
     
 }
 
-
+.icons{
+    width: fit-content;
+}
 
 @media only screen and  ( max-width: 576px  ) {
 
@@ -45,7 +47,9 @@ body{
     }
     
     
-    
+    .icons{
+        width: fit-content;
+    }
 }
 
 

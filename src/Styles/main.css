@@ -13,6 +13,8 @@
 .jobs{
   height:100vh; 
   overflow: scroll;
+  background-color: white;
+  /* margin-bottom: 20px; */
 }
 
 .filters{
@@ -24,7 +26,7 @@
   left: 20px;      /* Distance from the left side of the page */
   /* width: 300px;     Set the width of the filters section */
   /* background-color: #fff; */
-  padding: 20px;
+  /* padding: 20px; */
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for aesthetics */
   z-index: 1000;
 }
@@ -94,13 +96,7 @@ body {
 
 @media only screen and (min-width:576px) and (max-width:768px) {
 
-  *{
-    margin: 0px;
-    padding: 0px;
-    width: 100%;
-    
-    box-sizing: border-box;
-}
+  
 .main-box{
   width: 100%;
   margin-top: 100px;
@@ -150,7 +146,7 @@ body {
 
 .jobs{
   height:100%; 
-  overflow: none;
+  overflow: scroll;
 }
 
 
@@ -185,7 +181,7 @@ body {
 
 .jobs{
   height:100%; 
-  overflow: none;
+  overflow: scroll;
 }
 
 .filters{

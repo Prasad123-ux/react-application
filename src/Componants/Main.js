@@ -5,6 +5,7 @@ import "../Styles/main.css"
 import Loading from './Loading.js';
 import Footer from './Footer.js';
 import Heading from './Heading.js';
+
 // import { FaCircleArrowLeft } from "react-icons/fa6"; 
 // import { FaCircleArrowRight } from "react-icons/fa6";
 
@@ -72,15 +73,16 @@ const [loading, setLoading]= useState(false)
 
 
   return (
-    <Box className='main-box ' backgroundColor={'#F8F9FA'}   > 
+    
+    <Box className='main-box ' backgroundColor={'#F8F9FA'}> 
     
     {loading ?  <Loading/>:
-    <div className=' row mx-auto'>
+    <div className=' row mx-auto '>
       
-      <div className='col-md-3 filters  col-12  d-none d-lg-block mx-auto'>
+      <div className='col-md-3 filters  col-12  d-none d-lg-block mx-auto mb-5'>
      <Heading/>
      </div>  
-     <div className='col-md-8  col-12  ms-5 '> 
+     <div className='col-md-8  col-12  mx-auto jobs '> 
     {data && data.length>0 ?(
       
       data.map((job)=>{
@@ -115,8 +117,10 @@ const [loading, setLoading]= useState(false)
 
   </div>
   }
-  <Footer/>
+    <Footer /> 
+
   </Box>
+    
   );
 };
 

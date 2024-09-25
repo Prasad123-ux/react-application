@@ -12,7 +12,8 @@
     background-color: darkslateblue;
     
 text-align: center;
-margin-top: 50px;
+margin-top: 50px; 
+height: fit-content;
 }
 .newsLetter{
     color: yellow;
@@ -40,7 +41,9 @@ margin-top: 50px;
     font-size:1.5rem;
 }
 .footer-first{
-    height: 10vh;
+    height: 10vh; 
+    /* height: fit-content; */
+
   
 }
 .line{
@@ -51,6 +54,7 @@ margin-top: 50px;
 }
 .footer-second{
     width: 100%;
+    /* height: fit-content; */
     height:50%;
    
     

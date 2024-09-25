@@ -146,7 +146,7 @@ const appliedJob= async (value)=>{
     </div>
     <Text className='text-secondary fw-medium ' >CV</Text>
     <div className='object-fit-fill border rounded shadow p-3 mb-4'>
-    <span className='' > <FaRegFilePdf  className='d-inline fs-4' style={{"width":"100px"}}/></span><Link to="" className='value text-primary text-decoration-underline' >Prasad_Metkar_Resume.pdf</Link>
+    <span className='icons' > <FaRegFilePdf  className='d-inline fs-4' style={{"width":"100px"}}/></span><Link to="" className='value text-primary text-decoration-underline' >Prasad_Metkar_Resume.pdf</Link>
 
 
     </div>

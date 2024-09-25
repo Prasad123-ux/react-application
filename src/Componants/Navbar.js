@@ -62,7 +62,7 @@ const {isOpen:isLogOpen, onOpen:onLogOpen, onClose:onLogClose}= useDisclosure()
   return (
  <Box  width={'full'} className='navbar fixed'  >
       <HStack justifyContent={'space-evenly'} >
-        {/* <Heading/> */}
+        
       
         <Link to="/" className='link'>  <Text fontSize={{base:'2rem',sm:'2.5rem',md:'3rem',lg:'3rem' }} color={'yellow'} fontWeight={'800'}> Jobify</Text></Link>
         
@@ -71,6 +71,9 @@ const {isOpen:isLogOpen, onOpen:onLogOpen, onClose:onLogClose}= useDisclosure()
         <Input   textAlign={'center'} onChange={((e)=>{ setLocation(e.target.value)})} fontSize={{base:'1rem',md:'1rem'}} display={{  base:'none', md:'none ' ,sm:'none' ,lg:'block' }} fontWeight={'700'} placeholder='Search your Location'/>
         <Button isDisabled={disable} onClick={onsubmit} width={'200px'} variant={'solid'} colorScheme='teal' display={{base:'none', md:'none', lg:'block'}} mr={'20'}><FaPaperPlane/></Button>
         
+        <div className='d-block d-lg-none'><Heading/></div>
+
+
         <Button  borderRadius={'full'}   width={{base:'25px',md:'50px' ,sm:'50px' , lg:'50px'}} backgroundColor='white'  size={{base:'xs', sm:'md',md:'md'}} mr={{base:'10px',}}    onClick={onOpen}   ><BiMenuAltLeft  size={'lg'}/></Button>
         <Text width={'50px'} mr={{base:'px',md:'2', lg:'2'}} ><Link to='/profile'> <Avatar cursor={'pointer'} size={{base:'xs' , sm:'xs',md:'md',lg:'md'}} src='https://bit.ly/broken-link'  /></Link></Text>
 

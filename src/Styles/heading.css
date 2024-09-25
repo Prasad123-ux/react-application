@@ -52,3 +52,6 @@ margin-right: 10px;
 .heading-drawer{
     display: none;
 }
+.filter-button{
+    width: fit-content;
+}

@@ -94,5 +94,13 @@
 "startingYear":[
     
 ],
-"internshipType":["Part-Time (3-4 hrs/day)","Semi-Full-Time (5-6 hrs/day)","Full-Time (7-8 hrs/day)"]
+"internshipType":["Part-Time (3-4 hrs/day)","Semi-Full-Time (5-6 hrs/day)","Full-Time (7-8 hrs/day)"],
+
+ "accordionSize":[{ "heading":"Qualification" , "value":["interMediate", "Graduation", "post-graduation"] }, {"heading":"Education","value":["10th", "12th", "gradation", "post-graduation"]}]  
+
+
+
+
+
 }
+

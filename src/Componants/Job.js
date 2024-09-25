@@ -10,6 +10,8 @@ import { BsPersonWorkspace } from "react-icons/bs";
 import { PiNotepadLight } from "react-icons/pi";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom'
+import { BsSave } from "react-icons/bs"; 
+import { BsSaveFill } from "react-icons/bs";
 
 
 
@@ -24,7 +26,7 @@ const months=["jan", "Feb", "March", "April", "May", "Jun","July", "Aug", "Sep",
  let monthName=months[new Date(postedDate).getMonth()]
 let day=new Date(postedDate).toUTCString().slice(5,7)
 console.log(monthName,day)
-const [saveValue, setSaveValueJob]=useState("Save")
+const [saveValue, setSaveValueJob]=useState(false)
 
 const token= localStorage.getItem("token")
 const navigate=useNavigate()
@@ -54,7 +56,7 @@ try{
    console.log(result)
    
   
-  setSaveValueJob("Saved")
+  setSaveValueJob("true")
 }catch(err){
   console.log(err)
 
@@ -92,46 +94,44 @@ try{
   return (
   <>
     <UserContext.Provider value={{values, setValues}}>
-      {/* <Link className='link ' to="/job_detail" > */}
+      
   <button   onClick={()=>{handleButtonClick(id)}}   className='box shadow'   >
       
-      <div className=' d-flex justify-content-between flex-column' >
+      <div className=' d-flex justify-content-between flex-column mx-auto' >
     <HStack justifyContent={{base:'start',md:'start', sm:'start'}} className='mx-auto'>
-    <Avatar className='avatar' size={{base:'sm', sm:'md', md:'md', lg:'md',xl:'md'}}  name={company_name} />
+    <Avatar className='avatar ms-2 mt-2' size={{base:'sm', sm:'md', md:'md', lg:'md',xl:'md'}}  name={company_name} />
     <span className='title mx-auto'>{title} </span>
     </HStack >
-    <Text className='companyName'>{company_name}</Text>
-    <div className='d-flex flex-row justify-content-around mt-2'   >
-     <div className='location  d-flex    '> 
-       <span><CiLocationOn className='fs-5   ms-5 mt-1 '/></span> <span className=' me-4'>  { location && location.length>1 ? `${location.slice(0,10)}...` :"Not Mentioned"}</span>
-       </div>
-    <div className='employment-type d-flex '> <span><BsCurrencyRupee  className=' fs-5 ms-5 mt-1'/></span> <span className='me-4'>{maxSalary  && minSalary ?`${minSalary}-${maxSalary} Lacs PA`: "Not Disclosed"}</span></div>
-    <div className='experience d-flex ' > <span><BsPersonWorkspace  className='fs-5 ms-5 mt-1'/></span> <span className='me-5 '> { minExperience && maxExperience ? `${minExperience}- ${maxExperience} Yrs`:"0 Yrs"}</span> </div>
-    </div>        
-    <div className='salary d-flex   ' >
-      <span className='w-25 d-inline ms-1  ps-5'><PiNotepadLight className='fs-5 ' /></span><span className=' me-5 '>{ requirement && requirement.length>0  ?` ${requirement[0].EducationalRequirement.slice(0,70)}...`:""  }</span>
+    <Text className='companyName mx-auto'>{company_name}</Text>   
+
+
     
+     <div className='second-job-section '   >
+     <div className='third-job-section' ><CiLocationOn className='icons' /> <span className='value'>  { location && location.length>1 ? `${location.slice(0,10)}...` :"Not Mentioned"}</span></div>
+    <div className='third-job-section' ><BsCurrencyRupee   className='icons'/> <span className='value'>{maxSalary  && minSalary ?  `${minSalary}-${maxSalary} L`: "Not Disclosed"}</span></div>
+    <div className='third-job-section'><BsPersonWorkspace  className='icons'/>   <span className='value'>{ minExperience && maxExperience ? `${minExperience}-${maxExperience}Yrs`:"0 Yrs"}</span> </div>
+    </div>        
+
+
+
+
+
+   {requirement && requirement.length>0? <div className='salary d-none d-sm-flex   mx-auto  icons' ><PiNotepadLight className='icons ' /><span className=' value  '>{ requirement && requirement.length>0  ?` ${requirement[0].EducationalRequirement.slice(0,70)}...`:""  }</span></div> :""}
+
+
+
+    { requirement && requirement.length>0? <Text className='d-none d-md-flex  text-secondary skills fw-bold d-none d-lg-block mx-auto'>{requirement && requirement.length>0? requirement[0].NeededSkillsAndTechnologies.slice(0,80):"" }</Text>:"" }
+      {  description && description.length>1 ? <Text className='description ' >{ description && description.length>1 ?` ${description.slice(0,150)}...`:""}</Text>:"" }
+
+
    
-    </div>
-    <Text className='d-flex justify-content-around text-secondary fw-bold'>{requirement && requirement.length>0? requirement[0].NeededSkillsAndTechnologies.slice(0,80):"" }</Text>
-    <Text className='description ps-5 pe-5' >{ description && description.length>1 ?` ${description.slice(0,150)}...`:""}</Text>
 
-
-    {/* <HStack justifyContent={{base:'end',sm:'space-evenly',md:'space-evenly'}} mt={{base:'2', sm:'7',md:'10', lg:'10', xl:'10'}}  ml={{base:'4',sm:'0', md:'0', lg:'0', xl:'0'}}> */}
-      {/* <Button width={{base:'100px',sm:'',md:'200px', lg:'200px'}}  backgroundColor={'transparent'} fontSize={{base:'0.5rem',md:'0.8rem'}} className='not-interested' onClick={handleDelete}> <ViewOffIcon />  Hide</Button> */}
-    {/* <a href={href}><Button className='button' width={{base:'20', sm:'35', md:'40', lg:'40', xl:'40'}}  fontSize={{base:'10',md:'18'}} height={{base:'8'}} colorScheme='messenger'><ExternalLinkIcon/>Apply</Button></a> */}
-   {/* <Button width={{base:'40', sm:'30',md:'200px'}} backgroundColor={'gray.300'}  height={{base:'7', sm:'', md:'', lg:'', xl:''}} className='save' fontSize={{base:'0.7rem', sm:'0.9rem', md:'1rem', lg:'1rem', xl:'1.2rem'}}  mr={'10'}> <FaSave/><FaSave className='icon' fontSize={'1rem'}/> {save}</Button> */}   accordion
-
-   
-   <div className='jobBoardFooterSide  d-flex justify-content-start mt-2 '> 
-    <div  className='posted   d-flex  w-100     '>
-      <span className=' ms-5  mt-1      '><FaRegCalendarAlt   className='  '/> </span>
-      <span className='text-secondary fw-bold me-5  pe-5 '>  {postedDate ? (`${months[new Date(postedDate).getMonth()] } ${new Date(postedDate).toUTCString().slice(5,7)}`):""}</span>
-      </div>
-    <div className='save-hide d-flex justify-content-end   '>
+<div className='second-job-section'> 
+    <div  className=' third-job-section'> <FaRegCalendarAlt   className=' icons '/> <span className='value'>  {postedDate ? (`${months[new Date(postedDate).getMonth()] } ${new Date(postedDate).toUTCString().slice(5,7)}`):""}</span></div>
+    <div className=' footer-buttons '>
       
-      <button onClick={()=>{handleOnDelete(id)}} className='hide ms-5'><ViewOffIcon /> Hide</button>
-      <button onClick={()=>{handleSaveJob(id)}} className='hide me-5 d-flex justify-content-center'> <span className='ms-4 mt-1' > <FaSave/></span>  <span className='me-5' >{saveValue}</span></button>
+      <button onClick={()=>{handleOnDelete(id)}} ><ViewOffIcon /> </button>
+        {  saveValue===false   ? <button onClick={()=>{handleSaveJob(id)}}>  <BsSave /> </button> :    <button onClick={()=>{handleSaveJob(id)}}>  <BsSaveFill /> </button>}
 
     </div>
    </div>
