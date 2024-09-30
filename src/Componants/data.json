@@ -96,11 +96,162 @@
 ],
 "internshipType":["Part-Time (3-4 hrs/day)","Semi-Full-Time (5-6 hrs/day)","Full-Time (7-8 hrs/day)"],
 
- "accordionSize":[{ "heading":"Qualification" , "value":["interMediate", "Graduation", "post-graduation"] }, {"heading":"Education","value":["10th", "12th", "gradation", "post-graduation"]}]  
+
+
+
+ 
+    "accordionSize": [
+      {
+        "heading": "Qualification",
+        "value": ["Intermediate", "Graduation", "Post-Graduation", "Diploma", "Doctorate", "Certification"]
+      },
+      {
+        "heading": "Experience Level",
+        "value": ["Fresher", "0-2 years", "2-5 years", "5-10 years", "10+ years"]
+      },
+      {
+        "heading": "Job Type",
+        "value": ["Full-time", "Part-time", "Internship", "Contract", "Freelance", "Temporary"]
+      },
+      {
+        "heading": "Industry",
+        "value": [
+          "Information Technology",
+          "Healthcare",
+          "Education",
+          "Finance",
+          "Marketing",
+          "Retail",
+          "Manufacturing",
+          "Telecommunication",
+          "Hospitality",
+          "Consulting"
+        ]
+      },
+      {
+        "heading": "Location",
+        "value": [
+          "Bengaluru",
+          "Hyderabad",
+          "Mumbai",
+          "Delhi",
+          "Chennai",
+          "Pune",
+          "Kolkata",
+          "Gurgaon",
+          "Noida",
+          "Ahmedabad",
+          "Jaipur",
+          "Indore",
+          "Chandigarh",
+          "Surat",
+          "Coimbatore",
+          "Lucknow",
+          "Bhopal",
+          "Vizag",
+          "Nagpur",
+          "Mysuru"
+        ]
+      },
+      {
+        "heading": "Remote Options",
+        "value": ["Remote", "On-site", "Hybrid"]
+      },
+      {
+        "heading": "Salary Range",
+        "value": [
+          "< 3 LPA",
+          "3-6 LPA",
+          "6-10 LPA",
+          "10-15 LPA",
+          "15-20 LPA",
+          "20+ LPA"
+        ]
+      },
+      {
+        "heading": "Company Type",
+        "value": [
+          "Startup",
+          "MNC",
+          "Government",
+          "Non-Profit",
+          "Public Sector",
+          "Private Limited"
+        ]
+      },
+      {
+        "heading": "Job Role",
+        "value": [
+          "Software Engineer",
+          "Project Manager",
+          "Data Analyst",
+          "Business Development",
+          "Sales Executive",
+          "HR Manager",
+          "Marketing Manager",
+          "Product Manager",
+          "Operations Manager",
+          "Graphic Designer",
+          "UI/UX Designer",
+          "Consultant"
+        ]
+      },
+      {
+        "heading": "Company Size",
+        "value": [
+          "1-50 employees",
+          "51-200 employees",
+          "201-500 employees",
+          "501-1000 employees",
+          "1000+ employees"
+        ]
+      },
+      {
+        "heading": "Employment Status",
+        "value": ["Active", "On Notice Period", "Intern"]
+      },
+      {
+        "heading": "Freshness",
+        "value": ["Last 7 Days", "Last 14 Days", "Last 30 Days", "Any Time"]
+      },
+      {
+        "heading": "Work Shift",
+        "value": ["Day Shift", "Night Shift", "Rotational Shift", "Flexible Shift"]
+      },
+      {
+        "heading": "Skills",
+        "value": [
+          "JavaScript",
+          "Python",
+          "Java",
+          "SQL",
+          "React",
+          "Node.js",
+          "Angular",
+          "DevOps",
+          "Machine Learning",
+          "Data Science",
+          "Cloud Computing",
+          "Digital Marketing",
+          "Content Writing",
+          "Sales",
+          "Human Resources",
+          "Finance"
+        ]
+      },
+      {
+        "heading": "Preferred Language",
+        "value": ["English", "Hindi", "Kannada", "Tamil", "Telugu", "Marathi", "Bengali", "Gujarati", "Punjabi", "Malayalam"]
+      }
+    ]
+  }
+  
 
 
 
 
 
-}
+
+
+
 

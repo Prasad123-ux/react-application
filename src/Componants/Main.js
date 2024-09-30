@@ -75,7 +75,7 @@ const [loading, setLoading]= useState(false)
   return (
     
     <Box className='main-box ' backgroundColor={'#F8F9FA'}> 
-    
+    dfjdkfjdjfjdj
     {loading ?  <Loading/>:
     <div className=' row mx-auto '>
       
@@ -117,7 +117,7 @@ const [loading, setLoading]= useState(false)
 
   </div>
   }
-    <Footer /> 
+    {/* <Footer />  */}
 
   </Box>
     
