@@ -3,7 +3,9 @@ import React, { StrictMode} from 'react';
 import * as ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import * as serviceWorker from './serviceWorker';
+import * as serviceWorker from './serviceWorker'; 
+import {Provider} from "react-redux"
+import store from "./Componants/Redux/store" 
 // import { ColorModeSwitcher, } from './ColorModeSwitcher';
 // import {theme} from './Navbar.js/theme'
 //  import  {theme} from './theme.js'
@@ -17,8 +19,10 @@ root.render(
   <StrictMode>
     <ColorModeScript />
     <ChakraProvider theme={theme} >
-    {/* <ColorModeSwitcher> */}
-    <App />
+    {/* <ColorModeSwitcher> */} 
+    <Provider store={store}>
+    <App /> 
+    </Provider>
     {/* <Navbar/> */}
     {/* </ColorModeSwitcher> */}
     </ChakraProvider>

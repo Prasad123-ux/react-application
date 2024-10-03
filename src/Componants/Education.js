@@ -6,6 +6,7 @@ import { MdOutlineModeEditOutline } from "react-icons/md";
 import { FaGraduationCap } from "react-icons/fa";
 import options from "./data.json"
 import PropTypes from 'prop-types'    
+import { useSelector } from 'react-redux';
 
 function Education({api, educationData} ) {
 
@@ -16,14 +17,17 @@ function Education({api, educationData} ) {
   const [educationDetail, setEducationDetail]= useState()  
   const [educationArray, setEducationArray]= useState([])
   const token= localStorage.getItem("token")  
+  const jobSeekersData= useSelector((state)=>state.jobs.jobSeekers)
 
 
 
   // setArrayData(prevArray => [...prevArray, newItem]); // Create a new array reference    
 
-
+     useEffect(()=>{
+      setEducationDetail(jobSeekersData.extraFields)
+     }, [jobSeekersData])
  
-    
+   
    
  useEffect(() => {
     if (educationData) {
@@ -128,15 +132,19 @@ const handleUpdateEducationDetail=async(e)=>{
 
 
 
-console.log( educationData.extraFields?.Education &&  educationData.extraFields.Education.length>0   ? educationData.extraFields.Education[0].universityName:"no data")
+// console.log( educationData.extraFields?.Education &&  educationData.extraFields.Education.length>0   ? educationData.extraFields.Education[0].universityName:"no data")
 
 
 
  
  
 
-  
+    // console.log(educationDetail)
 
+
+    jobSeekersData.extraFields.Education.map((item, index)=>{
+      return console.log(item.universityName)
+    })
     
   return (
 
@@ -144,21 +152,27 @@ console.log( educationData.extraFields?.Education &&  educationData.extraFields.
       {/* <button onClick={handleRefreshStatus}>Refresh</button> */}
    {/* {   educationData &&   educationData.length>0?  educationData.length:educationData} */}
 
-       {  educationData  ? (  <div className='education-first d-flex justify-content-between align-items-center'> 
-<div className='education-heading d-flex justify-content-start'>
-  <span className='education-icon'><MdCastForEducation className='fs-4' /> </span> 
-  <div className='ms-4'>
-    <span className='d-block fw-bold '>Add Project Details</span>
-    <span className='d-block'> Projects that you have worked on before</span> 
-  </div>
-  
-</div>
-<div className='education-btn'>
-  <button className='btn btn-outline-info d-flex justify-content-center ' type='button'  data-bs-toggle="modal" data-bs-target="#exampleModal">
-     <span className='add-icon mt-1 fw-bolder'> <IoMdAdd /></span>  <span className='add-btn-name'> Add New</span> </button>
-</div>
+       {  jobSeekersData.extraFields.Education && jobSeekersData.extraFields.Education.length>=1   ? (  
+        jobSeekersData.extraFields.Education && jobSeekersData.extraFields.Education.length>=1 ? <div className='education-first d-flex justify-content-between align-items-center'> 
+          <div className='education-heading d-flex justify-content-start'>
+            <span className='education-icon'><MdCastForEducation className='fs-4' /> </span> 
+            <div className='ms-4'>
+              <span className='d-block fw-bold '> Add Education Details</span>
+              <span className='d-block'> Your school/college details</span> 
+            </div>
+            
+          </div>
+          <div className='education-btn'>
+            <button className='btn btn-outline-info d-flex justify-content-center ' type='button'  data-bs-toggle="modal" data-bs-target="#exampleModal">
+               <span className='add-icon mt-1 fw-bolder'> <IoMdAdd /></span>  <span className='add-btn-name'> Add New</span> </button>
+          </div>
+          
+          </div>
+          :"jkjkjj"
+        
+        )
+   
 
-</div> )
 
 :
   (<div className='d-flex flex-column align-items-center'>
@@ -183,7 +197,7 @@ console.log( educationData.extraFields?.Education &&  educationData.extraFields.
 
 
 
-     { educationData.extraFields?.Education &&  educationData.extraFields.Education.length>0   ?  educationData.extraFields.Education.map((item,index)=>{  
+     {  jobSeekersData.extraFields.Education && jobSeekersData.extraFields.Education.length>=1  ?  jobSeekersData.extraFields.Education.map((item,index)=>{  
 
          return <div className='education-first user-education p-3 mt-4'>
        <div className='  d-flex justify-content-between align-items-center ' key={index}> 
@@ -192,8 +206,9 @@ console.log( educationData.extraFields?.Education &&  educationData.extraFields.
           <span className='education-icon '><FaGraduationCap  className='fs-4'/> </span> 
           <div className='ms-4'>
             <span className='d-block fw-bold '>{item.universityName}</span>
-            {/* <span className='d-block'> Master of Computer Application (MCA) | Computer Science & Information Technology </span> 
-            <span className='d-block fw-light'> 2019-2025</span>  */}
+             <span className='d-block'> {item.degree} | {item.fieldOfStudy} </span>
+             <span>{item.cgpa}</span>
+            <span className='d-block fw-light'> {item.startingYear}-{item.endingYear}</span>  
                 {item.fieldOfStudy}
           </div>
           <div className='education-btn d-block d-sm-none '>
@@ -216,14 +231,14 @@ console.log( educationData.extraFields?.Education &&  educationData.extraFields.
     </div>
      
       </div>
-      <div className='ps-5'>
+      {/* <div className='ps-5'>
          <span className='d-block'> Master of Computer Application (MCA)  </span> 
          <span className='d-block'>  Computer Science & Information Technology </span>
          <span> CGPA : 8.5</span>
           <span className='d-block fw-light'> 2019-2025</span>  
 
 
-      </div>
+      </div> */}
 
       </div>
 

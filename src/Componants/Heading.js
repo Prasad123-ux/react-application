@@ -5,18 +5,24 @@ import "../Styles/heading.css"
 import { FaPaperPlane } from "react-icons/fa";
 import {Accordion,AccordionItem,AccordionButton,AccordionPanel,AccordionIcon,Alert, AlertIcon} from '@chakra-ui/react'
 import options from './data.json'
-import { MdClear } from "react-icons/md";
+import { MdClear } from "react-icons/md"; 
+import { useDispatch, useSelector } from 'react-redux';
+import { setFilteredJobs } from './Redux/jobSlice';
 // import e from 'express';
 
  
 
 
-   export default function Heading({onDataReceived}) {
+   export default function Heading() {
     const [filteredValue, setFilteredValue]= useState({})   
      const [checkedValue, setIsCheckedValue]= useState() 
      const [isChecked, setIsChecked]= useState(true)
   const {isOpen, onClose, onOpen}=useDisclosure()
+  const dispatch= useDispatch();
+  const allJobs= useSelector((state)=>state.jobs.jobs)   
+  const filteredJobs = useSelector((state) => state.jobs.filteredJobs);
 
+   const [filter, setFilter]= useState({})   
 
 
 
@@ -63,8 +69,7 @@ import { MdClear } from "react-icons/md";
     }
   
 
-     
-    
+
     
      
      
@@ -91,10 +96,18 @@ import { MdClear } from "react-icons/md";
       }
     const queryString= params.toString()
          
-    const response= await  fetch(`http://localhost:5000/api/filterData?${queryString}`)  
+    const response= await  fetch(`http://localhost:5000/api/candidate/filterData?${queryString}`, {
+      method:"GET",
+    headers:{
+        "Content-type":"application/json"
+      }
+    })  
 
      const data= await response.json()
-     console.log(data)
+     console.log(data.jobs)  
+     if( data.jobs && data.jobs.length>=1){
+     dispatch(setFilteredJobs(data.jobs[0]))   
+     }
 
      }
 
@@ -103,11 +116,13 @@ import { MdClear } from "react-icons/md";
     
   const handleAllclear=()=>{
       setFilteredValue({})
+      dispatch(setFilteredJobs(""))
   }
 
 
 
-
+     
+  
   return (
   <>
     <Box className='landscape-filter'  display={{ base: 'none', sm: 'none', md: 'none', lg: 'block' }}>
@@ -138,11 +153,11 @@ import { MdClear } from "react-icons/md";
          
          <AccordionButton >
           
-          <Box className='' fontWeight={'600'} fontSize={'15'} as='span' textAlign={'left'} flex={'1'} > {item.heading}</Box>
+          <Box className='' fontWeight={'600'} fontSize={'15'} as='span' textAlign={'left'} flex={'1'} > {item.heading}  </Box>
 
-          <AccordionIcon className="ms-2"/>
+          <AccordionIcon className="ms-2"/>    
          </AccordionButton>
-         <AccordionPanel  className=''>  
+         <AccordionPanel  className=''>    
           {item.value.map((values)=>{
             return <Checkbox    value={values} name={values}  isChecked={filteredValue[item.heading]?.includes(values)}   onChange={(e)=>{onchange(item.heading, e.target.name)}} >{values}</Checkbox>
           })}
@@ -152,8 +167,8 @@ import { MdClear } from "react-icons/md";
           })
         }
         <div className='d-flex justify-content-between'>
-              <button className='btn btn-outline-primary icons mt-3 '><FaPaperPlane/></button>
-            { filteredValue.length> 1  ? <button className='btn btn-danger icons  mt-3 ' onClick={handleAllclear}><MdClear /></button> :"" }
+              <button className='btn btn-outline-primary icons mt-3 ' onClick={onFilterSubmit}><FaPaperPlane/></button>
+            {filteredJobs && filteredJobs.length>=1  ? <button className='btn btn-danger icons  mt-3 ' onClick={handleAllclear}><MdClear /></button> :"" }
               </div>
 
 
@@ -227,6 +242,8 @@ import { MdClear } from "react-icons/md";
        </Drawer> 
 
     </Box>
+
+    
     </>
     
 

@@ -14,63 +14,64 @@ import Education from './Education';
 import Experience from './Experience';
 import Project from './Project';
 import Work from './Certification';
-import Accomplishment from './Accomplishment';
+import Accomplishment from './Accomplishment'; 
+import { useDispatch, useSelector } from 'react-redux';
+import { setJobSeekers } from './Redux/jobSlice';
+
 
 
 
 function Profile({api}) {  
 
   const [userData, setUserData]= useState([])
-  const [userUpdatedData, setUserUpdatedData]= useState({name:"", location:"", workStatus:"",city:"", join:"", })
+  const [userUpdatedData, setUserUpdatedData]= useState({name:"", location:"", workStatus:"",city:"", join:"", }) 
+  const dispatch= useDispatch() 
+  const jobSeekerData= useSelector((state)=>state.jobs.jobSeekers)
 
- const token = localStorage.getItem('token')
+
+ const token = localStorage.getItem('token') 
+ console.log(jobSeekerData)
 
 // console.log(userData)
   const handleGetUserData = async () => {
-    console.log("Fetching user data...");
-    try {
-      const response = await fetch('http://localhost:5000/api/candidate/getProfileData', {
+    
+    
+    await fetch('http://localhost:5000/api/candidate/getProfileData', {
         method: "POST",
         body: JSON.stringify({ token: token }),
         headers: {
           "Content-type": "application/json"
         }
-      });
+      })
+      .then((response)=>{
+        if(!response.ok){
+          throw new Error(response.statusText)
+        }else{
+          return response.json()
+        }
+
+      }).then((data)=>{ 
+        setUserData(data.Data) 
+        dispatch(setJobSeekers(data.Data))
+})
+.catch((err)=>{ 
+  console.log(err.message)
+
+})
   
-      if (!response.ok) {
-        throw new Error(`Error: ${response.statusText}`);
-      }
-  
-      const data = await response.json();
-      console.log("Data received:", data);
-      setUserData(data.Data || {});
-  
-    } catch (err) {
-      console.error("Error fetching user data:", err.message);
-    }
+    
   };
-  
+    
 
   useEffect(() => {
     // Call the function to fetch user data when component mounts
-    handleGetUserData();
+    handleGetUserData();  
   }, []); // Empty dependency array means this effect runs once when the component mounts
 
-  useEffect(() => {
-    if (userData && Object.keys(userData).length > 0) {
-      // Perform actions with userData here
-      console.log("UserData available:", userData);
-
-      // Example: Add data to recommended array
-      // setRecommendedArray([...recommendedArray, userData]);
-    } else {
-      console.log("No user data available.");
-    }
-  }, [userData]); // This effect runs when userData changes
+  
 
 
-
-  console.log(userData)
+  
 
 const onchange=(e)=>{
   
@@ -78,67 +79,12 @@ const onchange=(e)=>{
  
 
 }
-// console.log(userData)   
-
-// console.log(userData)
-
-
-// const handleSubmitData=(e)=>{
-
-//   e.preventDefault()
-//   try{
-//     fetch('http://localhost:5000/api/candidate/getProfileData', {
-//       method:"PUT",
-//       body:JSON.stringify({token:token, updatedData:userUpdatedData}),
-//       headers:{
-//     "Content-type":"application/json"
-//       }
-//     }).then((response)=>{
-//       if(!response.ok){
-//         throw new Error(response.statusText)
-                                                         
-//       }else{
-//         return response.json()
-//       }
-
-//     }).then((data)=>{   
-//       console.log(data)
-
-//     }).catch((err)=>{
-//       console.error(err)
-
-//     })
-
-//   }catch(err){
-//     console.log(err)
-
-//   }
 
 
 
-// }
-//  console.log(userData.extraFields.Education)
 
+console.log(jobSeekerData)    
 
-// console.log(userData)
-
-  
-
-
-console.log(userData)
-  
-
-
-
-// console.log(userData.MobileNumber)
-//  console.log(userData.extraFields.resume)
-
-  // console.log(userData.extraFields.Education)
-    // console.log(userData.extraFields.resume)
-
-  // console.log(userData.extraFields?.Education  ? userData:"Data not available" )
-  // console.log(userData)
- 
 
   return (
     <>

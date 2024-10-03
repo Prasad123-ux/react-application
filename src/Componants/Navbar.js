@@ -7,6 +7,8 @@ import {Link } from 'react-router-dom'
 import { BiMenuAltLeft } from 'react-icons/bi'
 import "../Styles/navbar.css"
 import Heading from './Heading';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFilteredJobs } from './Redux/jobSlice';
 
 
 
@@ -23,8 +25,15 @@ const {isOpen:isLogOpen, onOpen:onLogOpen, onClose:onLogClose}= useDisclosure()
     const [disable, setDisable]= useState(true)
     const [isScrolling,setIsScrolling]= useState(false)  
     const [tokenValue,setTokenValue]= useState()
+    const dispatch= useDispatch() 
+    const allJobs= useSelector((state)=>state.jobs.jobs)
+    const filteredJobs = useSelector((state) => state.jobs.filteredJobs);
 
 
+    useEffect(() => {
+      console.log("Filtered Jobs updated:", filteredJobs);
+    }, [filteredJobs]);
+    
 
     useEffect(()=>{
       const token= localStorage.getItem('token')
@@ -34,6 +43,31 @@ const {isOpen:isLogOpen, onOpen:onLogOpen, onClose:onLogClose}= useDisclosure()
     }, [])
    
 
+
+
+    const handleSearchData=async ()=>{ 
+      try{
+    const response = await fetch(`http://localhost:5000/api/candidate/searchData?location=${encodeURIComponent(location)}&role=${encodeURIComponent(role)}`, {
+      method:'GET',
+      headers:{"content-type":"application/json"}
+    })
+   
+    const data = await response.json() 
+    console.log(data.jobs)
+    if( data.job && data.job.length>=1){
+     data.jobs && data.jobs.length>0 ? console.log(data.jobs[0]):console.log("data not found")
+      dispatch(setFilteredJobs(data.job[0]))   
+      }
+    
+  }catch(err){
+    console.log(err)
+    
+
+  }
+    }
+
+
+    console.log(filteredJobs)
 
 
 
@@ -56,21 +90,26 @@ const {isOpen:isLogOpen, onOpen:onLogOpen, onClose:onLogClose}= useDisclosure()
 
 
 
-    
+     console.log(location, role)
 
 
-  return (
+  return (  
+
+
  <Box  width={'full'} className='navbar fixed'  >
       <HStack justifyContent={'space-evenly'} >
         
       
         <Link to="/" className='link'>  <Text fontSize={{base:'2rem',sm:'2.5rem',md:'3rem',lg:'3rem' }} color={'yellow'} fontWeight={'800'}> Jobify</Text></Link>
         
-        <Input textAlign={'center'}   onChange={((e)=>{ setRole(e.target.value)})} display={{ base:'none' ,md:'block ' ,sm:'none' ,lg:'block' }}fontSize={{base:'1rem',md:'1rem'}}  fontWeight={'700'} placeholder ='Search for your role' />
+        <Input textAlign={'center'}  spellCheck="true"  onChange={((e)=>{ setRole(e.target.value)})} display={{ base:'none' ,md:'block ' ,sm:'none' ,lg:'block' }}fontSize={{base:'1rem',md:'1rem'}}  fontWeight={'700'} placeholder ='Search for your role' />
 
-        <Input   textAlign={'center'} onChange={((e)=>{ setLocation(e.target.value)})} fontSize={{base:'1rem',md:'1rem'}} display={{  base:'none', md:'none ' ,sm:'none' ,lg:'block' }} fontWeight={'700'} placeholder='Search your Location'/>
-        <Button isDisabled={disable} onClick={onsubmit} width={'200px'} variant={'solid'} colorScheme='teal' display={{base:'none', md:'none', lg:'block'}} mr={'20'}><FaPaperPlane/></Button>
-        
+        <Input   textAlign={'center'} spellCheck="true" onChange={((e)=>{ setLocation(e.target.value)})} fontSize={{base:'1rem',md:'1rem'}} display={{  base:'none', md:'none ' ,sm:'none' ,lg:'block' }} fontWeight={'700'} placeholder='Search your Location'/>  
+
+        { location&&  location.length>1   && role && role.length>1 ?
+        <Button isDisabled={false}  onClick={handleSearchData} width={'200px'} variant={'solid'} colorScheme='teal' display={{base:'none', md:'none', lg:'block'}} mr={'20'}><FaPaperPlane/></Button>
+      :            <Button  isDisabled={true} onClick={handleSearchData} width={'200px'} variant={'solid'} colorScheme='teal' display={{base:'none', md:'none', lg:'block'}} mr={'20'}><FaPaperPlane/></Button>
+}
         <div className='d-block d-lg-none'><Heading/></div>
 
 

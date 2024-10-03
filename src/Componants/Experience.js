@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { MdCastForEducation } from "react-icons/md";
 import { IoMdAdd } from "react-icons/io";
 import "../Styles/education.css"
 import { MdOutlineModeEditOutline } from "react-icons/md";
 import { FaGraduationCap } from "react-icons/fa";
 import options from "./data.json"
+import { useDispatch, useSelector } from 'react-redux';
 
 
 function Experience() {
@@ -14,7 +15,15 @@ function Experience() {
   // const [updateValue, setUpdateValue]= useState(false)
   const [schoolDetails, setSchoolDetails]= useState({schoolName:"", class:"", passingYear:"", cgpa:""})
   const [collageDetails,setCollegeDetails]= useState({universityName:"",fieldOfStudy:"",degree:"",startingYear:"", endingYear:"",cgpa:""})
-   const [educationDetail, setEducationDetail]= useState([])
+   const [educationDetail, setEducationDetail]= useState([]) 
+   const dispatch= useDispatch() 
+   const jobSeekerData= useSelector((state)=>state.jobs.jobSeekers) 
+
+
+
+   useEffect(()=>{
+  console.log(jobSeekerData)
+   },[])
 
 
   const getValue=()=>{

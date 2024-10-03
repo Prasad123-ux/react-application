@@ -1,10 +1,12 @@
 import React, {  useEffect, useState } from 'react';
 import Job from './Job.js';
-import { Box, Button  } from '@chakra-ui/react';
+import { Box, Button, useDisclosure , } from '@chakra-ui/react';
 import "../Styles/main.css"
 import Loading from './Loading.js';
 import Footer from './Footer.js';
 import Heading from './Heading.js';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAllJobs } from './Redux/jobSlice.js';
 
 // import { FaCircleArrowLeft } from "react-icons/fa6"; 
 // import { FaCircleArrowRight } from "react-icons/fa6";
@@ -19,19 +21,24 @@ const Main = () => {
 const [loading, setLoading]= useState(false)
 
   const [data, setData] = useState([]); // Initialize data as an object with a results property 
-  const [page, setPage]= useState()
-  
+  const [page, setPage]= useState() 
+  const dispatch= useDispatch() 
+  const allJobs = useSelector((state) => state.jobs.jobs);  
+  const filteredJobs = useSelector((state) => state.jobs.filteredJobs); 
+  const [filterLength, setFilterLength]= useState(0)
+
+
+useEffect(()=>{
+  console.log(filteredJobs)
+  const length= filteredJobs.length
+  setFilterLength(length)
+}, [filteredJobs])
 
 
 
-  
 
 
-  
-
-
-
-  useEffect(() => {
+   useEffect(() => {
     const fetchData = async () => {
       try {
        setLoading(true)
@@ -42,7 +49,10 @@ const [loading, setLoading]= useState(false)
         const result = await response.json();
          setLoading(false)
 
-         setData(result.Data); 
+         setData(result.Data);  
+        //  dispatch(setAllJobs(result.data))
+
+         
       
       } catch (error) {  
          setLoading(true)
@@ -57,67 +67,81 @@ const [loading, setLoading]= useState(false)
 
   const  handleDeleteJob=(id)=>{
     console.log(data.results)
-    const updatedJobs=data.filter( job=> job._id !== id); //this function is for "not interested" component
-    setData(updatedJobs )
+    const updatedJobs=data.filter( job=> job._id !== id); //this function is for "not interested" component  
+
+    setData(updatedJobs)       
 
   }
  
+  
 
 
-
-
-   
-
-
-
-
+ console.log(filterLength)
 
   return (
     
     <Box className='main-box ' backgroundColor={'#F8F9FA'}> 
-    dfjdkfjdjfjdj
-    {loading ?  <Loading/>:
+    
+    {loading ?  <Loading/> 
+    
+    :
+    filterLength===0 ?  
+      <div className=' row  mx-auto '>
+      <div className='col-md-3 filters  col-12  d-none d-lg-block mx-auto mb-5'>
+     <Heading/> 
+     
+     </div>  
+     <div className='col-md-8   col-12   ms-5 jobs '> 
+    {data && data.length>0 ?(
+       data.map((job)=>{
+          return <div key={job._id} className='mx-auto'>
+            <Job id={job._id} title={job.JobTitle}  employment_type={job.JobCommonInfo.EmploymentType}  location={job.JobLocation} maxSalary={job.JobMaxSalary}  minSalary={job.JobMinSalary} description={job.JobDescriptionSummary} minExperience={job.JobMinExperience} maxExperience={job.JobMaxExperience}    requirement={job.JobRequirements}  onDelete={handleDeleteJob} neededSkills={job.JobRequirements.NeededSkillsAndTechnologies} company_name={job.company_name} postedDate={job.createdAt}  />
+              </div>
+        })
+      )
+      : 
+      ("")   
+    }     
+    
+ </div>    
+    </div>
+:
+
+
+
+  
+
+
     <div className=' row mx-auto '>
       
       <div className='col-md-3 filters  col-12  d-none d-lg-block mx-auto mb-5'>
-     <Heading/>
-     </div>  
-     <div className='col-md-8  col-12  mx-auto jobs '> 
-    {data && data.length>0 ?(
-      
-      data.map((job)=>{
-          return <div key={job._id}>
-            <Job id={job._id} title={job.JobTitle}  employment_type={job.JobCommonInfo.EmploymentType}  location={job.JobLocation} maxSalary={job.JobMaxSalary}  minSalary={job.JobMinSalary} description={job.JobDescriptionSummary} minExperience={job.JobMinExperience} maxExperience={job.JobMaxExperience}    requirement={job.JobRequirements}  onDelete={handleDeleteJob} neededSkills={job.JobRequirements.NeededSkillsAndTechnologies} company_name={job.company_name} postedDate={job.createdAt}  />
-            
-            
-            </div>
-        })
-      ): 
-      
-      
-      
-      ("")
-    }     
-    
-    {/* <div className='pagination'>
-    <Button isDisabled={page<=1 ? true : false }   colorScheme='teal' width={'150px'} variant={'outline'} size={{base:'xs', sm:'sm', md:'md',lg:'lg'}} letterSpacing={'10'}  ><FaCircleArrowLeft />Previous</Button>
-  <Button variant={'outline'} colorScheme='teal' size={{base:'xs',sm:'sm', md:'md', lg:'lg'}} width={'150px'}>Next<FaCircleArrowRight /></Button>
-  </div>  */}
-
-
-
-    </div>
+ <Heading/> 
+ 
+ </div>  
+ <div className='col-md-8  col-12  mx-auto jobs '> 
+{ filteredJobs && filteredJobs.length>=1 ?(
+  
+  filteredJobs.map((job)=>{
+      return <div key={job._id}>
+        <Job id={job._id} title={job.JobTitle}  employment_type={job.JobCommonInfo.EmploymentType}  location={job.JobLocation} maxSalary={job.JobMaxSalary}  minSalary={job.JobMinSalary} description={job.JobDescriptionSummary} minExperience={job.JobMinExperience} maxExperience={job.JobMaxExperience}    requirement={job.JobRequirements}  onDelete={handleDeleteJob} neededSkills={job.JobRequirements.NeededSkillsAndTechnologies} company_name={job.company_name} postedDate={job.createdAt}  />
         
+        
+        </div>
+    })
+  ): 
+  
+  
+  
+  ("")
+}     
+
+</div>    
+</div>
 
 
 
-                     {/* This is our pagination section */}
+}  
 
-      
-
-  </div>
-  }
-    {/* <Footer />  */}
 
   </Box>
     
