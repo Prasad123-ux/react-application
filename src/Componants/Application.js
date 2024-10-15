@@ -19,7 +19,7 @@ function Application() {
     useEffect(()=>{
         const findJobExplainDetail= async ()=>{
             try{
-                await fetch(`http://localhost:5000/api/candidate/getJobByID/${id}`,{
+                await fetch(`   http://localhost:5000/api/candidate/getJobByID/${id}`,{
                     method:"GET",
                     headers:{
                         "Content-type":"application/json"
@@ -54,7 +54,7 @@ function Application() {
 useEffect(()=>{
     const findProfileData=async ()=>{
         try{
-        const response= await fetch('http://localhost:5000/api/candidate/getProfileData', {
+        const response= await fetch('   http://localhost:5000/api/candidate/getProfileData', {
             method:"POST",
             body:JSON.stringify({token:token}),
             headers:{
@@ -86,7 +86,7 @@ const appliedJob= async (value)=>{
     
     
     
-        await fetch(`http://localhost:5000/api/candidate/appliedForJob/${value}`, {
+        await fetch(`   http://localhost:5000/api/candidate/appliedForJob/${value}`, {
             method:"GET",
         headers:{
             "Content-type":"application/json"
@@ -122,7 +122,7 @@ const appliedJob= async (value)=>{
   return (
     <>
     
-      <div className='  mx-auto application-first-body shadow  text-center  mt-5  flex-column pt-2 pb-3  object-fit-fill border rounded' >
+      <div className='  mx-auto application-first-body shadow  text-center    flex-column pt-2 pb-3  object-fit-fill border rounded' >
 <span className='fw-bold'>{ jobData.JobTitle && jobData.JobTitle.length>0 ? jobData.JobTitle:""} ({ jobData.JobCommonInfo && jobData.JobCommonInfo.length>0 ?jobData.JobCommonInfo[0].JobRole:""})</span>
 <div className='mt-1'>{jobData.company_name && jobData.company_name.length>0 ? jobData.company_name:""}--{jobData.JobLocation && jobData.JobLocation.length>0 ? jobData.JobLocation:"" } </div>
       </div>

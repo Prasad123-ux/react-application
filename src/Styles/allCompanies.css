@@ -1,0 +1,74 @@
+.company-board{
+    height: fit-content; 
+    border: 1 px solid ; 
+    margin-top: 2px;
+   
+    padding-top: 10px;
+    width: 150px;  
+    /* width: 200px;  */ 
+
+    /* height: 100px;  */             
+    background-color: white;  
+   
+    border-radius: 20px; 
+    padding-left: 15px; 
+    padding-bottom: 20px;
+
+
+}      
+.company-type{ 
+    font-weight: 500;   
+    font-size: 1.2rem; 
+
+}
+.company-number{
+    font-size: 0.8rem ;
+    font-weight: 500;
+}
+.company-next{
+    width: fit-content;
+}
+
+.company-slider{
+    width: 75%;  
+    overflow: scroll;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+

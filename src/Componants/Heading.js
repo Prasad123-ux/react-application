@@ -96,7 +96,7 @@ import { setFilteredJobs } from './Redux/jobSlice';
       }
     const queryString= params.toString()
          
-    const response= await  fetch(`http://localhost:5000/api/candidate/filterData?${queryString}`, {
+    const response= await  fetch(`   http://localhost:5000/api/candidate/filterData?${queryString}`, {
       method:"GET",
     headers:{
         "Content-type":"application/json"
@@ -127,19 +127,23 @@ import { setFilteredJobs } from './Redux/jobSlice';
   <>
     <Box className='landscape-filter'  display={{ base: 'none', sm: 'none', md: 'none', lg: 'block' }}>
     
-    
+       
 
-       {/* <Button pos={'fixed'}  mt={{base:'2rem',sm:'3rem',md:'4rem',lg:'5rem'}}  top={'6'} colorScheme='whatsapp' width={{base:'100px', md:'200px',lg:'200px'}} height={'40px'} variant={'solid'}  onClick={onOpen} fontSize={'20'} size={{base:'sm', sm:'sm', md:'md', lg:'lg', xl:'xl'}} > Apply Filters</Button>  */}
 
-     {/* <Drawer className="heading-drawer" isOpen={isOpen} placement='left'  onClose={onClose}  size={'xs'}>   */}
+{/* <Button pos={'fixed'}  mt={{base:'2rem',sm:'3rem',md:'4rem',lg:'5rem'}}  top={'6'} colorScheme='whatsapp' width={{base:'100px', md:'200px',lg:'200px'}} height={'40px'} variant={'solid'}  onClick={onOpen} fontSize={'20'} size={{base:'sm', sm:'sm', md:'md', lg:'lg', xl:'xl'}} > Apply Filters</Button>  */}
+{/* <Drawer className="heading-drawer" isOpen={isOpen} placement='left'  onClose={onClose}  size={'xs'}>   */}
         
-
-     {/* <DrawerOverlay/>  */}
+{/* <DrawerOverlay/>  */}
 
      {/* <DrawerContent>  */}
     {/* <DrawerCloseButton/>  */}
    {/* <DrawerHeader color={'yellow'}>Jobify</DrawerHeader>  */}
-   {/* <DrawerBody >  */}
+   {/* <DrawerBody >  */}  
+
+
+
+
+     
      <div className='main-heading '>
       <div className='main-head'>
         <span className="filter">Filter Job</span>

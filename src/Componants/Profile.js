@@ -13,10 +13,15 @@ import Resume from './Resume';
 import Education from './Education';
 import Experience from './Experience';
 import Project from './Project';
-import Work from './Certification';
+// import Work from './Certification';
 import Accomplishment from './Accomplishment'; 
 import { useDispatch, useSelector } from 'react-redux';
 import { setJobSeekers } from './Redux/jobSlice';
+import Certification from './Certification';
+import RemainingDetails from './RemainingDetails';
+import ProfileProgress from './ProfileProgress'; 
+import { CircularProgress } from '@chakra-ui/react';
+import ProfileImage from './ProfileImage';
 
 
 
@@ -31,6 +36,17 @@ function Profile({api}) {
 
  const token = localStorage.getItem('token') 
  console.log(jobSeekerData)
+
+ useEffect(() => {
+  // Call the function to fetch user data when component mounts
+  handleGetUserData();  
+}, []); // Empty dependency array means this effect runs once when the component mounts
+
+
+
+
+
+
 
 // console.log(userData)
   const handleGetUserData = async () => {
@@ -63,11 +79,7 @@ function Profile({api}) {
   };
     
 
-  useEffect(() => {
-    // Call the function to fetch user data when component mounts
-    handleGetUserData();  
-  }, []); // Empty dependency array means this effect runs once when the component mounts
-
+  
   
 
 
@@ -83,15 +95,19 @@ const onchange=(e)=>{
 
 
 
-console.log(jobSeekerData)    
+
 
 
   return (
     <>
+   
     <div className='base' >
       <div className='base-first row  mx-auto rounded shadow  p-4 '>
         <div className='profile-photo col-12 col-lg-1 d-flex justify-content-center '>    
-          <Avatar size="xl" />
+        
+          {/* <ProfileProgress/>  */}
+          <ProfileImage/>
+          {/* <CircularProgress value={59} size='100px' thickness='4px' >   <Avatar size="xl" /> </CircularProgress> */}
           {/* <button className='ms-5 mt-2 btn btn-primary  cursor-pointer ' style={{"height":"40px"}}> EDIT</button> */}
         </div>                              
         <div className='profile-info mx-auto text-center col-12 col-lg-7'>
@@ -101,7 +117,7 @@ console.log(jobSeekerData)
         {/* <span className=''></span> */}
         <span className='profile-last fw-light'>Profile last updated</span>-<span className=' day text-secondary fw-medium '>Today</span>
         {/* <button className='btn btn-primary' onClick={getUserData}>  get the user data from </button> */}
-        <button className='btn btn-outline-danger' onClick={handleGetUserData}> getUserData</button>
+        {/* <button className='btn btn-outline-danger' onClick={handleGetUserData}> getUserData</button> */}
         
     
        </div>
@@ -110,16 +126,16 @@ console.log(jobSeekerData)
        <div className='down-main row'>
         <div className='down-first col-12 col-md-6 '>
           
-          <Text className='d-block text-secondary '><CiLocationOn style={{"width":"30px"}}  className='d-inline' /> <span className=''>{userData.City && userData.City.length>1  ? userData.City :"" }</span></Text>
-          <Text className='d-block text-secondary '><BsPersonWorkspace className='d-inline' style={{"width":"30px"}} /> <span className=''>{userData.WorkStatus && userData.WorkStatus.length>1  ? userData.WorkStatus :"" }</span>  </Text>
-          <Text className='d-block text-secondary '><MdOutlineDateRange className='d-inline' style={{"width":"30px"}} /><span className='d-inline'> </span></Text>
+         {userData.City && userData.City.length>1  ?  <Text className='d-block text-secondary '><CiLocationOn style={{"width":"30px"}}  className='d-inline' /> <span className=''>{userData.City && userData.City.length>1  ? userData.City :"" }</span></Text>:""}
+         {userData.WorkStatus && userData.WorkStatus.length>1  ? <Text className='d-block text-secondary '><BsPersonWorkspace className='d-inline' style={{"width":"30px"}} /> <span className=''>{userData.WorkStatus && userData.WorkStatus.length>1  ? userData.WorkStatus :"" }</span>  </Text>:""}
+         { userData.birthDate && userData.birthDate.length>=1 ?<Text className='d-block text-secondary '><MdOutlineDateRange className='d-inline' style={{"width":"30px"}} /><span className='d-inline'> {userData.birthDate && userData.birthDate.length>1  ? userData.birthDate:""}</span></Text>:""}
           
    
       
         </div>
         <div className='col-12  col-md-6' >
-        <Text className='d-block text-secondary '><CiPhone style={{"width":"30px" ,"height":"20px"}} className='d-inline' /><span className=''>{userData.MobileNumber  ? userData.MobileNumber :"Not Found" }</span>  </Text>
-        <Text className='d-block text-secondary '><CiMail  style={{"width":"30px" ,"height":"20px"}} className='d-inline' /><span className=''>{userData.Email && userData.Email.length>1  ? userData.Email :"" }</span>  </Text>
+      { userData.MobileNumber  ? <Text className='d-block text-secondary '><CiPhone style={{"width":"30px" ,"height":"20px"}} className='d-inline' /><span className=''>{userData.MobileNumber  ? userData.MobileNumber :"Not Found" }</span>  </Text>:""}
+       {userData.Email && userData.Email.length>1  ? <Text className='d-block text-secondary '><CiMail  style={{"width":"30px" ,"height":"20px"}} className='d-inline' /><span className=''>{userData.Email && userData.Email.length>1  ? userData.Email :"" }</span>  </Text>:""}
         <button className='d-block text-secondary btn  w-50 mx-auto shadow bg-light  ' data-toggle="modal" data-target="#exampleModalLong"><FiEdit2 className='d-inline' style={{"width":"30px"}} /><span className='d-inline'>Edit </span></button>
 
 
@@ -131,29 +147,14 @@ console.log(jobSeekerData)
 
         </div>
         <div className='progress-info col-12 w-100 p-2 col-md-6 col-lg-4 rounded  mt-5 mt-lg-0 mx-auto d-flex justify-content-between  flex-column' style={{"backgroundColor":"#FFF2E3"}}>
-           <div className='d-flex justify-content-between flex-row   '>
-            <div className='d-block  '> 
-            
-            <Text className='d-flex justify-content-between text-secondary d- '><CiMail   style={{"width":"40px" ,"height":"20px"}} className='d-inline bg-white rounded-circle' /><span className=' ms-3'>Add resume</span>  </Text>
 
-
-            </div>
-            <div className=' w-25 text-success  rounded-circle' > 
-                          <Text className='d-flex justify-content-between text-secondary text-success '> <span className=' ms-3'>5%</span>  </Text>
-
-              {/* <span className=' rounded-circle'> <IoArrowUp />5%</span> */}
-
-            </div>
-
-           </div>
-           <button className='btn btn-primary  btn-detail mx-auto' style={{"backgroundColor":"#F05537"}}>Add missing details</button>
-
-        </div>
+       <RemainingDetails/>
+       </div>
       </div>
       
 
 
-
+{/* <RemainingDetails/> */}
       
 
 
@@ -275,14 +276,15 @@ console.log(jobSeekerData)
     < ProfilePart />
     <div className=' d-block d-sm-none mt-5'>
     <div className='w-100 bg-gradient text-info d-flex justify-content-center fs-6 fw-bold  mt-5 section-heading shadow'> Resume</div>
-    {userData.extraFields?.resume  ? <Resume   resumeData={userData.extraFields.resume} />:"no"} 
+   <Resume/>
       <div className='w-100 bg-gradient text-info d-flex justify-content-center fs-6 fw-bold mt-5 section-heading  shadow mb-5'> Education</div>
-      {userData.length>0  ? <Education api={api} educationData= {userData} />:"No Education Data Available"}   
+     <Education/>
       <div className='w-100 bg-gradient text-info d-flex justify-content-center fs-6 fw-bold mt-5 section-heading  shadow mb-5'> Experience</div>
       
       <Experience/>
       <div className='w-100 bg-gradient text-info d-flex justify-content-center fs-6 fw-bold mt-5 section-heading  shadow mb-5'> Work</div>
-     <Work/>
+     {/* <Work onFetchDataButton={handleGetUserData}/> */} 
+     <Certification onFetchDataButton={handleGetUserData}/> 
       <div className='w-100 bg-gradient text-info d-flex justify-content-center fs-6 fw-bold mt-5 section-heading  shadow mb-5'> Projects</div>
       <Project/>
       <div className='w-100 bg-gradient text-info d-flex justify-content-center fs-6 fw-bold mt-5 section-heading  shadow mb-5'> Accomplishment</div>

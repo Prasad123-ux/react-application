@@ -21,7 +21,7 @@ const GoogleSignIn = () => {
         console.log("Encoded JWT ID token: " + response.credential);
         
         // Send the token to your backend for verification
-        axios.post('http://localhost:5000/api/candidate/google', {
+        axios.post('   http://localhost:5000/api/candidate/google', {
             token: response.credential
         })
         .then(response => {

@@ -27,6 +27,10 @@ width: 75%;
     width: fit-content;
 }
 
+.resume-img{
+    width: 800px; 
+    height: 50vh;
+}
 
 @media only screen and  ( max-width: 576px  ) {
 
@@ -57,6 +61,10 @@ width: 75%;
         }
         .resume-placeholder{
             width: fit-content;
+        }
+        .resume-img{
+            width: fit-content; 
+            height:100vh;
         }
         
 

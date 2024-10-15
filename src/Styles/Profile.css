@@ -19,8 +19,27 @@
     /* width: 60%; */
 
 
+} 
+.main-field{
+    overflow: scroll;
+    height: 250px;
 }
-.progress-info{
+.fields{
+    font-size: 13px;  
+    overflow: scroll; 
+
+
+}
+.fields-btn{
+    width: fit-content; 
+    height: fit-content;
+    font-size: 14px; 
+    
+}
+
+.progress-info{ 
+    width: fit-content; 
+    height: fit-content;
 
 }
 .name{

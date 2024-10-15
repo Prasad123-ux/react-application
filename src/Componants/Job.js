@@ -39,8 +39,8 @@ console.log(requirement)
   
  const handleSaveJob= async (key)=>{
 try{
-  // const response = await fetch('http://localhost:5000/api/candidate/save_job', {
-     const response = await fetch('http://localhost:5000/api/candidate/save_job', {
+  // const response = await fetch('   http://localhost:5000/api/candidate/save_job', {
+     const response = await fetch('   http://localhost:5000/api/candidate/save_job', {
 
     method:"POST",
     body:JSON.stringify({token:token, id:key}),

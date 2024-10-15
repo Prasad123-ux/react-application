@@ -1,4 +1,4 @@
-import React, {  useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import { MdCastForEducation } from "react-icons/md";
 import { IoMdAdd } from "react-icons/io";
 import "../Styles/education.css"
@@ -6,7 +6,10 @@ import { MdOutlineModeEditOutline } from "react-icons/md";
 import { FaGraduationCap } from "react-icons/fa";
 import options from "./data.json"
 import PropTypes from 'prop-types'    
-import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux'; 
+import { MdDelete } from "react-icons/md";
+import { useToast } from '@chakra-ui/react'; 
+// import { useDispatch } from 'react-redux';
 
 function Education({api, educationData} ) {
 
@@ -14,27 +17,27 @@ function Education({api, educationData} ) {
   const [educationChecked,setEducationChecked]= useState(true)
   const [schoolDetails, setSchoolDetails]= useState({schoolName:"", class:"", passingYear:"", cgpa:""})
   const [collageDetails,setCollegeDetails]= useState({universityName:"",fieldOfStudy:"",degree:"",startingYear:"", endingYear:"",cgpa:""})
-  const [educationDetail, setEducationDetail]= useState()  
-  const [educationArray, setEducationArray]= useState([])
   const token= localStorage.getItem("token")  
-  const jobSeekersData= useSelector((state)=>state.jobs.jobSeekers)
+  const jobSeekersData= useSelector((state)=>state.jobs.jobSeekers) 
+  const [loader,setLoader]=useState(false)  
+  const [updateID,setUpdateID]= useState() 
+  const [updateIndex, setUpdateIndex]= useState() 
+  const toast = useToast()
+  
 
 
 
-  // setArrayData(prevArray => [...prevArray, newItem]); // Create a new array reference    
 
-     useEffect(()=>{
-      setEducationDetail(jobSeekersData.extraFields)
-     }, [jobSeekersData])
+console.log(jobSeekersData)
+    
+ const updateData=(id, index)=>{ 
+  setUpdateID(id) 
+  setUpdateIndex(index)
+
+ }
+   
+   
  
-   
-   
- useEffect(() => {
-    if (educationData) {
-      console.log("Received educationData: ", educationData);
-      setEducationArray(educationData.extraFields?.Education || []);
-    }
-  }, [educationData]);
     
   const getValue=()=>{
     if(educationChecked===true){
@@ -65,15 +68,21 @@ const onCollageChange=(e)=>{
  
 
 
-const handleEducationalDetails=async (e)=>{
 
-  if(collageDetails.cgpa <0 || collageDetails.cgpa>10 || schoolDetails.cgpa<0 || schoolDetails.cgpa>10){
-alert("data is not proper")
-  }else{
+
+
+      // This is request  for update the education data on database
+
+
+const handleEducationalDetails=async (e)=>{ 
+
+
+//   if(collageDetails.cgpa <0 || collageDetails.cgpa>10 || schoolDetails.cgpa<0 || schoolDetails.cgpa>10){
+// alert("data is not proper")
+//   }else{
   e.preventDefault()
 
 try{
-  // const response= await fetch('http://localhost:5000/api/candidate/Profile/addProfileDetail',{
     const response= await fetch('http://localhost:5000/api/candidate/Profile/addProfileDetail',{
 
     method:"POST",
@@ -84,6 +93,8 @@ try{
 
   })
   if(!response.ok){
+    addToast("Data Not Added", "error")
+
     setSchoolDetails({schoolName:"", class:"", passingYear:"", cgpa:""})
     setCollegeDetails({universityName:"",fieldOfStudy:"",degree:"",startingYear:"", endingYear:"",cgpa:""})
 
@@ -91,68 +102,110 @@ try{
   }
      
   const result= await response.json()
-  console.log(result)
-  setEducationDetail(result)
+addToast(result.message, "success")
+  
 }catch(err){
+  addToast("Data Not Added", "error")
+
   console.error(err)
   setSchoolDetails({schoolName:"", class:"", passingYear:"", cgpa:""})
   setCollegeDetails({universityName:"",fieldOfStudy:"",degree:"",startingYear:"", endingYear:"",cgpa:""})
 }
 
-  }
+  
 
 }
 
+const handleUpdateEducationDetail=async(e)=>{ 
 
 
-
-
-
-const handleUpdateEducationDetail=async(e)=>{
   e.preventDefault()
   try{
-    const response=  await fetch('http://localhost:5000/api/candidate/Profile/updateProfileDetail',{
+    const response=  await fetch('   http://localhost:5000/api/candidate/profile/updateProfileDetail ',{
       method:"POST",
-      body:JSON.stringify({token:token, data:educationChecked===true ? collageDetails :schoolDetails, dataType:'Education' }),
+      body:JSON.stringify({token:token, data:educationChecked===true ? collageDetails :schoolDetails, dataCategory:'Education', id:updateID,index:updateIndex }),
       headers:{
         "Content-type":"application/json"
       }
     })
     if(!response.ok){
+      addToast("Data Not Added", "error")
+
       throw new Error(response.statusText)
     }else{
-      return await response.json()
+      const data = await response.json()
+      addToast(data.message, "success") 
+
+      
     }
   }catch(err){
+    addToast("Internal Server Error", "error")
     console.error(err)
+
+  }
+  
+} 
+
+
+
+
+const handleDeleteUserData=async(id, index)=>{
+  console.log(id,index)
+  setLoader(true)
+  try{
+    const response= await fetch(`http://localhost:5000/api/candidate/profile/education/deleteEducation?id=${id}&index=${index}&dataType=Education`, {     
+      method:"DELETE",
+      headers:{"Content-type":"application/json"}
+
+    })
+    if(!response.ok){
+      setLoader(false)
+       addToast("Data not deleted", "error")
+      throw new Error(response.statusText)
+    }
+    else{
+      const data = await response.json()
+      setLoader(false)
+      addToast(data.message, "success") 
+      // window.location.reload()
+    
+    }
+  }catch(err){
+    setLoader(false)
+    addToast("Data not deleted, Internal Server Error", "error")
+
+    console.log(err)
 
   }
   
 }
 
+const addToast=(title,status)=>{
+  toast({title: title,
+    
+    status: status,
+    duration: 5000,
+    isClosable: true})
 
+}
 
-// console.log( educationData.extraFields?.Education &&  educationData.extraFields.Education.length>0   ? educationData.extraFields.Education[0].universityName:"no data")
 
 
 
  
  
 
-    // console.log(educationDetail)
+  
 
 
-    jobSeekersData.extraFields.Education.map((item, index)=>{
-      return console.log(item.universityName)
-    })
+   
     
   return (
 
     <div className='bg-light rounded-3 mx-auto  p-3 p-sm-3 p-md-3 p-lg-5 align-items-center  shadow resume'>
-      {/* <button onClick={handleRefreshStatus}>Refresh</button> */}
-   {/* {   educationData &&   educationData.length>0?  educationData.length:educationData} */}
+     
 
-       {  jobSeekersData.extraFields.Education && jobSeekersData.extraFields.Education.length>=1   ? (  
+       {  jobSeekersData.extraFields?.Education && jobSeekersData.extraFields?.Education.length>=1   ? (  
         jobSeekersData.extraFields.Education && jobSeekersData.extraFields.Education.length>=1 ? <div className='education-first d-flex justify-content-between align-items-center'> 
           <div className='education-heading d-flex justify-content-start'>
             <span className='education-icon'><MdCastForEducation className='fs-4' /> </span> 
@@ -197,7 +250,7 @@ const handleUpdateEducationDetail=async(e)=>{
 
 
 
-     {  jobSeekersData.extraFields.Education && jobSeekersData.extraFields.Education.length>=1  ?  jobSeekersData.extraFields.Education.map((item,index)=>{  
+     {  jobSeekersData.extraFields?.Education && jobSeekersData.extraFields?.Education.length>=1  ?  jobSeekersData.extraFields?.Education.map((item,index)=>{  
 
          return <div className='education-first user-education p-3 mt-4'>
        <div className='  d-flex justify-content-between align-items-center ' key={index}> 
@@ -205,44 +258,36 @@ const handleUpdateEducationDetail=async(e)=>{
         <div className='education-heading d-flex justify-content-start'>
           <span className='education-icon '><FaGraduationCap  className='fs-4'/> </span> 
           <div className='ms-4'>
-            <span className='d-block fw-bold '>{item.universityName}</span>
-             <span className='d-block'> {item.degree} | {item.fieldOfStudy} </span>
-             <span>{item.cgpa}</span>
-            <span className='d-block fw-light'> {item.startingYear}-{item.endingYear}</span>  
-                {item.fieldOfStudy}
-          </div>
-          <div className='education-btn d-block d-sm-none '>
-        <button className='btn btn-outline-info  ' type='button' data-bs-toggle="modal" data-bs-target="#exampleModalUpdate">
-            <span className='add-icon mt-1 fw-bolder'><MdOutlineModeEditOutline /></span>
-          
+            <span className='d-block fw-bold '>{ item &&  item.universityName  ? item.universityName:""}</span>
+             <span className='d-block'> { item &&  item.degree   ? item.degree:""} | {  item && item.fieldOfStudy  ?item.fieldOfStudy:""} </span>
+             <span>{  item && item.cgpa   ?item.cgpa:""}</span>
+            <span className='d-block fw-light'> { item &&  item.startingYear ? item.startingYear:""}-{  item && item.endingYear?item.endingYear:""}</span>  
+                { item &&  item.fieldOfStudy  ?item.fieldOfStudy:""}
+          </div>  
+
+
+            <div className='education-btn d-flex justify-content-around  '>
+       
+
+<button className='btn btn-outline-info d-flex justify-content-center icon' type='button' data-bs-toggle="modal" data-bs-target="#exampleModalUpdate" onClick={()=>{updateData(jobSeekersData._id, index)}} >
+        <MdOutlineModeEditOutline />
         </button>
-        </div>
+        <button className='btn btn-outline-info d-flex justify-content-center icon ' type='button'  onClick={()=>{handleDeleteUserData(jobSeekersData._id ,index)}}>
+        <MdDelete />
+       </button>
+        </div>  
         
                 
           
         </div> 
         
         
-         <div className='education-btn d-sm-block d-none'>
-        <button className='btn btn-outline-info d-flex justify-content-center' type='button' data-bs-toggle="modal" data-bs-target="#exampleModalUpdate">
-            <span className='add-icon mt-1 fw-bolder'><MdOutlineModeEditOutline /></span>
-            <span className='add-btn-name'>Update</span>
-        </button>
-    </div>
-     
-      </div>
-      {/* <div className='ps-5'>
-         <span className='d-block'> Master of Computer Application (MCA)  </span> 
-         <span className='d-block'>  Computer Science & Information Technology </span>
-         <span> CGPA : 8.5</span>
-          <span className='d-block fw-light'> 2019-2025</span>  
-
-
-      </div> */}
 
       </div>
+    
+      </div>
 
-      }):"No Data Availables"
+      }):""
 }
       
 
@@ -355,14 +400,16 @@ const handleUpdateEducationDetail=async(e)=>{
   </div>
   <div className="  modal-footer d-flex justify-content-around flex-row" >
         <button  className="btn btn-secondary  modal-close-btn  " data-bs-dismiss="modal">Close</button>
-        <button type="submit" className="btn btn-primary modal-save-btn ">Save changes</button>
+        <button type="submit" className="btn btn-primary modal-save-btn  " data-bs-dismiss="modal">Save changes</button>
 
       </div>
   </form>
 
 </div>
 
-:<div className='mt-4'>
+: 
+
+<div className='mt-4'>
 <form onSubmit={handleEducationalDetails}>
 <div className="col-10 mt-3">
   <label htmlFor="validationDefault07" className="form-label">School</label>
@@ -396,7 +443,7 @@ const handleUpdateEducationDetail=async(e)=>{
 </div>
 <div className="  modal-footer d-flex justify-content-around flex-row" >
         <button className="btn btn-secondary  modal-close-btn  " data-bs-dismiss="modal">Close</button>
-        <button   type="submit"  className="btn btn-primary modal-save-btn ">Save changes</button>
+        <button  type="submit"  className="btn btn-primary modal-save-btn " data-bs-dismiss="modal">Save changes</button>
       </div>
 </form>
 
@@ -513,7 +560,7 @@ const handleUpdateEducationDetail=async(e)=>{
   </div>
   <div className="  modal-footer d-flex justify-content-around flex-row" >
         <button  className="btn btn-secondary  modal-close-btn  " data-bs-dismiss="modal">Close</button>
-        <button type="submit" className="btn btn-primary modal-save-btn ">Save changes</button>
+        <button type="submit" className="btn btn-primary modal-save-btn " data-bs-dismiss="modal" >Save changes</button>
 
       </div>
   </form>
@@ -557,7 +604,7 @@ const handleUpdateEducationDetail=async(e)=>{
   </div>
 <div className="  modal-footer d-flex justify-content-around flex-row" >
         <button className="btn btn-secondary  modal-close-btn  " data-bs-dismiss="modal">Close</button>
-        <button   type="submit"  className="btn btn-primary modal-save-btn ">Save changes</button>
+        <button   type="submit"  className="btn btn-primary modal-save-btn " data-bs-dismiss="modal">Save changes</button>
       </div>
 </form>
 

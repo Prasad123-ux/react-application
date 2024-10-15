@@ -7,6 +7,7 @@
 .education-btn{
     width: 130px;
     /* width: fit-content; */
+    height: fit-content;
 }
 .add-icon{
     width: fit-content;
@@ -52,6 +53,9 @@ width: fit-content;
 
 
 .education-option-btn{
+    width: fit-content;
+}
+.icon{
     width: fit-content;
 }
 

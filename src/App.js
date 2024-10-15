@@ -13,12 +13,13 @@ import Profile from './Componants/Profile'
 import Explain from './Componants/Explain'
 import Application from './Componants/Application'
 import SubmitApply from './Componants/SubmitApply'
+import AllCompanies from './Componants/Company_Component/AllCompanies'
 
 
 
 export default function App() {
 
-   const api='https://jobnexus-backend.onrender.com'
+   const api='http://localhost:5000'
 
 const [users, setUsers]= useState([]);
 const [type, setType]= useState()
@@ -112,7 +113,9 @@ const length=users.length
 <Route exact path='/profile' element={<Profile users={users}  api={api}/>}/>
 <Route exact path="/job_detail/:id" element={<Explain/>}  api={api}/>
 <Route exact path="job_detail/job_application/:id" element={<Application/>}  api={api}/>
-<Route exact path="job_detail/job_application/application_success" element={<SubmitApply/>} api={api}/>
+<Route exact path="job_detail/job_application/application_success" element={<SubmitApply/>} api={api}/> 
+<Route exact path="companies" element={<AllCompanies/>} api={api}/>
+
 </Routes>  
 
  

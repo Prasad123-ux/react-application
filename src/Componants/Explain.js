@@ -44,7 +44,7 @@ console.log(token)
 useEffect(()=>{
 const findJobExplainDetail= async ()=>{
     try{
-        await fetch(`http://localhost:5000/api/candidate/getJobByID/${id}`,{
+        await fetch(`   http://localhost:5000/api/candidate/getJobByID/${id}`,{
             method:"GET",
             headers:{
                 "Content-type":"application/json"
@@ -85,7 +85,7 @@ useEffect(()=>{
     if (jobData.CompanyEmail) {
 
     const findCompanyData= async ()=>{
-         await fetch('http://localhost:5000/api/company/getProfileData', {
+         await fetch('   http://localhost:5000/api/company/getProfileData', {
             method:"POST",
             body:JSON.stringify({email:jobData.CompanyEmail}),
             headers:{
@@ -119,7 +119,7 @@ useEffect(()=>{
    
     if(jobData){
     const findSimilarJob=async ()=>{
-       await fetch(`http://localhost:5000/api/candidate/getSimilarJob?location=${encodeURIComponent(jobData.JobLocation)}&role=${encodeURIComponent(jobData.JobTitle)}`,{
+       await fetch(`   http://localhost:5000/api/candidate/getSimilarJob?location=${encodeURIComponent(jobData.JobLocation)}&role=${encodeURIComponent(jobData.JobTitle)}`,{
             method:"get",
             headers:{
                 "Content-type":"application/json"
@@ -153,7 +153,7 @@ useEffect(()=>{
 const handleSaveJob=async (jobValue)=>{
     console.log(jobValue)
 try{
-    const response= await fetch(`http://localhost:5000/api/candidate/save_Job?id=${jobValue}`, {
+    const response= await fetch(`   http://localhost:5000/api/candidate/save_Job?id=${jobValue}`, {
         method:"POST",
         body:JSON.stringify({email:jobData.CompanyEmail}),
         headers:{
@@ -200,7 +200,7 @@ console.log(jobData)
   return (
    <> 
 
-    <div className=' w-100   d-flex justify-content-center flex-column flex-md-row' style={{"backgroundColor":"#F8F9FA"}}>
+    <div className=' w-100   d-flex justify-content-center explain flex-column flex-md-row mt-5' style={{"backgroundColor":"#F8F9FA"}}>
         <div className='first-block me-0 me-lg-5 mt-5'>
         
         <div className='heading-name bg-white shadow  p-4   ' style={{"borderRadius":"10px"}}>
@@ -346,7 +346,7 @@ return (value.length>1? <div> <span className=' fw-bold text-dark mt-3'>{key} : 
  <div className='fw-bold'>{value.JobTitle}</div>
  <span>{value.CompanyEmail}</span>
  <div className='mt-2 d-flex justify-content-between'>
-     <span className='location'><CiLocationOn className='d-inline' style={{"width":"25px"}}/> {value.JobLocation.slice(0,9)}... </span>
+     <span className='location'><CiLocationOn className='d-inline' style={{"width":"25px"}}/>  { value.jobLocation && value.JobLocation.length>=1 ? value.JobLocation.slice(0,9) :""}... </span>
      <span className='posted '> Posted: {value.createdAt ? (`${months[new Date(value.createdAt ).getMonth()] } ${new Date(value.createdAt ).toUTCString().slice(5,7)}`):""}</span>
      
  </div>

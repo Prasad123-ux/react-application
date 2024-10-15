@@ -27,7 +27,8 @@ const {isOpen:isLogOpen, onOpen:onLogOpen, onClose:onLogClose}= useDisclosure()
     const [tokenValue,setTokenValue]= useState()
     const dispatch= useDispatch() 
     const allJobs= useSelector((state)=>state.jobs.jobs)
-    const filteredJobs = useSelector((state) => state.jobs.filteredJobs);
+    const filteredJobs = useSelector((state) => state.jobs.filteredJobs); 
+    const jobSeekerData= useSelector((state)=>state.jobs.jobSeekers)
 
 
     useEffect(() => {
@@ -47,7 +48,7 @@ const {isOpen:isLogOpen, onOpen:onLogOpen, onClose:onLogClose}= useDisclosure()
 
     const handleSearchData=async ()=>{ 
       try{
-    const response = await fetch(`http://localhost:5000/api/candidate/searchData?location=${encodeURIComponent(location)}&role=${encodeURIComponent(role)}`, {
+    const response = await fetch(`   http://localhost:5000/api/candidate/searchData?location=${encodeURIComponent(location)}&role=${encodeURIComponent(role)}`, {
       method:'GET',
       headers:{"content-type":"application/json"}
     })
@@ -96,7 +97,7 @@ const {isOpen:isLogOpen, onOpen:onLogOpen, onClose:onLogClose}= useDisclosure()
   return (  
 
 
- <Box  width={'full'} className='navbar fixed'  >
+ <Box  width={'full'} className='navbar fixed mb-5'   >
       <HStack justifyContent={'space-evenly'} >
         
       
@@ -114,7 +115,7 @@ const {isOpen:isLogOpen, onOpen:onLogOpen, onClose:onLogClose}= useDisclosure()
 
 
         <Button  borderRadius={'full'}   width={{base:'25px',md:'50px' ,sm:'50px' , lg:'50px'}} backgroundColor='white'  size={{base:'xs', sm:'md',md:'md'}} mr={{base:'10px',}}    onClick={onOpen}   ><BiMenuAltLeft  size={'lg'}/></Button>
-        <Text width={'50px'} mr={{base:'px',md:'2', lg:'2'}} ><Link to='/profile'> <Avatar cursor={'pointer'} size={{base:'xs' , sm:'xs',md:'md',lg:'md'}} src='https://bit.ly/broken-link'  /></Link></Text>
+        <Text width={'50px'} mr={{base:'px',md:'2', lg:'2'}} ><Link to='/profile'> <Avatar cursor={'pointer'} src={jobSeekerData.extraFields?.profileImage && jobSeekerData.extraFields?.profileImage.length>=1 ?jobSeekerData.extraFields?.profileImage:"" } size={{base:'xs' , sm:'xs',md:'md',lg:'md'}}  /></Link></Text>
 
         <Box width={{ base:'10px' ,sm:'300px',md:'500px' ,lg:'500px'}}  mr={{base:'5' , sm:'5', md:'2',lg:'2'}}>     
          
@@ -192,6 +193,11 @@ const {isOpen:isLogOpen, onOpen:onLogOpen, onClose:onLogClose}= useDisclosure()
   <ListItem>
   <Text fontSize={'1.3rem'} onClick={onClose} fontWeight={'500'}  _hover={{ color: 'teal.200', cursor: 'pointer' }}
     transition="background-color 0.3s">Settings</Text>
+
+  </ListItem> 
+  <ListItem>
+  <Text fontSize={'1.3rem'} onClick={onClose} fontWeight={'500'}  _hover={{ color: 'teal.200', cursor: 'pointer' }}
+    transition="background-color 0.3s"> <Link to="/companies">Companies </Link></Text>
 
   </ListItem>
   

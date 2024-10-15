@@ -1,0 +1,6 @@
+.circular-progress{
+    width: 10px;  
+    
+    border-radius: 160px; 
+    color: red;
+}

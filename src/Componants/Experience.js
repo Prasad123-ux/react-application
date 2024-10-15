@@ -1,48 +1,40 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { MdCastForEducation } from "react-icons/md";
 import { IoMdAdd } from "react-icons/io";
 import "../Styles/education.css"
 import { MdOutlineModeEditOutline } from "react-icons/md";
 import { FaGraduationCap } from "react-icons/fa";
-import options from "./data.json"
+import { MdDelete } from "react-icons/md";
 import { useDispatch, useSelector } from 'react-redux';
+import { useToast } from '@chakra-ui/react'; 
+import options from "./data.json" 
+import { RiHomeOfficeFill } from "react-icons/ri";
 
+import PropTypes from "prop-types"
 
-function Experience() {
+function Experience({onFetchDataButton}) {
+  const [ExperienceDetail, setExperienceDetail]= useState({prevCompanyName:"", industry:"", designation:"", startingDate:"",endingDate:"", experience:"", usedSkills:""})
+  const dispatch= useDispatch() 
+  const [loader,setLoader]= useState(false)
+  const jobSeekerData= useSelector((state)=>state.jobs.jobSeekers)
+  
+  const [updateID, setUpdateID]= useState()
+  const [updateIndex, setUpdateIndex]= useState()
+  const toast=useToast()
 
-  const [EducationLevel,setEducationLevel]= useState("college")
-  const [educationChecked,setEducationChecked]= useState(true)
-  // const [updateValue, setUpdateValue]= useState(false)
-  const [schoolDetails, setSchoolDetails]= useState({schoolName:"", class:"", passingYear:"", cgpa:""})
-  const [collageDetails,setCollegeDetails]= useState({universityName:"",fieldOfStudy:"",degree:"",startingYear:"", endingYear:"",cgpa:""})
-   const [educationDetail, setEducationDetail]= useState([]) 
-   const dispatch= useDispatch() 
-   const jobSeekerData= useSelector((state)=>state.jobs.jobSeekers) 
-
-
-
-   useEffect(()=>{
-  console.log(jobSeekerData)
-   },[])
-
-
-  const getValue=()=>{
-    if(educationChecked===true){
-      setEducationChecked(false)
-      setEducationLevel("school")
-    }else{
-      setEducationChecked(true)
-      setEducationLevel("college")
-    }
+      
+  
+  
+  const handleExperience=(e)=>{
+    setExperienceDetail({...ExperienceDetail, [e.target.name]:e.target.value })
   }
 
+  const updateData=(id, index)=>{ 
+    setUpdateID(id) 
+    setUpdateIndex(index)
+  
+   }
 
-const onSchoolChange=(e)=>{
-  setSchoolDetails({...schoolDetails, [e.target.name]:e.target.value})
-}
-const onCollageChange=(e)=>{
-  setCollegeDetails({...collageDetails, [e.target.name]:e.target.value})
-}
 
 
 const token= localStorage.getItem("token")
@@ -50,78 +42,151 @@ const token= localStorage.getItem("token")
 
 
 
-const handleEducationalDetails=async (e)=>{
+
+
+const handleExperienceDetails=async (e)=>{
   e.preventDefault()
 
 try{
-  const response= await fetch('http://localhost:5000/api/candidate/Profile/addNew',{
+  const response= await fetch('   http://localhost:5000/api/candidate/Profile/addProfileDetail',{
     method:"POST",
-    body:JSON.stringify({token:token, data:educationChecked===true ? collageDetails :schoolDetails }),
+    body:JSON.stringify({token:token, data:ExperienceDetail, dataType:"Experience" }),
     headers:{
       "Content-type":'application/json'
     }
 
   })
   if(!response.ok){
-    setSchoolDetails({schoolName:"", class:"", passingYear:"", cgpa:""})
-    setCollegeDetails({universityName:"",fieldOfStudy:"",degree:"",startingYear:"", endingYear:"",cgpa:""})
+    addToast("Data Not Added", "error")
 
     throw new Error(response.statusText)
   }
      
   const result= await response.json()
+  // 
+  addToast(result.message, "success") 
+  // await  onFetchDataButton()    
+
+
+
   console.log(result)
-  setEducationDetail(result.educationDetail)
 }catch(err){
-  console.error(err)
-  setSchoolDetails({schoolName:"", class:"", passingYear:"", cgpa:""})
-  setCollegeDetails({universityName:"",fieldOfStudy:"",degree:"",startingYear:"", endingYear:"",cgpa:""})
+  addToast("Data Not Added", "error")
+  console.error(err.message)
+  
 }
 
 }   
 
+// API request for updating data     
 
-const handleUpdateEducationDetail=async(e)=>{
-  e.preventDefault()
+const handleUpdateProfileDetail=async(e)=>{  
+
+e.preventDefault()
   try{
-    const response=  await fetch('http://localhost:5000/api/candidate/Profile/addNew',{
+    const response=  await fetch('   http://localhost:5000/api/candidate/profile/updateProfileDetail  ',{
       method:"POST",
-      body:JSON.stringify({token:token, data:educationChecked===true ? collageDetails :schoolDetails }),
+      body:JSON.stringify({token:token, data:ExperienceDetail, dataCategory:'Experience', id:updateID,index:updateIndex }),
       headers:{
         "Content-type":"application/json"
       }
     })
     if(!response.ok){
+      addToast("Data Not Added", "error")
+
       throw new Error(response.statusText)
     }else{
-      return await response.json()
+      const data = await response.json()
+      addToast(data.message, "success") 
+
+      
     }
   }catch(err){
+    addToast("Internal Server Error", "error")
     console.error(err)
 
   }
+  
+} 
+
+
+
+
+
+
+// API requst for deleting data
+
+const handleDeleteUserData=async(id, index)=>{ 
+  console.log(jobSeekerData)
+
+  console.log(id,index)
+  setLoader(true)
+  try{
+    const response= await fetch(`http://localhost:5000/api/candidate/profile/education/deleteEducation?id=${id}&index=${index}&datType=Experience`, {     
+      method:"DELETE",
+      body:JSON.stringify({dataType:"Experience"}),
+      headers:{"Content-type":"application/json"}
+
+
+    })
+    if(!response.ok){
+      setLoader(false)
+       addToast("Data not deleted", "error")
+      throw new Error(response.statusText)
+    }
+    else{
+      await onFetchDataButton
+      const data = await response.json()
+      setLoader(false)
+    
+      addToast(data.message, "success") 
+      
+      // window.location.reload() 
+      
+    
+    }
+  }catch(err){
+    
+    setLoader(false)
+
+    
+    addToast("Data not deleted, Internal Server Error", "error") 
+    console.log(typeof(onFetchDataButton))
+    
+    
+
+
+  }
+  
+}
+
+const addToast=(title,status)=>{
+  toast({title: title,
+    
+    status: status,
+    duration: 5000,
+    isClosable: true})
+
 }
 
 
-// const handleUpdate=()=>{
-//   updateValue(true)
-// }
+
 
 
   return (
+    
 
     <div className='bg-light rounded-3 mx-auto  p-3 p-sm-3 p-md-3 p-lg-5 align-items-center  shadow resume'>
 
 
-      {educationDetail && educationDetail.length>1  ?
-     
-
-       <div className='education-first d-flex justify-content-between align-items-center'> 
+      {jobSeekerData.extraFields?.Experience && jobSeekerData.extraFields?.Experience.length>=1  ?
+ 
+                     <div className='education-first d-flex justify-content-between align-items-center'> 
         <div className='education-heading d-flex justify-content-start'>
-          <span className='education-icon'><MdCastForEducation className='fs-4' /> </span> 
+          <span className='education-icon'><RiHomeOfficeFill  className='fs-4' /> </span> 
           <div className='ms-4'>
-            <span className='d-block fw-bold '>Add Work Experience</span>
-            <span className='d-block'> Your previous internship / full time experience</span> 
+            <span className='d-block fw-bold '>Add Certificate/Course Details</span>
+            <span className='d-block'> All Experience/Courses you have dones</span> 
           </div>
           
         </div>
@@ -136,11 +201,11 @@ const handleUpdateEducationDetail=async(e)=>{
 
       <div className='d-flex flex-column align-items-center'>
     <div className='education-heading'>
-        <span className='education-icon'><MdCastForEducation className='fs-4' /> </span> 
+        <span className='education-icon'><RiHomeOfficeFill className='fs-4' /> </span> 
     </div>
     <div className='text-center mt-2'>
-        <span className='d-block fw-bold education-text'> Add Work Experience</span>
-        <span className='d-block education-text'>Your previous internship / full time experience</span> 
+        <span className='d-block fw-bold education-text'> Add Previous Company/Organization</span>
+        <span className='d-block education-text'>All Experience you have got</span> 
     </div>
     <div className='education-option-btn mt-2'>
         <button className='btn btn-outline-info d-flex justify-content-center' type='button' data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -156,50 +221,50 @@ const handleUpdateEducationDetail=async(e)=>{
 
 
 
-     { educationDetail && educationDetail.length>1 ? educationDetail.map((item,index)=>{
-
-return <div className='education-first user-education p-3 mt-4'>
-<div className='  d-flex justify-content-between align-items-center ' key={index}> 
+     {
+     jobSeekerData.extraFields?.Experience && jobSeekerData.extraFields.Experience.length>=1 ? jobSeekerData.extraFields.Experience.map((item,index)=>{
+      return <div className='education-first user-education p-3 mt-4'>
+<div className='  d-flex justify-content-between align-items-center '> 
         <div className='education-heading d-flex justify-content-start'>
           <span className='education-icon '><FaGraduationCap  className='fs-4'/> </span> 
-          <div className='ms-4'>
-            <span className='d-block fw-bold '>Yeshwant College Nanded</span>
-            {/* <span className='d-block'> Master of Computer Application (MCA) | Computer Science & Information Technology </span> 
-            <span className='d-block fw-light'> 2019-2025</span>  */}
+       
+          <div className='ps-5'>
+            <span className='fs-5  fw-bold'>{item.prevCompanyName}</span>
+         <span className='d-block fs-6 fw-bold'> {item.designation}----{item.experience} yr of Experience</span> 
+         <span> {item.startingDate} to {item.endingDate}</span>
+         {/* <Link to="/" className='link text-primary'>{item.link}</Link>   */}
 
-          </div>
-          <div className='education-btn d-block d-sm-none '>
-        <button className='btn btn-outline-info  ' type='button' data-bs-toggle="modal" data-bs-target="#exampleModalUpdate">
-            <span className='add-icon mt-1 fw-bolder'><MdOutlineModeEditOutline /></span>
-          
-        </button>
-        </div>
+         <span className='d-block fw-bolder'> {item.usedSkills}</span>
+         
+
+
+      </div>
+      <div className='education-btn d-flex justify-content-around  '>
+       
+
+       <button className='btn btn-outline-info d-flex justify-content-center icon' type='button' data-bs-toggle="modal" data-bs-target="#exampleModalUpdate" onClick={()=>{updateData(jobSeekerData._id, index)}} >
+               <MdOutlineModeEditOutline />
+               </button>
+               <button className='btn btn-outline-info d-flex justify-content-center icon ' type='button'  onClick={()=>{handleDeleteUserData(jobSeekerData._id ,index)}}>
+               <MdDelete />
+              </button>
+               </div>
+
+
         
            
           
         </div> 
         
         
-         <div className='education-btn d-sm-block d-none'>
-        <button className='btn btn-outline-info d-flex justify-content-center' type='button' data-bs-toggle="modal" data-bs-target="#exampleModalUpdate">
-            <span className='add-icon mt-1 fw-bolder'><MdOutlineModeEditOutline /></span>
-            <span className='add-btn-name'>Update</span>
-        </button>
-    </div>
-     
+    
       </div>
-      <div className='ps-5'>
-         <span className='d-block'> Master of Computer Application (MCA)  </span> 
-         <span className='d-block'>  Computer Science & Information Technology </span>
-         <span> CGPA : 8.5</span>
-          <span className='d-block fw-light'> 2019-2025</span>  
-
-
+    
       </div>
 
-      </div>
-      }):""
-}
+
+         }):"" }
+
       
 
 
@@ -226,79 +291,71 @@ return <div className='education-first user-education p-3 mt-4'>
   <div className="modal-dialog">
     <div className="modal-content">
       <div className="modal-header">
-        <h5 className="modal-title" id="exampleModalLabel">Work Experience</h5>
+        <h5 className="modal-title" id="exampleModalLabel">Experience & Courses</h5>
         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div className="modal-body">
 
 
         
-
-  
 <div className='mt-4'>
-  <form onSubmit={handleEducationalDetails}  >
+  <form onSubmit={handleExperienceDetails}  >
   <div className="col-10 mt-3">
-    <label htmlFor="validationDefault01" className="form-label">Company Name*</label>
-    <input type="text" className="form-control" id="validationDefault01" placeholder="Type company name" name="companyName" value={collageDetails.universityName}  onChange={onCollageChange} required/>
+    <label htmlFor="validationDefault01" className="form-label">Previous Company Name</label>
+    <input type="text" className="form-control" id="validationDefault01" placeholder="Enter name of Previous Company" name="prevCompanyName" value={ExperienceDetail.prevCompanyName}  onChange={handleExperience} required/>
   </div>
- 
   <div className="col-10 mt-3">
-    <label htmlFor="validationDefault2" className="form-label">Internship Type </label>
-    <select type="text" className="form-select" id="validationDefault02" placeholder="Select internship type"  name="internshipType" value={collageDetails.fieldOfStudy} onChange={onCollageChange} required>
-      {options.internshipType.map((item, index)=>{
-        return  <option key={index}  value={item}>{item }</option>
-      })
+    <label htmlFor="validationDefault03" className="form-label">Industry Type</label>
+    <select type="date" className="form-control" id="validationDefault03" placeholder="Choose Year of Industry Type"  name="industry" value={Experience.industry} onChange={handleExperience} required>
+    <option  value="1" default >Industry Type</option>
 
-      }
+    
+    {options.industry.map((item, index)=>{
+    return <option key={index} value={item}> {item}</option>
+    })}
+    </select>
+  </div> 
+  <div className="col-10 mt-3">
+    <label htmlFor="validationDefault03" className="form-label">Year of Experience</label>
+    <select type="date" className="form-control" id="validationDefault03" placeholder="Choose Year of Experience"  name="experience" value={Experience.experience} onChange={handleExperience} required>
+    <option  value="1" default >Year of Experience</option>
 
-
+    
+    {options.experience.map((item, index)=>{
+    return <option key={index} value={item}> {item}</option>
+    })}
     </select>
   </div>
   <div className="col-10 mt-3">
-    <label htmlFor="validationDefault03" className="form-label">Location*</label>
-    <input type="text" className="form-control" id="validationDefault03" placeholder="Type Location" name="location" value={collageDetails.universityName}  onChange={onCollageChange} required/>
-  </div>
- 
-  
-  <div className="col-10 mt-3">
-    <label htmlFor="validationDefault04" className="form-label">Start Date* </label>
-    <input type="date" className="form-control" id="validationDefault04"  placeholder="dd-mm-yyyy" name="startingDate" value={collageDetails.cgpa} onChange={onCollageChange} required/>
+    <label htmlFor="validationDefault02" className="form-label">Designation</label>
+    <input type="text" className="form-control" id="validationDefault02" placeholder="Enter Your Designation" name="designation" value={ExperienceDetail.designation}  onChange={handleExperience} required/>
   </div>
   <div className="col-10 mt-3">
-    <label htmlFor="validationDefault05" className="form-label">End Date* </label>
-    <input type="date" className="form-control" id="validationDefault05"  placeholder="dd-mm-yyyy" name="endingDate" value={collageDetails.cgpa} onChange={onCollageChange} required/>
+    <label htmlFor="validationDefault03" className="form-label">Starting Date</label>
+    <input type="date" className="form-control" id="validationDefault03" placeholder=" Starting year"  name="startingDate" value={Experience.startingYear} onChange={handleExperience} required>
+</input>
+  </div>
+  <div className="col-10 mt-3">
+    <label htmlFor="validationDefault03" className="form-label">Ending Date</label>
+    <input type="date" className="form-control" id="validationDefault03" placeholder=" Ending year"  name="endingDate" value={Experience.endingDate} onChange={handleExperience} required>
+</input>
+  </div>
+ <div className="col-10 mt-3">
+    <label htmlFor="validationDefault04" className="form-label">Skills Used in Organization (Seperated by Comma)</label>
+    <input type="link" className="form-control" id="validationDefault04" placeholder="Skills" name="usedSkills" value={ExperienceDetail.usedSkills}  onChange={handleExperience} required/>
   </div>
   
  
-  
+ 
+ 
   <div className="  modal-footer d-flex justify-content-around flex-row" >
         <button  className="btn btn-secondary  modal-close-btn  " data-bs-dismiss="modal">Close</button>
-        <button type="submit" className="btn btn-primary modal-save-btn ">Save changes</button>
+        <button type="submit" className="btn btn-primary modal-save-btn " data-bs-dismiss="modal">Save changes</button>
 
       </div>
   </form>
 
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -327,127 +384,69 @@ return <div className='education-first user-education p-3 mt-4'>
   <div className="modal-dialog">
     <div className="modal-content">
       <div className="modal-header">
-        <h5 className="modal-title" id="exampleModalLabel">Educational Details</h5>
+        <h5 className="modal-title" id="exampleModalLabel">Experience & Courses</h5>
         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div className="modal-body">
-
-
-        <div className='check-find d-flex justify-content-between mx-auto'>
-          { educationChecked===true ?
-         <div className='check-collage text-primary fw-bold '>Collage</div> :
-         <div className='check-collage  '>Collage</div> 
-          }
-
-
-      <div className="form-check form-switch check-input ms-5 ">
-  <input className="form-check-input" type="checkbox" id="flexSwitchCheckChecked" value={EducationLevel} name="educationalLevel" onChange={getValue} />
-  <label className="form-check-label" htmlFor="flexSwitchCheckChecked"></label>
-</div>
-{educationChecked===false ?
-<div className='d-inline check-school ms-3 fw-bold text-primary'>School</div>:
-<div className='d-inline check-school ms-3'>School</div>
-}
-
-</div>
-{
-  educationChecked===true   ?
-<div className='mt-4'>
-  <form onSubmit={handleUpdateEducationDetail}  >
-  <div className="col-10 mt-3">
-    <label htmlFor="validationDefault01" className="form-label">University Name</label>
-    <input type="text" className="form-control" id="validationDefault01" placeholder={""} name="universityName" value={collageDetails.universityName}  onChange={onCollageChange} required/>
+        <form onSubmit={handleUpdateProfileDetail}>
+        <div className="col-10 mt-3">
+    <label htmlFor="validationDefault01" className="form-label">Previous Company Name</label>
+    <input type="text" className="form-control" id="validationDefault01" placeholder="Enter name of Previous Company" name="prevCompanyName" value={ExperienceDetail.prevCompanyName}  onChange={handleExperience} required/>
   </div>
   <div className="col-10 mt-3">
-    <label htmlFor="validationDefault6" className="form-label">Field of Study </label>
-    <select type="text" className="form-select" id="validationDefault06" placeholder="Type Field Of Study "  name="fieldOfStudy" value={collageDetails.fieldOfStudy} onChange={onCollageChange} required>
-      {options.fieldOfStudy.map((item, index)=>{
-        return  <option key={index}  value={item}>{item }</option>
-      })
+    <label htmlFor="validationDefault03" className="form-label">Industry Type</label>
+    <select type="date" className="form-control" id="validationDefault03" placeholder="Choose Year of Industry Type"  name="industry" value={Experience.industry} onChange={handleExperience} required>
+    <option  value="1" default >Industry Type</option>
 
-      }
-
-
+    
+    {options.industry.map((item, index)=>{
+    return <option key={index} value={item}> {item}</option>
+    })}
     </select>
-  </div>
+  </div> 
   <div className="col-10 mt-3">
-    <label htmlFor="validationDefault02" className="form-label">Degree</label>
-    <select type="text" className="form-select" id="validationDefault02" placeholder="Type Degree" name="degree" value={collageDetails.degree}  onChange={onCollageChange} required>
-    {options.degrees.map((item, index)=>{
+    <label htmlFor="validationDefault03" className="form-label">Year of Experience</label>
+    <select type="date" className="form-control" id="validationDefault03" placeholder="Choose Year of Experience"  name="experience" value={Experience.experience} onChange={handleExperience} required>
+    <option  value="1" default >Year of Experience</option>
+
+    
+    {options.experience.map((item, index)=>{
     return <option key={index} value={item}> {item}</option>
     })}
     </select>
   </div>
   <div className="col-10 mt-3">
-    <label htmlFor="validationDefault03" className="form-label">Starting Year</label>
-    <select type="date" className="form-control" id="validationDefault03" placeholder="Choose Starting year"  name="startingYear" value={collageDetails.startingYear} onChange={onCollageChange} required>
-    {options.startingYear.map((item, index)=>{
-    return <option key={index} value={item}> {item}</option>
-    })}
-    </select>
+    <label htmlFor="validationDefault02" className="form-label">Designation</label>
+    <input type="text" className="form-control" id="validationDefault02" placeholder="Enter Your Designation" name="designation" value={ExperienceDetail.designation}  onChange={handleExperience} required/>
   </div>
   <div className="col-10 mt-3">
-    <label htmlFor="validationDefault04" className="form-label">Ending Year</label>
-    <select type="date" className="form-control" id="validationDefault04" placeholder="Choose Ending Year" max={10} name="endingYear" value={collageDetails.endingYear} onChange={onCollageChange}  required>
-      {
-        options.startingYear.map((item, index)=>{
-          return <option key={index} value={item}> {item}</option>
-        })
-      }
-    </select>
- 
+    <label htmlFor="validationDefault03" className="form-label">Starting Date</label>
+    <input type="date" className="form-control" id="validationDefault03" placeholder=" Starting year"  name="startingDate" value={Experience.startingYear} onChange={handleExperience} required>
+</input>
   </div>
- 
   <div className="col-10 mt-3">
-    <label htmlFor="validationDefault05" className="form-label">Final CGPA ( out of 10) </label>
-    <input type="number" className="form-control" id="validationDefault05"  placeholde="Type Your CGPA" name="cgpa" value={collageDetails.cgpa} onChange={onCollageChange} required/>
+    <label htmlFor="validationDefault03" className="form-label">Ending Date</label>
+    <input type="date" className="form-control" id="validationDefault03" placeholder=" Ending year"  name="endingDate" value={Experience.endingDate} onChange={handleExperience} required>
+</input>
   </div>
+ <div className="col-10 mt-3">
+    <label htmlFor="validationDefault04" className="form-label">Skills Used in Organization (Seperated by Comma)</label>
+    <input type="link" className="form-control" id="validationDefault04" placeholder="Skills" name="usedSkills" value={ExperienceDetail.usedSkills}  onChange={handleExperience} required/>
+  </div>
+  
+ 
+ 
+ 
   <div className="  modal-footer d-flex justify-content-around flex-row" >
         <button  className="btn btn-secondary  modal-close-btn  " data-bs-dismiss="modal">Close</button>
-        <button type="submit" className="btn btn-primary modal-save-btn ">Save changes</button>
+        <button type="submit" className="btn btn-primary modal-save-btn " data-bs-dismiss="modal">Save changes</button>
 
-      </div>
-  </form>
-
-</div>
-
-:<div className='mt-4'>
-<form onSubmit={handleEducationalDetails}>
-<div className="col-10 mt-3">
-  <label htmlFor="validationDefault07" className="form-label">School</label>
-  <input type="text" className="form-control" id="validationDefault07" placeholder="Type School Name"  name="schoolName" value={schoolDetails.schoolName} onChange={onSchoolChange} required/>
-</div>
-<div className="col-10 mt-3">
-  <label htmlFor="validationDefault8" className="form-label">Class </label>
-  <select type="text" className="form-control" id="validationDefault08" placeholder="Type Class "  name="class" value={schoolDetails.class} onChange={onSchoolChange} required>
-    {options.schoolClasses.map((item, index)=>{
-      return <option key={index} value={item}>{item}</option>
-    })}
-    </select>
-</div>
-
-<div className="col-10 mt-3">
-  <label htmlFor="validationDefault10" className="form-label">Select Passing Year</label>
-  <select type="date" className="form-control" id="validationDefault10" placeholder="Choose Passing year" name="passingYear" value={schoolDetails.passingYear}  onChange={onSchoolChange} required>
-    {options.startingYear.map((item , index)=>{
-      return <option key={index} value={item}>{item}</option>
-    })}
-    </select>
-</div>
-
-<div className="col-10 mt-3">
-  <label htmlFor="validationDefault11" className="form-label">Final CGPA ( out of 10) </label>
-  <input type="number" className="form-control" id="validationDefault11"  placeholde="Type Your CGPA" name="cgpa" value={schoolDetails.cgpa} onChange={onSchoolChange} required/>
-</div>
-<div className="  modal-footer d-flex justify-content-around flex-row" >
-        <button className="btn btn-secondary  modal-close-btn  " data-bs-dismiss="modal">Close</button>
-        <button   type="submit"  className="btn btn-primary modal-save-btn ">Save changes</button>
       </div>
 </form>
 
 </div>
 
-}
+
 
      
       </div>
@@ -461,8 +460,12 @@ return <div className='education-first user-education p-3 mt-4'>
       
       
       
-    </div>
+    
   )
 }
+
+Experience.propTypes = {
+  onFetchDataButton: PropTypes.func.isRequired, // Expect a function prop, mark it as required
+};
 
 export default Experience
