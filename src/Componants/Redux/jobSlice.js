@@ -5,7 +5,9 @@ import {createSlice} from '@reduxjs/toolkit'
 const initialState={
     jobs:[],
     filteredJobs:[],
-    jobSeekers:[]
+    jobSeekers:[],
+    companies:[] ,
+    companiesJobs:[]
 };
 
 
@@ -23,12 +25,18 @@ const jobSlice=createSlice({
         },
         setJobSeekers:(state, action)=>{
             state.jobSeekers=action.payload
+        },
+        setAllCompanies:(state,action)=>{
+            state.companies= action.payload
+        },
+        setAllCompaniesJobs:(state,action)=>{
+            state.companies= action.payload
         }
        
     }
 })
 
-export const {setAllJobs, setFilteredJobs, setJobSeekers}=jobSlice.actions;
+export const {setAllJobs, setFilteredJobs, setJobSeekers, setAllCompanies, setAllCompaniesJobs}=jobSlice.actions;
 
 
 export default jobSlice.reducer;

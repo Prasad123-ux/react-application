@@ -1,0 +1,102 @@
+
+
+.companyProfile-mainPage{ 
+    margin-top: 100px;
+
+}
+
+.companyProfile-side-img{ 
+
+width: 100%;
+}
+.company-profile-logo{ 
+    width: 100px; 
+    height: 100px; 
+    margin-top: 20px;
+} 
+.company-profile-data{
+    margin-top: 10px;
+
+}
+.company-profile-detail{
+    width: fit-content;
+
+}
+.follow-btn{
+    width: 200px; 
+    font-size: 1.2rem; 
+    font-weight: 600;
+}
+.follows{
+    width: fit-content;
+}
+.company-profile-name{
+    font-size: 1.9rem; 
+    font-weight: 500;
+}
+.company-profile-tagline{
+    font-size: 1.1rem; 
+    font-weight: 400 ;
+    color: cyan;
+}
+.company-profile-sectors{ 
+    margin-top: 5px;
+    background-color:bisque;
+    width: fit-content;
+    border: 1px solid bisque ; 
+    border-radius: 10px;
+    padding-left: 5px; 
+    padding-right: 5px;
+}
+.followers-number{
+    font-size: 1.0rem;
+    font-weight: 600; 
+    margin-right: 5px;
+}
+.next-section{
+    /* background-color: red; */
+    width:fit-content; 
+    margin-top: 50px; 
+    font-size: 1.2rem; 
+    font-weight: 600; 
+    padding-left: 250px;
+} 
+.company-jobs{ 
+    width: 75%; 
+    /* display: flex; */
+    /* justify-content: space-between; */
+    
+}
+.company-recommended-jobs{  
+    width: 100%;
+    background-color:white; 
+    margin-top: 50px;
+    /* width: fit-content; */
+
+}
+.overview-button{
+cursor: pointer; 
+width: fit-content;
+}
+.jobs-button{
+    cursor: pointer;
+    width: fit-content; 
+    margin-left: 100px;
+}
+.breadcrumbs{
+    width: fit-content;
+}
+.image-optional{
+    width: 100% ;
+    height: 100px; 
+    background-color:coral;
+}
+.company-profile-job{
+    width: 70%;
+}
+.company-allJObs{
+    width: 100%;
+}
+.company-showJobs{
+    width: 70%;
+}

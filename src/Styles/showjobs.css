@@ -1,0 +1,32 @@
+.showJobs{
+
+/* width: 70%; */
+background-color:lightgoldenrodyellow; 
+height: 150px; 
+border: 1px solid transparent;
+border-radius: 20px; 
+padding: 10px; 
+overflow: scroll; 
+margin-top: 50px;
+}
+
+
+
+
+.showJobs-sectors{ 
+    background-color: white;  
+    border: 1px solid transparent; 
+    border-radius: 20px; 
+    width: 20%; 
+    height: 90%;  
+    padding: 10px;
+    font-weight: 500;
+}
+.showJobs-openings{
+    /* color: blue; */ 
+    font-weight: 500;
+}
+    
+.showJobs-next-icon{
+    width: fit-content;
+}

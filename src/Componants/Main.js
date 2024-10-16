@@ -30,7 +30,7 @@ const [loading, setLoading]= useState(false)
 
 useEffect(()=>{
   console.log(filteredJobs)
-  const length= filteredJobs.length
+  const length=  filteredJobs && filteredJobs.length>=1 ? filteredJobs.length:0
   setFilterLength(length)
 }, [filteredJobs])
 
@@ -49,8 +49,9 @@ useEffect(()=>{
         const result = await response.json();
          setLoading(false)
 
-         setData(result.Data);  
-        //  dispatch(setAllJobs(result.data))
+         setData(result.Data);   
+        //  console.log(result.Data)
+        //  dispatch(setAllJobs(result.Data))
 
          
       
@@ -76,7 +77,7 @@ useEffect(()=>{
   
 
 
- console.log(filterLength)
+ console.log(allJobs)
 
   return (
     

@@ -199,7 +199,14 @@ const {isOpen:isLogOpen, onOpen:onLogOpen, onClose:onLogClose}= useDisclosure()
   <Text fontSize={'1.3rem'} onClick={onClose} fontWeight={'500'}  _hover={{ color: 'teal.200', cursor: 'pointer' }}
     transition="background-color 0.3s"> <Link to="/companies">Companies </Link></Text>
 
+  </ListItem> 
+  <ListItem>
+  <Text fontSize={'1.3rem'} onClick={onClose} fontWeight={'500'}  _hover={{ color: 'teal.200', cursor: 'pointer' }}
+    transition="background-color 0.3s"> <Link to="/companies/skeleton">Companies skeleton </Link></Text>
+
   </ListItem>
+
+
   
   <ListItem>
   <Text fontSize={'1.3rem'} onClick={onClose} fontWeight={'500'}  _hover={{ color: 'teal.200', cursor: 'pointer' }}
@@ -216,6 +223,7 @@ const {isOpen:isLogOpen, onOpen:onLogOpen, onClose:onLogClose}= useDisclosure()
 
     </DrawerContent>
    </Drawer>
+
 
 
    

@@ -116,7 +116,7 @@ try{
 
 
 
-   {requirement && requirement.length>0? <div className='salary d-none d-sm-flex   mx-auto  icons' ><PiNotepadLight className='icons ' /><span className=' value  '>{ requirement && requirement.length>0  ?` ${requirement[0].EducationalRequirement.slice(0,70)}...`:""  }</span></div> :""}
+   {requirement && requirement.length>0? <div className='salary d-none d-sm-flex   mx-auto  icons' >      <PiNotepadLight className='icons ' /><span className=' value  '>{ requirement && requirement.length>0  ?` ${requirement[0].EducationalRequirement.slice(0,70)}...`:""  }</span></div> :""}
 
 
 

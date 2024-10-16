@@ -1,0 +1,7 @@
+.company-info{
+    width: 70%; 
+    background-color: wheat; 
+    height: fit-content;  
+    border: 1px solid transparent;
+    border-radius: 20px;
+} 

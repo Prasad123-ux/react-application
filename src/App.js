@@ -14,6 +14,8 @@ import Explain from './Componants/Explain'
 import Application from './Componants/Application'
 import SubmitApply from './Componants/SubmitApply'
 import AllCompanies from './Componants/Company_Component/AllCompanies'
+import CompanyCard from './Componants/Company_Component/CompanyCard'
+import CompanyProfile from './Componants/Company_Component/CompanyProfile'
 
 
 
@@ -115,6 +117,14 @@ const length=users.length
 <Route exact path="job_detail/job_application/:id" element={<Application/>}  api={api}/>
 <Route exact path="job_detail/job_application/application_success" element={<SubmitApply/>} api={api}/> 
 <Route exact path="companies" element={<AllCompanies/>} api={api}/>
+<Route exact path="/companies/skeleton" element={<CompanyCard/>} api={api}/>
+<Route exact path="/companies/skeleton/companyProfile/:id" element={<CompanyProfile/>} api={api}/> 
+<Route exact path="" element={<CompanyProfile/>} api={api}/> 
+
+
+
+
+
 
 </Routes>  
 

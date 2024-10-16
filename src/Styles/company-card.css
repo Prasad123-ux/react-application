@@ -1,0 +1,24 @@
+.company-card{
+    margin-top: 50px; 
+    /* width: fit-content;  */ 
+    width:400px; 
+    border: 1px solid white; 
+    border-radius: 20px;  
+    /* padding-top: 15px;  */
+    /* padding-bottom: 15px; */
+    
+} 
+.rating-icon{ 
+    width: fit-content;
+}
+.company-Name{
+    font-size: 1.1rem; 
+    font-weight: 600; 
+} 
+.side-img{
+    width: 100px; 
+    height: 90px;
+}
+.rating{
+    font-size: 0.8rem;
+} 
