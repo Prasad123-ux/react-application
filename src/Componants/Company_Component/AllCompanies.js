@@ -25,7 +25,7 @@ export default function AllCompanies() {
     const  handleAllCompaniesData=async ()=>{
 
       try{ 
-        const response= await  axios.get("http://localhost:5000/api/getAllCompanies")
+        const response= await  axios.get("https://jobnexus-backend.onrender.com/api/getAllCompanies")
           
           if(response.status !==200){ 
             addToast('Sorry Data Not Found ', "error")
@@ -94,9 +94,9 @@ export default function AllCompanies() {
 
     <div className=' row company-cards-page'>
         {/* <h1>{title}</h1> */}
-        <div className='  company-slider col-3 '> { options.companyType && options.companyType.length>=1 ?
+        <div className='  company-slider col-sm-4 col-lg-3 col-12 '> { options.companyType && options.companyType.length>=1 ?
             options.companyType.map((item, index)=>{
-                return <div className='  company-board mx-auto mt-2 shadow' > <span className='company-type d-block'>{item} </span>    
+                return <div className='  company-board mx-auto mt-2 shadow ' > <span className='company-type d-block'>{item} </span>    
 
                  <div onClick={()=>findCompany(item)}><span className='text-primary  company-number '> find Companies </span> <FcNext className='company-next d-inline' />  </div></div>  
             })
@@ -104,15 +104,15 @@ export default function AllCompanies() {
 
         </div> 
 
-        <div className='col-9 row companies'>  
+        <div className= 'col-sm-8 col-lg-9 col-12 row companies mx-auto'>  
           <h3 className='industry-heading'> {heading}</h3>
           { findedCompany && findedCompany.length>=1  ? 
         findedCompany.map((company, index)=>{
-          return <div className='col-6'> <CompanyCard name={company.CompanyName }       logo={company.CompanyLogo}/> </div>
+          return <div className='col-12 col-lg-6  company-main  col-md-12'> <CompanyCard name={company.CompanyName }       logo={company.CompanyLogo}/> </div>
 
         })
     : allCompaniesData && allCompaniesData.length>=1 ? allCompaniesData.map((company,index)=>{
-      return <div className='col-6'> <CompanyCard name={company.CompanyName }       logo={company.CompanyLogo} id={company._id}/> </div>
+      return <div className='col-12  col-lg-6 col-md-12'> <CompanyCard name={company.CompanyName }       logo={company.CompanyLogo} id={company._id}/> </div>
     }) :"" }
 
         </div>

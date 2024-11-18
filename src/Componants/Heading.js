@@ -96,7 +96,7 @@ import { setFilteredJobs } from './Redux/jobSlice';
       }
     const queryString= params.toString()
          
-    const response= await  fetch(`   http://localhost:5000/api/candidate/filterData?${queryString}`, {
+    const response= await  fetch(`   https://jobnexus-backend.onrender.com/api/candidate/filterData?${queryString}`, {
       method:"GET",
     headers:{
         "Content-type":"application/json"

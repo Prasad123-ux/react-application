@@ -60,7 +60,7 @@ export default function CompanyProfile() {
 }
 
 try{
-    const response= await  axios.post('http://localhost:5000/api/candidate/companyProfile/followaction',{
+    const response= await  axios.post('https://jobnexus-backend.onrender.com/api/candidate/companyProfile/followaction',{
         token:token ,
         follows:followValue ,
         id:id
@@ -85,40 +85,45 @@ catch(err){
 
   return (
     <div className='companyProfile-mainPage '>
-        <div> { company.CompanyImage && company.CompanyImage.length>=1  ? <img src={ company.CompanyImage} className='companyProfile-side-img' alt="image-profile"/>:<div className='image-optional'></div>}  </div> 
-    <div className='company-profile-data d-flex justify-content-around'>   
-        <div className='company-profile-detail row'> 
-        <img src={company.CompanyImage}  className="company-profile-logo col-4" alt='logo'/>  
+        <div > { company.CompanyImage && company.CompanyImage.length>=1  ? <img src={ company.CompanyImage} className='companyProfile-side-img' alt="image-profile"/>:<div className='image-optional'></div>}  </div> 
+    <div className='company-profile-data d-flex justify-content-around flex-sm-row flex-column'>   
+        <div className='company-profile-detail row mx-auto '> 
+        <img src={company.CompanyImage}  className="company-profile-logo col-2 " alt='logo'/>  
 
-           <div className='col-8'> <span className=' company-profile-name'> {company.CompanyName}</span> 
-            <span > <FcRating className='rating-icon d-inline' />  <span className='rating'>3.8 | 14 reviews</span></span>
+           <div className='col-12  col-sm-10 mx-auto '> <span className=' company-profile-name d-inline'> {company.CompanyName}</span> 
+             <div className='d-inline'><FcRating className='rating-icon d-inline' />  <span className='rating d-inline'>3.8 | 14 reviews</span> </div> 
             <span className='d-block company-profile-tagline'>We transform SAP Solutions into Value</span>
             { company.CompanySectors && company.CompanySectors.length>=1 ? company.CompanySectors.map((item, index)=>{
                   return <div className='company-profile-sectors'>item   </div>
             }):<div className='company-profile-sectors'>item   </div>} </div>
 
         </div>
-        <div className='follows'>  <span className='followers-number'> 1.385k Followers</span> 
+        <div className='follows mx-auto'>  <span className='followers-number'> 1.385k Followers</span> 
     <button  className='btn btn-outline-primary follow-btn' value={followValue} onClick={()=>{handleFollow(company._id)}}>{ follow}</button>  
     </div>
     </div> 
    
-               <div className='next-section  d-flex justify-content-around'>  <span className='overview-button' onClick={()=>{setContent(true)}}>Overview</span> <span className='jobs-button' onClick={()=>{setContent(false)}}> Jobs</span> </div>
-               {content===true  ? <div className='company-profile-overview '><OverView/> <div className='company-showJobs mx-auto'><ShowJobs/></div><div className='company-showJobs'><CompanyInfo/></div> </div>:  
+               <div className='next-section  d-flex justify-content-around mx-auto' > <span style={{textDecoration: content? 'underline':'none'}} onClick={()=>{setContent(true)}}  className='overView-button'> Overview</span> <span className='jobs-button' style={{textDecoration: content? 'none':'underline'}} onClick={()=>{setContent(false)}}> Jobs</span> </div>   
+               {content===true  ? <div className='company-profile-overview  ' ><OverView/> <div className='company-showJobs mx-auto'><ShowJobs/></div><div className='company-profile-info'><CompanyInfo/></div> </div>:   
                <div className='company-profile-job mx-auto '> 
                
 <ShowJobs/> 
-                 <div className='company-jobs mx-auto   row'> 
-                    <div className='company-allJObs  col-12'> 
-                         <span className='fs-6 fw-bold'>Jobs by {company.CompanyName} </span>  <Job/>  </div>
+                 <div className='company-jobs mx-auto mt-5   row'> 
+                    <div className='company-allJObs  mx-auto col-12'> 
+                         <span className='fs-6 fw-bold d-block'>Jobs by {company.CompanyName} </span> 
+                         <span className=' fw-bold ms-5 text-secondary'>55154  </span> <span>  jobs by {company.CompanyName}</span>
+                          <Job/>  </div>
                     <div className='company-recommended-jobs col-12'>
                         <span className='fs-6 fw-bold'>Recommended Jobs for your regarding company  </span> 
-                        {
+                        { 
+                        <div className='d-flex justify-content-between'>
                             <div className='mt-3 mx-auto'> <span className='fs-6 fw-medium mx-auto'>jot title</span>  
                             <div><CiLocationOn className='d-inline' style={{"width":"25px"}}/> Hyderabad </div> 
                            
                             <div>  {company.CompanyName}  </div>    
                             <hr className='fw-bold'></hr> 
+                            </div>  
+                            <img src="" alt='company-logo' className='d-block w-100 mt-3'/>
                             </div>
                         }
 

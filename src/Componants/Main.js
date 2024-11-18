@@ -43,7 +43,7 @@ useEffect(()=>{
       try {
        setLoading(true)
         //  const response = await fetch(`https://api.adzuna.com/v1/api/jobs/${country}/search/${page}?app_id=04e0dcfa&app_key=e3c1a3d7bebf84066e7a64f6d3a38dc1&results_per_page=100&salary_max=${maximumSalary}&part_time=${part}&full_time=${full}&salary_min=${minimumSalary}&max_days_old=${lastDays}&what_or=${job}&where=${location}`);
-         const response=await fetch('   http://localhost:5000/api/candidate/getAllJobs')
+         const response=await fetch('   https://jobnexus-backend.onrender.com/api/candidate/getAllJobs')
          console.log(response)   
         setLoading(true)
         const result = await response.json();

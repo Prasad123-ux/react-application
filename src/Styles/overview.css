@@ -12,3 +12,37 @@
     font-size: 0.9rem; 
     color: gray;
 }
+@media only screen and  ( max-width: 576px  ) { 
+    .overview-about{
+        background-color:azure; 
+        width: 100%; 
+        height: fit-content; 
+        border: 1px solid transparent;  
+        padding: 10px;
+        border-radius: 10px; 
+        margin-top: 20px; 
+        /* font-size: 0.9rem; */
+    
+    } 
+    .overview-info{
+        font-size: 0.5rem; 
+        color: gray;
+    }
+
+} 
+@media only screen and (min-width:576px) and (max-width:768px) {
+    .overview-about{
+        background-color:azure; 
+        width: 85%; 
+        height: fit-content; 
+        border: 1px solid transparent;  
+        padding: 10px;
+        border-radius: 10px; 
+        margin-top: 20px;
+    
+    } 
+    .overview-info{
+        font-size: 0.9rem; 
+        color: gray;
+    }
+}

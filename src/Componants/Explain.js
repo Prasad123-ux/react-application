@@ -44,7 +44,7 @@ console.log(token)
 useEffect(()=>{
 const findJobExplainDetail= async ()=>{
     try{
-        await fetch(`   http://localhost:5000/api/candidate/getJobByID/${id}`,{
+        await fetch(`   https://jobnexus-backend.onrender.com/api/candidate/getJobByID/${id}`,{
             method:"GET",
             headers:{
                 "Content-type":"application/json"
@@ -85,7 +85,7 @@ useEffect(()=>{
     if (jobData.CompanyEmail) {
 
     const findCompanyData= async ()=>{
-         await fetch('   http://localhost:5000/api/company/getProfileData', {
+         await fetch('   https://jobnexus-backend.onrender.com/api/company/getProfileData', {
             method:"POST",
             body:JSON.stringify({email:jobData.CompanyEmail}),
             headers:{
@@ -119,7 +119,7 @@ useEffect(()=>{
    
     if(jobData){
     const findSimilarJob=async ()=>{
-       await fetch(`   http://localhost:5000/api/candidate/getSimilarJob?location=${encodeURIComponent(jobData.JobLocation)}&role=${encodeURIComponent(jobData.JobTitle)}`,{
+       await fetch(`   https://jobnexus-backend.onrender.com/api/candidate/getSimilarJob?location=${encodeURIComponent(jobData.JobLocation)}&role=${encodeURIComponent(jobData.JobTitle)}`,{
             method:"get",
             headers:{
                 "Content-type":"application/json"
@@ -153,7 +153,7 @@ useEffect(()=>{
 const handleSaveJob=async (jobValue)=>{
     console.log(jobValue)
 try{
-    const response= await fetch(`   http://localhost:5000/api/candidate/save_Job?id=${jobValue}`, {
+    const response= await fetch(`   https://jobnexus-backend.onrender.com/api/candidate/save_Job?id=${jobValue}`, {
         method:"POST",
         body:JSON.stringify({email:jobData.CompanyEmail}),
         headers:{

@@ -1,7 +1,52 @@
-.company-info{
-    width: 70%; 
-    background-color: wheat; 
-    height: fit-content;  
+
+ .companyInfo-info{  
+    margin-top: 50px;
+    width:50%; 
+    background-color:azure; 
     border: 1px solid transparent;
-    border-radius: 20px;
+    border-radius: 20px;  
+    padding-top: 20px;  
+    padding-left: 20px;
+    height: fit-content; 
+    padding-bottom: 20px;
+
+}
+.company-icon{
+    width: fit-content;
 } 
+@media only screen and  ( max-width: 576px  ) {  
+    .companyInfo-info{  
+        margin-top: 50px;
+        width:100%; 
+        background-color:azure; 
+        border: 1px solid transparent;
+        border-radius: 20px;  
+        padding-top: 20px;  
+        padding-left: 20px;
+        height: fit-content; 
+        padding-bottom: 20px; 
+        font-size: 0.;
+    
+    }
+    .company-icon{
+        width: fit-content;
+    } 
+
+}
+@media only screen and (min-width:576px) and (max-width:768px) {
+    .companyInfo-info{  
+        margin-top: 50px;
+        width:85%; 
+        background-color:azure; 
+        border: 1px solid transparent;
+        border-radius: 20px;  
+        padding-top: 20px;  
+        padding-left: 20px;
+        height: fit-content; 
+        padding-bottom: 20px;
+    
+    }
+    .company-icon{
+        width: fit-content;
+    } 
+}
