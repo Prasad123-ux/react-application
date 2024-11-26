@@ -2,7 +2,7 @@ import React, { createContext,  useState } from 'react'
 import { HStack, Avatar,Text} from '@chakra-ui/react'
 import "../Styles/job.css"
 import { ViewOffIcon } from '@chakra-ui/icons'
- import {  FaSave} from 'react-icons/fa'  
+
 
 import { CiLocationOn, } from "react-icons/ci";
 import { BsCurrencyRupee } from "react-icons/bs";
@@ -39,8 +39,8 @@ console.log(requirement)
   
  const handleSaveJob= async (key)=>{
 try{
-  // const response = await fetch('   https://jobnexus-backend.onrender.com/api/candidate/save_job', {
-     const response = await fetch('   https://jobnexus-backend.onrender.com/api/candidate/save_job', {
+  // const response = await fetch('   http://localhost:5000/api/candidate/save_job', {
+     const response = await fetch('   http://localhost:5000/api/candidate/save_job', {
 
     method:"POST",
     body:JSON.stringify({token:token, id:key}),
@@ -114,14 +114,35 @@ try{
 
 
 
+    {
+  requirement && requirement.length >= 0 ? (
+    <div className='salary d-none d-sm-flex mx-auto icons'>
+   { requirement && requirement.length >= 1 ?   <PiNotepadLight className='icons' />:""}
+      <span className='value'>
+        {
+        
+        
+        requirement[0]?.EducationalRequirement && 
+         requirement[0]?.EducationalRequirement?.length >= 1
+          ? ` ${requirement[0].EducationalRequirement.slice(0, 70)}...`
+          : ''
+          
+          
+          }
+      </span>
+    </div>
+  ) : (
+    ""
+  )
+}
 
 
-   {requirement && requirement.length>0? <div className='salary d-none d-sm-flex   mx-auto  icons' >      <PiNotepadLight className='icons ' /><span className=' value  '>{ requirement && requirement.length>0  ?` ${requirement[0].EducationalRequirement.slice(0,70)}...`:""  }</span></div> :""}
+   {/* {requirement && requirement.length>=1 ? <div className='salary d-none d-sm-flex   mx-auto  icons' >      <PiNotepadLight className='icons ' /><span className=' value  '>{ requirement && requirement.length>=1  ?` ${ requirement[0].EducationalRequirement && requirement[0].Requirement.length>=1 ?  requirement[0].Requirement.slice(0,70):''}...`:"no data"  }</span></div> :""} */}
 
 
 
-    { requirement && requirement.length>0? <Text className='d-none d-md-flex  text-secondary skills fw-bold d-none d-lg-block mx-auto'>{requirement && requirement.length>0? requirement[0].NeededSkillsAndTechnologies.slice(0,80):"" }</Text>:"" }
-      {  description && description.length>1 ? <Text className='description ' >{ description && description.length>1 ?` ${description.slice(0,150)}...`:""}</Text>:"" }
+    { requirement && requirement.length>=1 ? <Text className='d-none d-md-flex  text-secondary skills fw-bold d-none d-lg-block mx-auto'>{requirement[0].NeededSkillsAndTechnologies && requirement[0].NeededSkillsAndTechnologies.length>=1? requirement[0].NeededSkillsAndTechnologies.slice(0,70):"" }</Text>:"" }
+      {  description && description.length>=1 ? <Text className='description ' >{ description && description.length>1 ?` ${description.slice(0,150)}...`:""}</Text>:"" }
 
 
    
