@@ -1,6 +1,7 @@
 .login-page{
 
-    width: 100%;
+    width: 100%; 
+    margin-top: 100px;
 }
 
 .login-form{
@@ -10,13 +11,31 @@
 }
 .login-detail{
     height: fit-content;
-    width: 40%;
+    width: fit-content;
+    /* width: 40%; */
     
 }
 .login-btn{
    
-    margin-left: 100px;
+    width: auto;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; 
+    
 }
 .forget-btn{
     font-size: 10px;
+    width: auto;
+}
+
+@media only screen and (max-width:768px){
+    .login-form{
+        width: 100%;
+        height: fit-content;
+    
+    }
+    .login-detail{
+        width: 100%;
+    }
+
 }

@@ -84,7 +84,7 @@ const addToast=(title,message, status)=>{
 
 
   return (
-    <div className='' style={{"backgroundColor":"#F8F9FA"}}>
+    <div className='registration' style={{"backgroundColor":"#F8F9FA"}}>
       <div className='registration-form mx-auto p-5' style={{"backgroundColor":"#FFFFFF"}}>
         <div className='fw-medium fs-3' >Create your Jobify Profile</div>
         <span className='text-secondary'>Search & apply to jobs from India's No.1 Job Site</span>

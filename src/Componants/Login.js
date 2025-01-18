@@ -120,8 +120,8 @@ const addToast=(title,message="", status)=>{
 }
 
   return (
-    <div className='login-page d-flex justify-content-center  ' style={{"backgroundColor":"#FAFAFA"}}>
-      <div className='login-form shadow  p-4  rounded-5  mt-5' style={{"backgroundColor":"#FFFFFF"}} >
+    <div className='login-page d-flex justify-content-center flex-column flex-md-row  ' style={{"backgroundColor":"#FAFAFA"}}>
+      <div className='login-form shadow container p-4  rounded-5  mt-5' style={{"backgroundColor":"#FFFFFF"}} >
         <span className='fw-medium d-block fs-4'>Login</span>
         <form onSubmit={handleLoginData}>
         <div className="col-md-12 col-12 mt-3 ">
@@ -132,16 +132,19 @@ const addToast=(title,message="", status)=>{
     <label htmlFor="validationDefault02" className="form-label">Password</label>
     <input type="password" className="form-control rounded-4" id="validationDefault02"  name="password" value={loginData.password}  placeholder="Enter Password"  onChange={onchange} style={{"backgroundColor":"#E8F0FE"}} required/>
   </div>
-  <button   className='d-flex forget-btn  btn-link justify-content-start mt-3 w-25' data-bs-toggle="modal" data-bs-target="#staticBackdrop">Forget Password ?</button>
-  <button   type='submit' className=' login-btn btn btn-primary  mt-4 w-50 ' style={{"backgroundColor":"#4A90E2"}}>Login</button>
+  <button   className='d-flex forget-btn  btn-link justify-content-start mt-3' data-bs-toggle="modal" data-bs-target="#staticBackdrop">Forget Password ?</button>
+  <button   type='submit' className=' login-btn btn btn-primary  mx-auto ' style={{"backgroundColor":"#4A90E2"}}>Login</button>
         </form>
-          <button   className='text-primary mx-auto btn-link d-flex justify-content-center mt-1 w-50'>Use OTP to Login</button>
-         <span className='d-flex justify-content-center mt-3'>or </span>
+        <span className='d-flex justify-content-center mt-3'>or </span>
+          <button   className='text-primary mx-auto btn-link d-flex justify-content-center mt-1 '>Use OTP to Login</button>
+         
          {/* <button className='btn shadow rounded-5 text-secondary fw-medium d-flex justify-content-around w-75 mx-auto mt-3' style={{backgroundColor:"white"}}>  <FcGoogle className='mt-1' style={{width:"30px"}} />Sign in with Google</button> */}
        {/* <div><GoogleSignIn/></div> */}
 
-      </div>
-      <div className='login-detail shadow mt-5  ms-2 p-5 rounded-5' style={{"backgroundColor":"#FFFFFF"}} >
+      </div> 
+
+
+      <div className='login-detail shadow mt-5  container  p-5 rounded-5' style={{"backgroundColor":"#FFFFFF"}} >
         <div className='fw-medium fs-4'> New to Jobify ?</div>
         <div className='d-flex justify-content-between mt-3'>
           <IoCheckmark  className='fs-4 text-success' style={{"width":"20px"}} /> <span className='ms-3'>One click apply using Jobify profile.</span>

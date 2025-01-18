@@ -8,7 +8,9 @@ import { BiMenuAltLeft } from 'react-icons/bi'
 import "../Styles/navbar.css"
 import Heading from './Heading';
 import { useDispatch, useSelector } from 'react-redux';
-import { setFilteredJobs, setTokenData } from './Redux/jobSlice';
+import { setFilteredJobs, setTokenData } from './Redux/jobSlice'; 
+import { useToast } from '@chakra-ui/react';
+
 
 
 
@@ -18,7 +20,8 @@ const {isOpen:isLogOpen, onOpen:onLogOpen, onClose:onLogClose}= useDisclosure()
 const [loginButton,setLoginButton]= useState(false)
   const {isOpen, onOpen, onClose}=useDisclosure()
   const [userName, setUserName]= useState('Your Name')
-  const [email,setEmail]= useState('Email')
+  const [email,setEmail]= useState('Email') 
+  const [loading,setLoading]= useState(false)
    
    const [location, setLocation]= useState()
    const [role, setRole]= useState()
@@ -29,7 +32,8 @@ const [loginButton,setLoginButton]= useState(false)
     const dispatch= useDispatch() 
     const allJobs= useSelector((state)=>state.jobs.jobs)
     const filteredJobs = useSelector((state) => state.jobs.filteredJobs); 
-    const jobSeekerData= useSelector((state)=>state.jobs.jobSeekers)
+    const jobSeekerData= useSelector((state)=>state.jobs.jobSeekers) 
+    const toast= useToast()
 
 
     useEffect(() => {
@@ -47,24 +51,36 @@ const [loginButton,setLoginButton]= useState(false)
 
 
 
-    const handleSearchData=async ()=>{ 
+    const handleSearchData=async ()=>{  
+      
+      if( !token){
+        addToast("Please Login Yourself", 'Please Register', "warning") 
+        return
+      }
       try{
     const response = await fetch(`   https://jobnexus-backend.onrender.com/api/candidate/searchData?location=${encodeURIComponent(location)}&role=${encodeURIComponent(role)}`, {
       method:'GET',
       headers:{"content-type":"application/json"}
     })
-   
+   if(!response.ok){
+    throw new Error(response.statusText)
+    
+   }else{
     const data = await response.json() 
     console.log(data.jobs)
     if( data.job && data.job.length>=1){
      data.jobs && data.jobs.length>0 ? console.log(data.jobs[0]):console.log("data not found")
       dispatch(setFilteredJobs(data.job[0]))   
       }
+      addToast("We are landed jobs for you","data finded", 'success')
+    }
     
   }catch(err){
     console.log(err)
     
 
+  }finally{
+    setLoading(false)
   }
     }
 
@@ -93,7 +109,16 @@ const [loginButton,setLoginButton]= useState(false)
 
 
      
-
+    const addToast=(title,message="", status)=>{
+      toast({
+        title: title,
+        description: message,
+        status: status,
+        duration: 6000,
+        isClosable: true,
+      })
+    }
+  
 
   return (  
 
@@ -115,8 +140,8 @@ const [loginButton,setLoginButton]= useState(false)
         <div className='d-block d-lg-none'><Heading/></div>
 
 
-        <Button  borderRadius={'full'}   width={{base:'25px',md:'50px' ,sm:'50px' , lg:'50px'}} backgroundColor='white'  size={{base:'xs', sm:'md',md:'md'}} mr={{base:'10px',}}    onClick={onOpen}   ><BiMenuAltLeft  size={'lg'}/></Button>
-        <Text width={'50px'} mr={{base:'px',md:'2', lg:'2'}} ><Link to='/profile'> <Avatar cursor={'pointer'} src={jobSeekerData.extraFields?.profileImage && jobSeekerData.extraFields?.profileImage.length>=1 ?jobSeekerData.extraFields?.profileImage:"" } size={{base:'xs' , sm:'xs',md:'md',lg:'md'}}  /></Link></Text>
+       { token&& token.length >= 1 ? <Button  borderRadius={'full'}   width={{base:'25px',md:'50px' ,sm:'50px' , lg:'50px'}} backgroundColor='white'  size={{base:'xs', sm:'md',md:'md'}} mr={{base:'10px',}}    onClick={onOpen}   ><BiMenuAltLeft  size={'lg'}/></Button>:""}
+       {  token&& token.length >= 1 ?<Text width={'50px'} mr={{base:'px',md:'2', lg:'2'}} ><Link to='/profile'> <Avatar cursor={'pointer'} src={jobSeekerData.extraFields?.profileImage && jobSeekerData.extraFields?.profileImage.length>=1 ?jobSeekerData.extraFields?.profileImage:"" } size={{base:'xs' , sm:'xs',md:'md',lg:'md'}}  /></Link></Text>:""}
 
         <Box width={{ base:'10px' ,sm:'300px',md:'500px' ,lg:'500px'}}  mr={{base:'5' , sm:'5', md:'2',lg:'2'}}>     
          

@@ -1,3 +1,12 @@
+.registration{
+    margin: 100px;
+}
+
 .registration-form{
     width: 50%;
+}
+@media only screen and (max-width:576px){
+    .registration-form{
+        width: fit-content;
+    }
 }
