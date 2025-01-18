@@ -25,7 +25,7 @@ export default function ProfileImage() {
             formData.append('image', file)  
             console.log(formData)
 
-            const response=  await fetch('http://localhost:5000/api/candidate/profile/uploadProfileImage', {  
+            const response=  await fetch('https://jobnexus-backend.onrender.com/api/candidate/profile/uploadProfileImage', {  
                 method:"POST", 
                 body:formData,  
                 headers: {

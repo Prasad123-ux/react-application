@@ -21,7 +21,7 @@ import CompanyProfile from './Componants/Company_Component/CompanyProfile'
 
 export default function App() {
 
-   const api='http://localhost:5000'
+   const api='https://jobnexus-backend.onrender.com'
 
 const [users, setUsers]= useState([]);
 const [type, setType]= useState()

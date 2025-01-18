@@ -56,7 +56,7 @@ useEffect(()=>{
   const handleGetUserData = async () => {
     
     
-    await fetch('http://localhost:5000/api/candidate/getProfileData', {
+    await fetch('https://jobnexus-backend.onrender.com/api/candidate/getProfileData', {
         method: "POST",
         body: JSON.stringify({ token: token }),
         headers: {

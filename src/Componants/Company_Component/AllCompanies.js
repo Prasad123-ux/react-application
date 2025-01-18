@@ -25,7 +25,7 @@ export default function AllCompanies() {
     const  handleAllCompaniesData=async ()=>{
 
       try{ 
-        const response= await  axios.get("http://localhost:5000/api/getAllCompanies")
+        const response= await  axios.get("https://jobnexus-backend.onrender.com/api/getAllCompanies")
           
           if(response.status !==200){ 
             addToast('Sorry Data Not Found ', "error")

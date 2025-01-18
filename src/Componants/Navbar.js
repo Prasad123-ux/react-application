@@ -49,7 +49,7 @@ const [loginButton,setLoginButton]= useState(false)
 
     const handleSearchData=async ()=>{ 
       try{
-    const response = await fetch(`   http://localhost:5000/api/candidate/searchData?location=${encodeURIComponent(location)}&role=${encodeURIComponent(role)}`, {
+    const response = await fetch(`   https://jobnexus-backend.onrender.com/api/candidate/searchData?location=${encodeURIComponent(location)}&role=${encodeURIComponent(role)}`, {
       method:'GET',
       headers:{"content-type":"application/json"}
     })

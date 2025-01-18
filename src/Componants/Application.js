@@ -19,7 +19,7 @@ function Application() {
     useEffect(()=>{
         const findJobExplainDetail= async ()=>{
             try{
-                await fetch(`   http://localhost:5000/api/candidate/getJobByID/${id}`,{
+                await fetch(`   https://jobnexus-backend.onrender.com/api/candidate/getJobByID/${id}`,{
                     method:"GET",
                     headers:{
                         "Content-type":"application/json"
@@ -54,7 +54,7 @@ function Application() {
 useEffect(()=>{
     const findProfileData=async ()=>{
         try{
-        const response= await fetch('   http://localhost:5000/api/candidate/getProfileData', {
+        const response= await fetch('   https://jobnexus-backend.onrender.com/api/candidate/getProfileData', {
             method:"POST",
             body:JSON.stringify({token:token}),
             headers:{
@@ -86,7 +86,7 @@ const appliedJob= async (value)=>{
     
     
     
-        await fetch(`   http://localhost:5000/api/candidate/appliedForJob/${value}`, {
+        await fetch(`   https://jobnexus-backend.onrender.com/api/candidate/appliedForJob/${value}`, {
             method:"GET",
         headers:{
             "Content-type":"application/json"

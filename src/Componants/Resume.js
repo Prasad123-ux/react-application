@@ -47,7 +47,7 @@ function Resume({ resumeData }) {
     
 
     try {
-      const response = await fetch("   http://localhost:5000/api/candidate/profile/add_resume",{
+      const response = await fetch("   https://jobnexus-backend.onrender.com/api/candidate/profile/add_resume",{
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
