@@ -31,17 +31,21 @@ function Profile({api}) {
   const [userData, setUserData]= useState([])
   const [userUpdatedData, setUserUpdatedData]= useState({name:"", location:"", workStatus:"",city:"", join:"", }) 
   const dispatch= useDispatch() 
-  const jobSeekerData= useSelector((state)=>state.jobs.jobSeekers)
+  const jobSeekerData= useSelector((state)=>state.jobs.jobSeekers) 
+  const  token= useSelector((state)=>(state.tokenData))
 
 
- const token = localStorage.getItem('token') 
- console.log(jobSeekerData)
+//  const token = localStorage.getItem('token') 
+//  console.log(jobSeekerData)
 
- useEffect(() => {
-  // Call the function to fetch user data when component mounts
-  handleGetUserData();  
-}, []); // Empty dependency array means this effect runs once when the component mounts
+//  useEffect(() => {
+//   // Call the function to fetch user data when component mounts
+//   handleGetUserData();  
+// }, []); // Empty dependency array means this effect runs once when the component mounts
 
+useEffect(()=>{
+  handleGetUserData();
+}, [])
 
 
 
@@ -52,7 +56,7 @@ function Profile({api}) {
   const handleGetUserData = async () => {
     
     
-    await fetch('https://jobnexus-backend.onrender.com/api/candidate/getProfileData', {
+    await fetch('http://localhost:5000/api/candidate/getProfileData', {
         method: "POST",
         body: JSON.stringify({ token: token }),
         headers: {
@@ -136,7 +140,7 @@ const onchange=(e)=>{
         <div className='col-12  col-md-6' >
       { userData.MobileNumber  ? <Text className='d-block text-secondary '><CiPhone style={{"width":"30px" ,"height":"20px"}} className='d-inline' /><span className=''>{userData.MobileNumber  ? userData.MobileNumber :"Not Found" }</span>  </Text>:""}
        {userData.Email && userData.Email.length>1  ? <Text className='d-block text-secondary '><CiMail  style={{"width":"30px" ,"height":"20px"}} className='d-inline' /><span className=''>{userData.Email && userData.Email.length>1  ? userData.Email :"" }</span>  </Text>:""}
-        <button className='d-block text-secondary btn  w-50 mx-auto shadow bg-light  ' data-toggle="modal" data-target="#exampleModalLong"><FiEdit2 className='d-inline' style={{"width":"30px"}} /><span className='d-inline'>Edit </span></button>
+       {token && token.length>=1  ? <button className='d-block text-secondary btn  w-50 mx-auto shadow bg-light  ' data-toggle="modal" data-target="#exampleModalLong"><FiEdit2 className='d-inline' style={{"width":"30px"}} /><span className='d-inline'>Edit </span></button>: <button className='d-block text-secondary btn  w-50 mx-auto shadow bg-light  ' ><Link to='/login' className='d-inline'>Log in </Link></button>}
 
 
         </div>

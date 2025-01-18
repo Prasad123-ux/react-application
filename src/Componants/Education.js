@@ -83,7 +83,7 @@ const handleEducationalDetails=async (e)=>{
   e.preventDefault()
 
 try{
-    const response= await fetch('https://jobnexus-backend.onrender.com/api/candidate/Profile/addProfileDetail',{
+    const response= await fetch('http://localhost:5000/api/candidate/Profile/addProfileDetail',{
 
     method:"POST",
     body:JSON.stringify({token:token, data:educationChecked===true ? collageDetails :schoolDetails,  dataType:'Education'  }),
@@ -121,7 +121,7 @@ const handleUpdateEducationDetail=async(e)=>{
 
   e.preventDefault()
   try{
-    const response=  await fetch('   https://jobnexus-backend.onrender.com/api/candidate/profile/updateProfileDetail ',{
+    const response=  await fetch('   http://localhost:5000/api/candidate/profile/updateProfileDetail ',{
       method:"POST",
       body:JSON.stringify({token:token, data:educationChecked===true ? collageDetails :schoolDetails, dataCategory:'Education', id:updateID,index:updateIndex }),
       headers:{
@@ -153,7 +153,7 @@ const handleDeleteUserData=async(id, index)=>{
   console.log(id,index)
   setLoader(true)
   try{
-    const response= await fetch(`https://jobnexus-backend.onrender.com/api/candidate/profile/education/deleteEducation?id=${id}&index=${index}&dataType=Education`, {     
+    const response= await fetch(`http://localhost:5000/api/candidate/profile/education/deleteEducation?id=${id}&index=${index}&dataType=Education`, {     
       method:"DELETE",
       headers:{"Content-type":"application/json"}
 

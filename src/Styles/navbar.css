@@ -29,3 +29,26 @@
  .menu-icon{ 
      margin-left: '5rem'; 
  } 
+
+ .side-text{
+  font-size: 1rem; 
+  font-weight: 500; 
+  width: fit-content;
+  
+  text-decoration: none;
+  cursor: pointer; 
+  color: tan;
+  
+ }
+ .username{
+  font-weight: 500; 
+ }
+ .user-email{
+  font-weight: 400;
+ }
+ /* .side-button{
+  border: 1px solid white;
+  border-radius: 100px; 
+  width: fit-content;
+
+ } */

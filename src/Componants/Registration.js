@@ -18,7 +18,7 @@ function Registration() {
   const handleSubmitData=(e)=>{
     e.preventDefault()
     try{
-      fetch('   https://jobnexus-backend.onrender.com/api/candidate/registerCandidate', {
+      fetch('   http://localhost:5000/api/candidate/registerCandidate', {
         method:"POST",
         body:JSON.stringify({token:token, userData:userData}),
         headers:{

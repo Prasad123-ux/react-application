@@ -11,6 +11,9 @@ import { FaFacebookSquare } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa6";
 import { FaTwitterSquare } from "react-icons/fa";
 import Footer from './Footer.js';
+import { useSelector } from 'react-redux';  
+import { useToast } from '@chakra-ui/react';
+
 function Explain() {
 
     const [jobData, setJobData]= useState([])
@@ -19,6 +22,8 @@ function Explain() {
     const [saveValue, setSaveValue]= useState("Save")
      const {id}= useParams();
      const navigate= useNavigate()
+     const token= useSelector((state)=>state.tokenData) 
+     const toast= useToast()
 
 
     
@@ -30,21 +35,23 @@ function Explain() {
      let monthName=months[new Date(jobData.createdAt ).getMonth()]
     let day=new Date(jobData.createdAt ).toUTCString().slice(5,7)
     console.log(monthName,day)
-const token= localStorage.getItem("token") 
-console.log(token)
-    // const CompanyFindEmail=jobData.HREmail
 
-    useEffect(()=>{
-        window.scrollTo(0,0)
-    }, [])
+
     
 
 
 
-useEffect(()=>{
+useEffect(()=>{  
+    window.scrollTo(0,0) 
+    if (!token  && token===undefined){
+        addToast("Please log in Yourself " ,"for accessing more features please login", "warning")
+    }
+
+
+
 const findJobExplainDetail= async ()=>{
     try{
-        await fetch(`   https://jobnexus-backend.onrender.com/api/candidate/getJobByID/${id}`,{
+        await fetch(`   http://localhost:5000/api/candidate/getJobByID/${id}`,{
             method:"GET",
             headers:{
                 "Content-type":"application/json"
@@ -85,7 +92,7 @@ useEffect(()=>{
     if (jobData.CompanyEmail) {
 
     const findCompanyData= async ()=>{
-         await fetch('   https://jobnexus-backend.onrender.com/api/company/getProfileData', {
+         await fetch('   http://localhost:5000/api/company/getProfileData', {
             method:"POST",
             body:JSON.stringify({email:jobData.CompanyEmail}),
             headers:{
@@ -119,7 +126,7 @@ useEffect(()=>{
    
     if(jobData){
     const findSimilarJob=async ()=>{
-       await fetch(`   https://jobnexus-backend.onrender.com/api/candidate/getSimilarJob?location=${encodeURIComponent(jobData.JobLocation)}&role=${encodeURIComponent(jobData.JobTitle)}`,{
+       await fetch(`   http://localhost:5000/api/candidate/getSimilarJob?location=${encodeURIComponent(jobData.JobLocation)}&role=${encodeURIComponent(jobData.JobTitle)}`,{
             method:"get",
             headers:{
                 "Content-type":"application/json"
@@ -153,7 +160,7 @@ useEffect(()=>{
 const handleSaveJob=async (jobValue)=>{
     console.log(jobValue)
 try{
-    const response= await fetch(`   https://jobnexus-backend.onrender.com/api/candidate/save_Job?id=${jobValue}`, {
+    const response= await fetch(`   http://localhost:5000/api/candidate/save_Job?id=${jobValue}`, {
         method:"POST",
         body:JSON.stringify({email:jobData.CompanyEmail}),
         headers:{
@@ -194,7 +201,15 @@ const handleButtonClick=(id)=>{
   }
 
 
-console.log(jobData)
+  const addToast=(title,message="", status)=>{
+    toast({
+      title: title,
+      description: message,
+      status: status,
+      duration: 6000,
+      isClosable: true,
+    })
+  }
 
 
   return (
@@ -265,7 +280,7 @@ console.log(jobData)
 
     jobData.JobKeyResponsibilities.split(".").map((item,index)=>{
         return <li key={index}>
-         {item}.
+         {item}
         </li>
     }):""
     }
@@ -290,8 +305,8 @@ console.log(jobData)
     <Text className='fw-bold '>Common Info</Text>
 
     {jobData.JobCommonInfo && jobData.JobCommonInfo.length>0 ? Object.entries(jobData.JobCommonInfo[0]).filter(([key, value])=>key !=='_id').map(([key,value], index)=>{
-     return (  value.length>1 ? <div> 
-     <span className='fw-bold text-dark mt-5'>{key}:</span>    <span>{value[0].toUpperCase()+value.slice(1)}</span>
+     return (  value.length>1 ? <div className='mt-1'> 
+     <span className='fw-medium text-secondary mt-5'>{key}:</span>    <span className='ms-1'>{value[0].toUpperCase()+value.slice(1)}</span>
  </div>:"")
     }):""}
     
@@ -346,7 +361,7 @@ return (value.length>1? <div> <span className=' fw-bold text-dark mt-3'>{key} : 
  <div className='fw-bold'>{value.JobTitle}</div>
  <span>{value.CompanyEmail}</span>
  <div className='mt-2 d-flex justify-content-between'>
-     <span className='location'><CiLocationOn className='d-inline' style={{"width":"25px"}}/>  { value.jobLocation && value.JobLocation.length>=1 ? value.JobLocation.slice(0,9) :""}... </span>
+     <span className='location'><CiLocationOn className='d-inline' style={{"width":"25px"}}/>  { value.jobLocation && value.JobLocation.length>=1 ? value.JobLocation.slice(0,5) :""}... </span>
      <span className='posted '> Posted: {value.createdAt ? (`${months[new Date(value.createdAt ).getMonth()] } ${new Date(value.createdAt ).toUTCString().slice(5,7)}`):""}</span>
      
  </div>

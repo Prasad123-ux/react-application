@@ -8,23 +8,24 @@ import { BiMenuAltLeft } from 'react-icons/bi'
 import "../Styles/navbar.css"
 import Heading from './Heading';
 import { useDispatch, useSelector } from 'react-redux';
-import { setFilteredJobs } from './Redux/jobSlice';
+import { setFilteredJobs, setTokenData } from './Redux/jobSlice';
 
 
 
 export default function Navbar({users, onDelete, getCity, getRole, color}) {
 
-const {isOpen:isLogOpen, onOpen:onLogOpen, onClose:onLogClose}= useDisclosure()
+const {isOpen:isLogOpen, onOpen:onLogOpen, onClose:onLogClose}= useDisclosure() 
+const [loginButton,setLoginButton]= useState(false)
   const {isOpen, onOpen, onClose}=useDisclosure()
-  const [userName, setUserName]= useState('UserName')
+  const [userName, setUserName]= useState('Your Name')
   const [email,setEmail]= useState('Email')
    
    const [location, setLocation]= useState()
    const [role, setRole]= useState()
     const cancelRef = React.useRef();
-    const [disable, setDisable]= useState(true)
-    const [isScrolling,setIsScrolling]= useState(false)  
-    const [tokenValue,setTokenValue]= useState()
+    // const [disable, setDisable]= useState(true)
+    // const [isScrolling,setIsScrolling]= useState(false)  
+    const token= useSelector((state)=>state.tokenData)
     const dispatch= useDispatch() 
     const allJobs= useSelector((state)=>state.jobs.jobs)
     const filteredJobs = useSelector((state) => state.jobs.filteredJobs); 
@@ -38,7 +39,7 @@ const {isOpen:isLogOpen, onOpen:onLogOpen, onClose:onLogClose}= useDisclosure()
 
     useEffect(()=>{
       const token= localStorage.getItem('token')
-      setTokenValue(token)
+      dispatch(setTokenData(token)) 
 
 
     }, [])
@@ -48,7 +49,7 @@ const {isOpen:isLogOpen, onOpen:onLogOpen, onClose:onLogClose}= useDisclosure()
 
     const handleSearchData=async ()=>{ 
       try{
-    const response = await fetch(`   https://jobnexus-backend.onrender.com/api/candidate/searchData?location=${encodeURIComponent(location)}&role=${encodeURIComponent(role)}`, {
+    const response = await fetch(`   http://localhost:5000/api/candidate/searchData?location=${encodeURIComponent(location)}&role=${encodeURIComponent(role)}`, {
       method:'GET',
       headers:{"content-type":"application/json"}
     })
@@ -83,7 +84,7 @@ const {isOpen:isLogOpen, onOpen:onLogOpen, onClose:onLogClose}= useDisclosure()
 
     const onLogOutDelete=async()=>{
      localStorage.removeItem('token')
-     setTokenValue('')
+     dispatch(setTokenData(" "))
      
      onLogClose()
       
@@ -91,7 +92,7 @@ const {isOpen:isLogOpen, onOpen:onLogOpen, onClose:onLogClose}= useDisclosure()
 
 
 
-     console.log(location, role)
+     
 
 
   return (  
@@ -120,7 +121,7 @@ const {isOpen:isLogOpen, onOpen:onLogOpen, onClose:onLogClose}= useDisclosure()
         <Box width={{ base:'10px' ,sm:'300px',md:'500px' ,lg:'500px'}}  mr={{base:'5' , sm:'5', md:'2',lg:'2'}}>     
          
 
-         { tokenValue && tokenValue.length >= 1 ? (
+         { token&& token.length >= 1 ? (
   // <Box > <Button  backgroundColor={'white'} display={{base:'none', sm:'block',md:'block',lg:'block'}}  size={{base:'xs', sm:'xs', md:'md'}} borderRadius={'100px'}  onClick={onLogOpen}>Log out</Button></Box>
   <></>
 ):(
@@ -143,18 +144,18 @@ const {isOpen:isLogOpen, onOpen:onLogOpen, onClose:onLogClose}= useDisclosure()
         </HStack>
    
 
-   <Drawer onClose={onClose} isOpen={isOpen} size={{base:'full', sm:'xs', md:'xs', lg:'md', xl:'md'}}>
+   <Drawer onClose={onClose} isOpen={isOpen} size={{base:'xs', sm:'xs', md:'xs', lg:'md', xl:'xs'}}>
     <DrawerOverlay/>
     <DrawerContent>
       <DrawerHeader></DrawerHeader>
       <DrawerCloseButton/>
       <DrawerBody>
       <HStack justifyContent={'space-between'}>
-<Avatar size={'xl'}/>
+<Avatar size={'md'}/>
 <VStack ml={'25px'}>
-  <Text fontSize={'1.7rem'} fontWeight={'500'}>{userName}</Text>
-  <Text fontWeight={'400'} fontSize={'1.3rem'}> {email}</Text>
- <Link to='/profile'> <Text color={'blue'} fontSize={'1.2rem'} onClick={onClose}>View & Update Profile</Text></Link>
+  <span className='username'>{userName}</span>
+  <span className='user-email'> {email}</span>
+ <Link to='/profile'> <Text color={'blue'} fontSize={'0.8rem'} onClick={onClose}>View & Update Profile</Text></Link>
 </VStack>
 </HStack>
 <Divider mt={'8'}/>
@@ -162,60 +163,60 @@ const {isOpen:isLogOpen, onOpen:onLogOpen, onClose:onLogClose}= useDisclosure()
   <ListItem>
     
   
-    <Text fontSize={'1.3rem'} onClick={onClose} fontWeight={'500'} _hover={{ color: 'teal.200', cursor: 'pointer' }}
-    transition="background-color 0.3s" cursor={'pointer'}><Link to="/">Home</Link></Text>
+    <Text className='side-text'  onClick={onClose} ><Link to="/">Home</Link></Text>
   </ListItem>
   <ListItem>
-  <Text fontSize={'1.3rem'} onClick={onClose} fontWeight={'500'}  _hover={{ color: 'teal.200', cursor: 'pointer' }}
-    transition="background-color 0.3s"><Link to="/main">Find Jobs </Link></Text>
+  <Text className='side-text' onClick={onClose} ><Link to="/main">Find Jobs </Link></Text>
 
   </ListItem>
   <ListItem>
-  <Text fontSize={'1.3rem'}onClick={onClose} fontWeight={'500'}  _hover={{ color: 'teal.200', cursor: 'pointer' }}
-    transition="background-color 0.3s"><Link to="/profile">Profile</Link></Text>
+  <Text  className='side-text'  onClick={onClose} ><Link to="/profile">Profile</Link></Text>
 
   </ListItem>
   <ListItem>
-  <Text fontSize={'1.3rem'} onClick={onClose} fontWeight={'500'}  _hover={{ color: 'teal.200', cursor: 'pointer' }}
-    transition="background-color 0.3s"><Link to ="/login">Log In </Link></Text>
+   
+   
+  { loginButton ? <Text className="side-text" onClick={onClose} >
+     
+     <Link >Log in </Link>   
+     
+      </Text> :
+      <Text className='side-text' onClick={onClose} >
+     
+     <Link >Log Out </Link>   
+     
+      </Text>
+}
+  </ListItem>
+  <ListItem>
+  <Text className="side-text" onClick={onClose} ><Link to ="/signin">Sign in </Link></Text>
 
   </ListItem>
   <ListItem>
-  <Text fontSize={'1.3rem'} onClick={onClose} fontWeight={'500'}  _hover={{color: 'teal.200', cursor: 'pointer' }}
-    transition="background-color 0.3s"><Link to ="/signin">Sign in </Link></Text>
+  <Text className='side-text' onClick={onClose} ><Link to ="/registration">Register</Link></Text>
 
   </ListItem>
   <ListItem>
-  <Text fontSize={'1.3rem'} onClick={onClose} fontWeight={'500'} _hover={{color: 'teal.200', cursor: 'pointer' }}
-    transition="background-color 0.3s"><Link to ="/registration">Register</Link></Text>
-
-  </ListItem>
-  <ListItem>
-  <Text fontSize={'1.3rem'} onClick={onClose} fontWeight={'500'}  _hover={{ color: 'teal.200', cursor: 'pointer' }}
-    transition="background-color 0.3s">Settings</Text>
+  <Text className='side-text'  onClick={onClose}   _>Settings</Text>
 
   </ListItem> 
   <ListItem>
-  <Text fontSize={'1.3rem'} onClick={onClose} fontWeight={'500'}  _hover={{ color: 'teal.200', cursor: 'pointer' }}
-    transition="background-color 0.3s"> <Link to="/companies">Companies </Link></Text>
+  <Text className='side-text' onClick={onClose}> <Link to="/companies">Companies </Link></Text>
 
   </ListItem> 
   <ListItem>
-  <Text fontSize={'1.3rem'} onClick={onClose} fontWeight={'500'}  _hover={{ color: 'teal.200', cursor: 'pointer' }}
-    transition="background-color 0.3s"> <Link to="/companies/skeleton">Companies skeleton </Link></Text>
+  <Text className='side-text' onClick={onClose} > <Link to="/companies/skeleton">Companies skeleton </Link></Text>
 
   </ListItem>
 
 
   
   <ListItem>
-  <Text fontSize={'1.3rem'} onClick={onClose} fontWeight={'500'}  _hover={{ color: 'teal.200', cursor: 'pointer' }}
-    transition="background-color 0.3s">Help</Text>
+  <Text className="side-text" onClick={onClose} >Help</Text>
 
   </ListItem>
   <ListItem>
-  <Text fontSize={'1.3rem'} onClick={onClose} fontWeight={'500'}  _hover={{ color: 'teal.200', cursor: 'pointer' }}
-    transition="background-color 0.3s">FAQ</Text>
+  <Text className='side-text' onClick={onClose}>FAQ</Text>
 
   </ListItem>
 </UnorderedList>

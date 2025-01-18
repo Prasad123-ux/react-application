@@ -6,7 +6,8 @@ import Loading from './Loading.js';
 import Footer from './Footer.js';
 import Heading from './Heading.js';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAllJobs } from './Redux/jobSlice.js';
+import { setAllJobs, setTokenData } from './Redux/jobSlice.js'; 
+import { useToast } from '@chakra-ui/react';
 
 // import { FaCircleArrowLeft } from "react-icons/fa6"; 
 // import { FaCircleArrowRight } from "react-icons/fa6";
@@ -16,7 +17,7 @@ import { setAllJobs } from './Redux/jobSlice.js';
 const Main = () => {
   
 
-
+const toast= useToast()
 
 const [loading, setLoading]= useState(false)
 
@@ -24,7 +25,8 @@ const [loading, setLoading]= useState(false)
   const [page, setPage]= useState() 
   const dispatch= useDispatch() 
   const allJobs = useSelector((state) => state.jobs.jobs);  
-  const filteredJobs = useSelector((state) => state.jobs.filteredJobs); 
+  const filteredJobs = useSelector((state) => state.jobs.filteredJobs);  
+  const token=useSelector((state)=>state.jobs.tokenData)
   const [filterLength, setFilterLength]= useState(0)
 
 
@@ -41,14 +43,16 @@ useEffect(()=>{
    useEffect(() => {
     const fetchData = async () => {
       try {
-       setLoading(true)
+       setLoading(true) 
+       addToast("We are Finding jobs related to you ", "Please Wait" , "warning")
         //  const response = await fetch(`https://api.adzuna.com/v1/api/jobs/${country}/search/${page}?app_id=04e0dcfa&app_key=e3c1a3d7bebf84066e7a64f6d3a38dc1&results_per_page=100&salary_max=${maximumSalary}&part_time=${part}&full_time=${full}&salary_min=${minimumSalary}&max_days_old=${lastDays}&what_or=${job}&where=${location}`);
-         const response=await fetch('   https://jobnexus-backend.onrender.com/api/candidate/getAllJobs')
+         const response=await fetch('   http://localhost:5000/api/candidate/getAllJobs')
          console.log(response)   
         setLoading(true)
         const result = await response.json();
          setLoading(false)
-
+          const tokenValue= localStorage.getItem("token") 
+          dispatch(setTokenData(tokenValue))
          setData(result.Data);   
         //  console.log(result.Data)
         //  dispatch(setAllJobs(result.Data))
@@ -64,6 +68,8 @@ useEffect(()=>{
     fetchData();
   },[]);
 
+  console.log(token)
+
   
 
   const  handleDeleteJob=(id)=>{
@@ -76,8 +82,15 @@ useEffect(()=>{
  
   
 
-
- console.log(allJobs)
+  const addToast=(title,message="", status)=>{
+    toast({
+      title: title,
+      description: message,
+      status: status,
+      duration: 6000,
+      isClosable: true,
+    })
+  }
 
   return (
     

@@ -21,7 +21,7 @@ import CompanyProfile from './Componants/Company_Component/CompanyProfile'
 
 export default function App() {
 
-   const api='https://jobnexus-backend.onrender.com'
+   const api='http://localhost:5000'
 
 const [users, setUsers]= useState([]);
 const [type, setType]= useState()
@@ -99,12 +99,13 @@ const length=users.length
 }, []);
 
   return (
-    <div>   
+    <div>       
       
       
 
       <BrowserRouter basename={process.env.PUBLIC_URL}>
-     {/* { isScrolling===true ?<Navbar users={users} getCity={onCityChange} getRole={onRoleChange} onDelete={handleDelete} length={length}/>:""}  */}  
+     { isScrolling===true ?<Navbar users={users} getCity={onCityChange} getRole={onRoleChange} onDelete={handleDelete} length={length}/>:""}   
+     {/* <Navbar/> */} 
      <Navbar/>
 <Routes>
 <Route  path='/' element={<Home users={users} />} />

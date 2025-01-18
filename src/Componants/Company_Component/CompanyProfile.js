@@ -60,7 +60,7 @@ export default function CompanyProfile() {
 }
 
 try{
-    const response= await  axios.post('https://jobnexus-backend.onrender.com/api/candidate/companyProfile/followaction',{
+    const response= await  axios.post('http://localhost:5000/api/candidate/companyProfile/followaction',{
         token:token ,
         follows:followValue ,
         id:id

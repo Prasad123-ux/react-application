@@ -7,7 +7,8 @@ const initialState={
     filteredJobs:[],
     jobSeekers:[],
     companies:[] ,
-    companiesJobs:[]
+    companiesJobs:[],
+    token:[],
 };
 
 
@@ -31,12 +32,15 @@ const jobSlice=createSlice({
         },
         setAllCompaniesJobs:(state,action)=>{
             state.companies= action.payload
+        },
+        setTokenData:(state,action)=>{
+            state.token=action.payload
         }
        
     }
 })
 
-export const {setAllJobs, setFilteredJobs, setJobSeekers, setAllCompanies, setAllCompaniesJobs}=jobSlice.actions;
+export const {setAllJobs, setFilteredJobs, setJobSeekers, setAllCompanies, setAllCompaniesJobs,setTokenData}=jobSlice.actions;
 
 
 export default jobSlice.reducer;

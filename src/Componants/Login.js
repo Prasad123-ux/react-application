@@ -32,7 +32,7 @@ const navigateRegister=()=>{
 const handleForgetPassword=(e)=>{
       e.preventDefault()
 
-      fetch('   https://jobnexus-backend.onrender.com/api/candidate/forgetPassword',{
+      fetch('   http://localhost:5000/api/candidate/forgetPassword',{
         method:"POST",
         body:JSON.stringify({otpEmailValue}),
         headers:{
@@ -67,7 +67,7 @@ const handleForgetPassword=(e)=>{
 const handleLoginData=async (e)=>{
   e.preventDefault()
 
-   await fetch('   https://jobnexus-backend.onrender.com/api/candidate/loginCandidate',{
+   await fetch('   http://localhost:5000/api/candidate/loginCandidate',{
     method:"POST",
     body:JSON.stringify({data:loginData}),
     headers:{
