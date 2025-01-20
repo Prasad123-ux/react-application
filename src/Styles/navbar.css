@@ -18,9 +18,10 @@
      
     background-color: whitesmoke; 
     position: fixed;
-    width: fit-content;
+    /* width: fit-content; */
     top: 0;
     z-index: 1000;
+
    
   
    

@@ -27,7 +27,8 @@ const [loading, setLoading]= useState(false)
   const allJobs = useSelector((state) => state.jobs.jobs);  
   const filteredJobs = useSelector((state) => state.jobs.filteredJobs);  
   const token=useSelector((state)=>state.jobs.tokenData)
-  const [filterLength, setFilterLength]= useState(0)
+  const [filterLength, setFilterLength]= useState(0) 
+  const [error, setError]= useState()
 
 
 useEffect(()=>{
@@ -44,31 +45,43 @@ useEffect(()=>{
     const fetchData = async () => {
       try {
        setLoading(true) 
-       addToast("We are Finding jobs related to you ", "Please Wait" , "warning")
+      
         //  const response = await fetch(`https://api.adzuna.com/v1/api/jobs/${country}/search/${page}?app_id=04e0dcfa&app_key=e3c1a3d7bebf84066e7a64f6d3a38dc1&results_per_page=100&salary_max=${maximumSalary}&part_time=${part}&full_time=${full}&salary_min=${minimumSalary}&max_days_old=${lastDays}&what_or=${job}&where=${location}`);
          const response=await fetch('   https://jobnexus-backend.onrender.com/api/candidate/getAllJobs')
-         console.log(response)   
-        setLoading(true)
-        const result = await response.json();
-         setLoading(false)
+         
+         if(!response.ok){
+            const errorText= await response.text() 
+            throw new Error(`Request failed with status ${response.status}:${errorText}`)
+         }else{
+          addToast("We are Finding jobs related to you ", "Please Wait" , "warning")
+          const result = await response.json();
+         
           const tokenValue= localStorage.getItem("token") 
           dispatch(setTokenData(tokenValue))
          setData(result.Data);   
-        //  console.log(result.Data)
-        //  dispatch(setAllJobs(result.Data))
+        
+
+         }
+        
+       
 
          
       
-      } catch (error) {  
-         setLoading(true)
-        console.error("Failed to fetch your data", error);
+      } catch (error) {
+        addToast(error.message, "error" , "error")
+        setError(error.message)
+        
+        
+      }finally{ 
+        setLoading(false)
+
       }
     };
 
     fetchData();
   },[]);
 
-  console.log(token)
+  
 
   
 
@@ -96,16 +109,18 @@ useEffect(()=>{
     
     <Box className='main-box ' backgroundColor={'#F8F9FA'}> 
     
-    {loading ?  <Loading/> 
+    {loading ? 
+    <div> <Loading/> </div>
     
-    :
+    :error ? 
+    <div className="text-danger text-center">{error}</div>:
     filterLength===0 ?  
-      <div className=' row  mx-auto '>
-      <div className='col-md-3 filters  col-12  d-none d-lg-block mx-auto mb-5'>
+      <div className=' row  mx-auto'>
+       <div className='col-lg-3 filters   d-none d-lg-block mx-auto mb-5'>
      <Heading/> 
      
-     </div>  
-     <div className='col-md-8   col-12   ms-5 jobs '> 
+     </div>   
+     <div className='col-lg-8   col-12  mx-auto   jobs '> 
     {data && data.length>0 ?(
        data.map((job)=>{
           return <div key={job._id} className='mx-auto'>
@@ -114,8 +129,9 @@ useEffect(()=>{
         })
       )
       : 
-      ("")   
-    }     
+      ("No jobs Available")   
+    }      
+
     
  </div>    
     </div>

@@ -21,7 +21,7 @@ export default function Home() {
     <div className='home'>
       <HStack>
     
-       <Link to="/"  ><Text fontSize={{base:'2rem',sm:'4rem', md:'5rem', lg:'5rem'}} fontWeight={'700'} color={'yellow'} >Jobify</Text></Link>
+       <Text fontSize={{base:'2rem',sm:'4rem', md:'5rem', lg:'5rem'}} fontWeight={'700'} color={'yellow'} >Jobify</Text>
     
     
       <ChakraLink
@@ -38,11 +38,11 @@ export default function Home() {
           display={{ base: 'display', md: 'block' }}
           _hover={{ bgColor: 'green.600' }}
         >
-          <FaWhatsapp color='green' fontSize={'2rem'} position={'fixed'} />
+          {/* <FaWhatsapp color='green' fontSize={'2rem'} position={'fixed'} /> */}
         </ChakraLink>
 </HStack>
       <div className='main-class'>
-        <Text fontSize={{base:'1.8rem', sm:'2rem', md:'3rem',lg:'3rem'}} fontWeight={'700'}>Find you dream job now</Text><br></br>
+        <Text fontSize={{base:'1.8rem', sm:'2rem', md:'3rem',lg:'3rem'}} fontWeight={'700'}>Find you dream job now</Text>
         <Text fontSize={{base:'1.2rem', sm:'1.4rem',md:'1.6rem', lg:'1.8rem' }} fontWeight={'500'}>5 lakh+ jobs for you to explore</Text>
         <div className='buttons'>
         <ChakraProvider>
@@ -97,7 +97,7 @@ export default function Home() {
 {
   image.map((item, index)=>{
 
- return <Image width={{base:'800px', sm:'600px'}} height={{base:'5vh', sm:'5vh' , md:'5vh', lg:'7vh'}} key={index}  className='shadow'  src={item}  alt='company' />
+ return <Image   height={{base:'5vh', sm:'5vh' , md:'5vh', lg:'7vh'}} key={index}  className='shadow'  src={item}  alt='company' />
 
 
   })

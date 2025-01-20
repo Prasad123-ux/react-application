@@ -12,58 +12,45 @@ function Registration() {
   const token= localStorage.getItem('token')
   const navigate= useNavigate()
   const toast= useToast()
-   console.log(token)
+  const [loading, setLoading]= useState(false) 
+  
+  
   //  const getToast=(message,status)=>{}
 
-  const handleSubmitData=(e)=>{
-    e.preventDefault()
+  const handleSubmitData=async(e)=>{
+    e.preventDefault()  
+    setLoading(true)
     try{
-      fetch('   https://jobnexus-backend.onrender.com/api/candidate/registerCandidate', {
+   const response= await   fetch('   https://jobnexus-backend.onrender.com/api/candidate/registerCandidate', {
         method:"POST",
         body:JSON.stringify({token:token, userData:userData}),
         headers:{
       "Content-type":"application/json"
         }
-      }).then((response)=>{
-        if(response.status===404){
-
-          addToast("User Already Exist",response.statusText, "error")
-          throw new Error(response.statusText)
-          
-        }else{
-          return response.json()
-        }
-  
-      }).then((data)=>{
-
-
-
-        if(!data.success){
-          addToast(data.message,data.error, "error")
-}
-
-else{
-        
-      
-        // console.log(data.token)
+      }) 
+      if(!response.ok){
+        const errorText=await response.text()
+        throw new Error(`Problem with status ${response.status}:${errorText}`)
+      }else{
+        const data = await response.json()
         window.localStorage.setItem('token',data.token)
         window.localStorage.getItem('token')
-      
-          navigate('/main')
-          addToast(  "Account Created",data.message, "success")
-          // getToast(data.message,"success")
-        
-}
-  
-      }).catch((err)=>{
-        console.error(err)
-  
-      })
-  
-    }catch(err){
-      console.log(err)
-  
+        addToast("Registration Successful",data.message, "success") 
+
+        navigate("/main")
+
+      }
     }
+      catch(err){ 
+        addToast("Registration Failed",err.message, "error") 
+      
+
+      }finally{
+        setLoading(false)
+
+      }
+      
+      
   }
   const onchange=(e)=>{
   
@@ -136,7 +123,7 @@ const addToast=(title,message, status)=>{
       </div>
       </div>
       <div className='d-flex justify-content-between '>
-      <button type="submit" className='btn btn-primary w-25 mt-5'> Submit</button>
+    {  loading ? <div>Loading...</div>:<button type="submit" className='btn btn-primary w-25 mt-5'> Submit</button>}
       <span className='text-center mt-5 ms-5' >Already Registered? <Link to="/login"  className='text-primary'>Login</Link> here</span>
       </div>
         </form>

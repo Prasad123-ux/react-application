@@ -10,6 +10,7 @@ import Heading from './Heading';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFilteredJobs, setTokenData } from './Redux/jobSlice'; 
 import { useToast } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -22,6 +23,7 @@ const [loginButton,setLoginButton]= useState(false)
   const [userName, setUserName]= useState('Your Name')
   const [email,setEmail]= useState('Email') 
   const [loading,setLoading]= useState(false)
+  const navigate= useNavigate()
    
    const [location, setLocation]= useState()
    const [role, setRole]= useState()
@@ -118,16 +120,21 @@ const [loginButton,setLoginButton]= useState(false)
         isClosable: true,
       })
     }
-  
+    const handleHomeNavigate=()=>{
+      navigate("/")
+    }
+  const handleLoginNavigate=()=>{
+    navigate("/login")
+  }
 
   return (  
 
 
- <Box  width={'full'} className='navbar fixed mb-5'   >
-      <HStack justifyContent={'space-evenly'} >
+ <Box   className='navbar fixed mb-5'   >
+      <HStack justifyContent={'space-between'} >
         
       
-        <Link to="/" className='link'>  <Text fontSize={{base:'2rem',sm:'2.5rem',md:'3rem',lg:'3rem' }} color={'yellow'} fontWeight={'800'}> Jobify</Text></Link>
+          <Text  width={"fit-content"} fontSize={{base:'2rem',sm:'2.5rem',md:'3rem',lg:'3rem' }} color={'yellow'} fontWeight={'800'}  onClick={handleHomeNavigate}  > Jobify</Text>
         
         <Input textAlign={'center'}  spellCheck="true"  onChange={((e)=>{ setRole(e.target.value)})} display={{ base:'none' ,md:'block ' ,sm:'none' ,lg:'block' }}fontSize={{base:'1rem',md:'1rem'}}  fontWeight={'700'} placeholder ='Search for your role' />
 
@@ -137,7 +144,7 @@ const [loginButton,setLoginButton]= useState(false)
         <Button isDisabled={false}  onClick={handleSearchData} width={'200px'} variant={'solid'} colorScheme='teal' display={{base:'none', md:'none', lg:'block'}} mr={'20'}><FaPaperPlane/></Button>
       :            <Button  isDisabled={true} onClick={handleSearchData} width={'200px'} variant={'solid'} colorScheme='teal' display={{base:'none', md:'none', lg:'block'}} mr={'20'}><FaPaperPlane/></Button>
 }
-        <div className='d-block d-lg-none'><Heading/></div>
+        {/* <div className='d-block d-lg-none'><Heading/></div> */}
 
 
        { token&& token.length >= 1 ? <Button  borderRadius={'full'}   width={{base:'25px',md:'50px' ,sm:'50px' , lg:'50px'}} backgroundColor='white'  size={{base:'xs', sm:'md',md:'md'}} mr={{base:'10px',}}    onClick={onOpen}   ><BiMenuAltLeft  size={'lg'}/></Button>:""}
@@ -146,13 +153,13 @@ const [loginButton,setLoginButton]= useState(false)
         <Box width={{ base:'10px' ,sm:'300px',md:'500px' ,lg:'500px'}}  mr={{base:'5' , sm:'5', md:'2',lg:'2'}}>     
          
 
-         { token&& token.length >= 1 ? (
-  // <Box > <Button  backgroundColor={'white'} display={{base:'none', sm:'block',md:'block',lg:'block'}}  size={{base:'xs', sm:'xs', md:'md'}} borderRadius={'100px'}  onClick={onLogOpen}>Log out</Button></Box>
-  <></>
+         { token && token.length >= 1 ? (
+   <Button  backgroundColor={'white'} display={{base:'none', sm:'block',md:'block',lg:'block'}}  size={{base:'xs', sm:'xs', md:'md'}} borderRadius={'100px'}  onClick={onLogOpen}>Log out</Button>
+  
 ):(
   <Box  display={'flex'} justifyContent={'space-between'} flexDirection={'row'}>
-  <Text ><Link to  ="/login"><Button width={'100px'} display={{base:'none', sm:'block', md:'block', lg:'block'}} backgroundColor={'white'}  borderRadius={'50px'}padding={''} >Log in</Button></Link></Text>
- <Link to="/registration"> <Button  ml={'10px'} display={{base:'none', sm:'none', md:'flex', lg:'flex'}} backgroundColor={'white'}  borderRadius={'full'}>Register</Button></Link>
+  <Text  ><Button  onClick={handleLoginNavigate} backgroundColor={'white'} borderRadius={"100px"}   >Log in</Button></Text>
+ <Link to="/registration"> <Button  ml={'10px'} display={{base:'none', sm:'block', md:'flex', lg:'flex'}} backgroundColor={'white'}  borderRadius={'full'}>Register</Button></Link>
   <Link to='/profile'>
       
     </Link>

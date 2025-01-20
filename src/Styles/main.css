@@ -6,7 +6,7 @@
     box-sizing: border-box;
 }
 .main-box{
-  width: 100%;
+  width: fit-content;
   margin-top: 100px;
 }
 
@@ -32,6 +32,7 @@
 }
 body {
   /* width: 100%; */
+  width: fit-content;
     scrollbar-width: thin;
     scrollbar-color: transparent transparent;
   }
