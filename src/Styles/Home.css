@@ -166,7 +166,7 @@ a{
 .company{
    
     text-align: center;
-    height: 70vh;
+    height: 140vh;
     margin-top: 60px;
 }
 .heading-places{
@@ -232,7 +232,7 @@ letter-spacing: 3px;
      
      }
      .company{
-        height: 90vh;
+        height: 150vh;
      }
      .logo{
         text-align: center;
@@ -262,7 +262,7 @@ letter-spacing: 3px;
      
      }
      .company{
-        height: 85vh;
+        height:110vh;
      }
      .logo{
         text-align: center;
