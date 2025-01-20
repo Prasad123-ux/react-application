@@ -9,9 +9,11 @@ import { BsCurrencyRupee } from "react-icons/bs";
 import { BsPersonWorkspace } from "react-icons/bs";
 import { PiNotepadLight } from "react-icons/pi";
 import { FaRegCalendarAlt } from "react-icons/fa";
-import { useNavigate } from 'react-router-dom'
-import { BsSave } from "react-icons/bs"; 
-import { BsSaveFill } from "react-icons/bs";
+import { useNavigate } from 'react-router-dom' 
+import { useToast } from '@chakra-ui/react';
+
+
+
 
 
 
@@ -19,6 +21,7 @@ const UserContext =createContext()
 
   export default function Job({href,postedDate, contract_type,category,company_name, title,logo, location, country, employment_type, description,experience,maxSalary,minSalary,qualification , id, onDelete, maxExperience,minExperience, requirement,neededSkills}) {
 const months=["jan", "Feb", "March", "April", "May", "Jun","July", "Aug", "Sep", "Oct", "Nov", "Dec"]          
+const toast= useToast()
 
 
 
@@ -37,42 +40,15 @@ console.log(requirement)
 
  const [values, setValues] =useState([])
   
- const handleSaveJob= async (key)=>{
-try{
-  // const response = await fetch('   https://jobnexus-backend.onrender.com/api/candidate/save_job', {
-     const response = await fetch('   https://jobnexus-backend.onrender.com/api/candidate/save_job', {
-
-    method:"POST",
-    body:JSON.stringify({token:token, id:key}),
-    headers:{
-      "Content-type":"application/json"
-    }
-
-  })
-  if(!response.ok){
-    throw new Error(`HTTP error! status: ${response.status}`)
-  }
-  const result=  await response.json()
-   console.log(result)
-   
-  
-  setSaveValueJob("true")
-}catch(err){
-  console.log(err)
-
-}
-
-
-
- }
-
 
 
  
 
   const handleOnDelete=(id)=>{
-    console.log(id)
+    
     onDelete(id)
+    
+    addToast("Job Deleted ", "" , "warning")
     
   }
   const handleButtonClick=(id)=>{
@@ -82,7 +58,15 @@ try{
 
 
 
-
+  const addToast=(title,message="", status)=>{
+    toast({
+      title: title,
+      description: message,
+      status: status,
+      duration: 4000,
+      isClosable: true,
+    })
+  }
  
 
  
@@ -93,10 +77,12 @@ try{
     
   return (
   <>
+   
     <UserContext.Provider value={{values, setValues}}>
+   
       
-  <button   onClick={()=>{handleButtonClick(id)}}   className='box shadow'   >
-      
+  <div     className='box shadow'   >
+ 
       <div className=' d-flex justify-content-between flex-column mx-auto' >
     <HStack justifyContent={{base:'start',md:'start', sm:'start'}} className='mx-auto'>
     <Avatar className='avatar ms-2 mt-2' size={{base:'sm', sm:'md', md:'md', lg:'md',xl:'md'}}  name={company_name} />
@@ -106,7 +92,7 @@ try{
 
 
     
-     <div className='second-job-section '   >
+     <div className='second-job-section '      >
      <div className='third-job-section' ><CiLocationOn className='icons' /> <span className='value'>  { location && location.length>1 ? `${location.slice(0,10)}...` :"Not Mentioned"}</span></div>
     <div className='third-job-section' ><BsCurrencyRupee   className='icons'/> <span className='value'>{maxSalary  && minSalary ?  `${minSalary}-${maxSalary} L`: "Not Disclosed"}</span></div>
     <div className='third-job-section'><BsPersonWorkspace  className='icons'/>   <span className='value'>{ minExperience && maxExperience ? `${minExperience}-${maxExperience}Yrs`:"0 Yrs"}</span> </div>
@@ -147,12 +133,13 @@ try{
 
    
 
-<div className='second-job-section'> 
-    <div  className=' third-job-section'> <FaRegCalendarAlt   className=' icons '/> <span className='value'>  {postedDate ? (`${months[new Date(postedDate).getMonth()] } ${new Date(postedDate).toUTCString().slice(5,7)}`):""}</span></div>
+<div className='second-job-section mx-auto mt-3'> 
+    <div  className=' third-job-section'> <FaRegCalendarAlt   className=' icons '/> <span className='value'>  {postedDate ? (`${months[new Date(postedDate).getMonth()] } ${new Date(postedDate).toUTCString().slice(5,7)}`):""}</span></div> 
+    <button className='btn btn-primary mx-auto more-info-button  mx-auto shadow' onClick={()=>{handleButtonClick(id)}}  >View </button>
     <div className=' footer-buttons '>
       
-      <button onClick={()=>{handleOnDelete(id)}} ><ViewOffIcon /> </button>
-        {  saveValue===false   ? <button onClick={()=>{handleSaveJob(id)}}>  <BsSave /> </button> :    <button onClick={()=>{handleSaveJob(id)}}>  <BsSaveFill /> </button>}
+      <button className='btn more-info-button shadow btn-primary' onClick={()=>{handleOnDelete(id)}} ><ViewOffIcon /> </button>
+        {/* {  saveValue===false   ? <button onClick={()=>{handleSaveJob(id)}}>  <BsSave /> </button> :    <button onClick={()=>{handleSaveJob(id)}}>  <BsSaveFill /> </button>} */}
 
     </div>
    </div>
@@ -163,7 +150,7 @@ try{
    </div>
    
     
-      </button>
+      </div>
       {/* </Link> */}
         </UserContext.Provider>
         </>

@@ -28,34 +28,27 @@ const [loginButton,setLoginButton]= useState(false)
    const [location, setLocation]= useState()
    const [role, setRole]= useState()
     const cancelRef = React.useRef();
-    // const [disable, setDisable]= useState(true)
-    // const [isScrolling,setIsScrolling]= useState(false)  
-    const token= useSelector((state)=>state.tokenData)
+    const tokenValue= useSelector((state)=>state.jobs.token)
     const dispatch= useDispatch() 
     const allJobs= useSelector((state)=>state.jobs.jobs)
     const filteredJobs = useSelector((state) => state.jobs.filteredJobs); 
     const jobSeekerData= useSelector((state)=>state.jobs.jobSeekers) 
-    const toast= useToast()
+    const toast= useToast() 
+    
 
 
     useEffect(() => {
-      console.log("Filtered Jobs updated:", filteredJobs);
-    }, [filteredJobs]);
+      console.log(tokenValue)
+    }, [tokenValue]);
     
 
-    useEffect(()=>{
-      const token= localStorage.getItem('token')
-      dispatch(setTokenData(token)) 
-
-
-    }, [])
    
 
 
 
     const handleSearchData=async ()=>{  
       
-      if( !token){
+      if( !tokenValue){
         addToast("Please Login Yourself", 'Please Register', "warning") 
         return
       }
@@ -102,7 +95,7 @@ const [loginButton,setLoginButton]= useState(false)
 
     const onLogOutDelete=async()=>{
      localStorage.removeItem('token')
-     dispatch(setTokenData(" "))
+     dispatch(setTokenData(null))
      
      onLogClose()
       
@@ -147,25 +140,23 @@ const [loginButton,setLoginButton]= useState(false)
         {/* <div className='d-block d-lg-none'><Heading/></div> */}
 
 
-       { token&& token.length >= 1 ? <Button  borderRadius={'full'}   width={{base:'25px',md:'50px' ,sm:'50px' , lg:'50px'}} backgroundColor='white'  size={{base:'xs', sm:'md',md:'md'}} mr={{base:'10px',}}    onClick={onOpen}   ><BiMenuAltLeft  size={'lg'}/></Button>:""}
-       {  token&& token.length >= 1 ?<Text width={'50px'} mr={{base:'px',md:'2', lg:'2'}} ><Link to='/profile'> <Avatar cursor={'pointer'} src={jobSeekerData.extraFields?.profileImage && jobSeekerData.extraFields?.profileImage.length>=1 ?jobSeekerData.extraFields?.profileImage:"" } size={{base:'xs' , sm:'xs',md:'md',lg:'md'}}  /></Link></Text>:""}
+       { tokenValue? <Button  borderRadius={'full'}   width={{base:'25px',md:'50px' ,sm:'50px' , lg:'50px'}} backgroundColor='white'  size={{base:'xs', sm:'md',md:'md'}} mr={{base:'10px',}}    onClick={onOpen}   ><BiMenuAltLeft  size={'lg'}/></Button>:"not"}
+       {  tokenValue?<Text width={'50px'} mr={{base:'px',md:'2', lg:'2'}} ><Link to='/profile'> <Avatar cursor={'pointer'} src={jobSeekerData.extraFields?.profileImage && jobSeekerData.extraFields?.profileImage.length>=1 ?jobSeekerData.extraFields?.profileImage:"" } size={{base:'xs' , sm:'xs',md:'md',lg:'md'}}  /></Link></Text>:""}
 
         <Box width={{ base:'10px' ,sm:'300px',md:'500px' ,lg:'500px'}}  mr={{base:'5' , sm:'5', md:'2',lg:'2'}}>     
          
 
-         { token && token.length >= 1 ? (
-   <Button  backgroundColor={'white'} display={{base:'none', sm:'block',md:'block',lg:'block'}}  size={{base:'xs', sm:'xs', md:'md'}} borderRadius={'100px'}  onClick={onLogOpen}>Log out</Button>
-  
-):(
+         { !tokenValue ?  
+
   <Box  display={'flex'} justifyContent={'space-between'} flexDirection={'row'}>
   <Text  ><Button  onClick={handleLoginNavigate} backgroundColor={'white'} borderRadius={"100px"}   >Log in</Button></Text>
  <Link to="/registration"> <Button  ml={'10px'} display={{base:'none', sm:'block', md:'flex', lg:'flex'}} backgroundColor={'white'}  borderRadius={'full'}>Register</Button></Link>
   <Link to='/profile'>
       
     </Link>
-  </Box>
+  </Box>:""
       
-)}
+}
     
 
 

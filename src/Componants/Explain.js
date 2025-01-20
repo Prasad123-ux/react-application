@@ -22,7 +22,7 @@ function Explain() {
     const [saveValue, setSaveValue]= useState("Save")
      const {id}= useParams();
      const navigate= useNavigate()
-     const token= useSelector((state)=>state.tokenData) 
+     const tokenValue= useSelector((state)=>state.jobs.token) 
      const toast= useToast()
 
 
@@ -43,9 +43,8 @@ function Explain() {
 
 useEffect(()=>{  
     window.scrollTo(0,0) 
-    if (!token  && token===undefined){
-        addToast("Please log in Yourself " ,"for accessing more features please login", "warning")
-    }
+    console.log(tokenValue)
+   
 
 
 
@@ -123,6 +122,7 @@ useEffect(()=>{
 
 
 useEffect(()=>{
+
    
     if(jobData){
     const findSimilarJob=async ()=>{
@@ -153,12 +153,13 @@ useEffect(()=>{
 
     findSimilarJob()
     }
-},[])
+},[]) 
+
 
 
 
 const handleSaveJob=async (jobValue)=>{
-    console.log(jobValue)
+if(tokenValue){
 try{
     const response= await fetch(`   https://jobnexus-backend.onrender.com/api/candidate/save_Job?id=${jobValue}`, {
         method:"POST",
@@ -176,13 +177,24 @@ try{
 }catch(err){
 console.log(err)
 }
+}else{
+    addToast("Please Login Yourself", "using login you can access more information about job and access to more content", "warning")
+    return 
+}
 }
 
 
 
-const handleApplyJobClick=(id)=>{
-    navigate(`/job_detail/job_application/${id}`)
+const handleApplyJobClick=(id)=>{ 
+    if (tokenValue ){
+        navigate(`/job_detail/job_application/${id}`)
 
+    }else{
+  addToast("Please Login Yourself", "using login you can access more information about job and access to more content", "warning")
+  return 
+        
+    }
+  
 }
 
 
@@ -258,12 +270,12 @@ const handleButtonClick=(id)=>{
     </div>
 
     <div className='d-sm-flex justify-content-sm-end justify-content-end justify-content-md-around flex-md-row flex-column  '>
-     { saveValue==="Save" && token!== null ? <button onClick={()=>{handleSaveJob(jobData._id)}} className='save-button  btn btn-outline-primary   rounded  '>
+     { saveValue==="Save" && tokenValue!== null ? <button onClick={()=>{handleSaveJob(jobData._id)}} className='save-button  btn btn-outline-primary   rounded  '>
        {saveValue}
         </button>:<button disabled className=' save-button  btn btn-outline-primary   rounded '> {saveValue}</button>
 }
-       {token && token.length>1 ? <button  onClick={()=>{handleApplyJobClick(jobData._id)}} className='apply-button btn-primary bg-primary  rounded'>Apply</button>
-       :<button disabled className=' apply-button  btn btn-outline-primary    rounded '> Apply</button>}
+        <button  onClick={()=>{handleApplyJobClick(jobData._id)}} className='apply-button btn-primary bg-primary  rounded'>Apply</button>
+       
     </div>
 
 

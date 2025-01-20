@@ -3,27 +3,33 @@ import "../Styles/registration.css"
 import { useNavigate } from 'react-router-dom'
 import {  useToast } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { setTokenData } from './Redux/jobSlice'
+import { useEffect } from 'react'
 
 
 
 
 function Registration() {
   const [userData, setUserData]= useState({fullName:"", email:"", password:"", mobileNumber:"", city:"", workStatus:""})
-  const token= localStorage.getItem('token')
   const navigate= useNavigate()
   const toast= useToast()
-  const [loading, setLoading]= useState(false) 
+  const [loading, setLoading]= useState(false)  
+  const dispatch= useDispatch() 
+  const tokenValue= useSelector((state)=>state.jobs.token)
   
   
-  //  const getToast=(message,status)=>{}
+  useEffect(()=>{
+    console.log(tokenValue)
+  }, [tokenValue])
 
   const handleSubmitData=async(e)=>{
     e.preventDefault()  
     setLoading(true)
     try{
-   const response= await   fetch('   https://jobnexus-backend.onrender.com/api/candidate/registerCandidate', {
+   const response= await   fetch('   http://localhost:5000/api/candidate/registerCandidate', {
         method:"POST",
-        body:JSON.stringify({token:token, userData:userData}),
+        body:JSON.stringify({token:tokenValue, userData:userData}),
         headers:{
       "Content-type":"application/json"
         }
@@ -33,10 +39,10 @@ function Registration() {
         throw new Error(`Problem with status ${response.status}:${errorText}`)
       }else{
         const data = await response.json()
-        window.localStorage.setItem('token',data.token)
-        window.localStorage.getItem('token')
+        window.localStorage.setItem('token',data.token)  
+        console.log(data.token)
+         dispatch(setTokenData(data.token))
         addToast("Registration Successful",data.message, "success") 
-
         navigate("/main")
 
       }
@@ -55,7 +61,11 @@ function Registration() {
   const onchange=(e)=>{
   
     setUserData({...userData, [e.target.name]:e.target.value})
-  }
+  } 
+
+
+
+
 const addToast=(title,message, status)=>{
   toast({
     title: title,
@@ -123,7 +133,7 @@ const addToast=(title,message, status)=>{
       </div>
       </div>
       <div className='d-flex justify-content-between '>
-    {  loading ? <div>Loading...</div>:<button type="submit" className='btn btn-primary w-25 mt-5'> Submit</button>}
+    {  loading ? <div>Loading...</div>:<button type="submit" className='btn btn-primary  mt-5'> Submit</button>}
       <span className='text-center mt-5 ms-5' >Already Registered? <Link to="/login"  className='text-primary'>Login</Link> here</span>
       </div>
         </form>

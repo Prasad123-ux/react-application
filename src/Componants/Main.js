@@ -26,13 +26,18 @@ const [loading, setLoading]= useState(false)
   const dispatch= useDispatch() 
   const allJobs = useSelector((state) => state.jobs.jobs);  
   const filteredJobs = useSelector((state) => state.jobs.filteredJobs);  
-  const token=useSelector((state)=>state.jobs.tokenData)
+  const tokenValue=useSelector((state)=>state.jobs.token)
   const [filterLength, setFilterLength]= useState(0) 
   const [error, setError]= useState()
 
+  
 
-useEffect(()=>{
-  console.log(filteredJobs)
+
+useEffect(()=>{ 
+  const tokenData= localStorage.getItem('token') 
+  console.log(tokenData)
+  dispatch(setTokenData(tokenData))
+  console.log(tokenValue)
   const length=  filteredJobs && filteredJobs.length>=1 ? filteredJobs.length:0
   setFilterLength(length)
 }, [filteredJobs])
@@ -56,8 +61,8 @@ useEffect(()=>{
           addToast("We are Finding jobs related to you ", "Please Wait" , "warning")
           const result = await response.json();
          
-          const tokenValue= localStorage.getItem("token") 
-          dispatch(setTokenData(tokenValue))
+          
+        
          setData(result.Data);   
         
 

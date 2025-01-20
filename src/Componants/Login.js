@@ -4,12 +4,13 @@ import { useToast } from '@chakra-ui/react';
 import { FcGoogle } from "react-icons/fc";
 import { IoCheckmark } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
-// import GoogleSignIn from './GoogleSignIn';
+import { useDispatch } from 'react-redux';
+import { setTokenData } from './Redux/jobSlice';
 
 
 
 
-// const navigate=useNavigate()
+
 
 function Login() {
   const toast= useToast()
@@ -17,6 +18,7 @@ function Login() {
   const [loginData, setLoginData]= useState({email:"",password:""})
   const [otpEmailValue,setOtpEmailValue]= useState()
   const [otp,setOtp]= useState()
+  const dispatch= useDispatch()
   
 
   const navigate= useNavigate()
@@ -53,6 +55,7 @@ const handleForgetPassword=(e)=>{
           addToast(data.message,data.error, "error")
         }
         addToast(data.message, data.message,"success")
+        dispatch(setTokenData(data.token))
       
 
       })
@@ -93,7 +96,8 @@ const handleLoginData=async (e)=>{
     }
     navigate('/main')
     addToast(data.message, data.message,"success")
-    console.log(data)
+      localStorage.setItem('token', data.token) 
+      
 
 
   }).catch((err)=>{

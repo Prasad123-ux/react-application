@@ -1,12 +1,70 @@
-.registration{
-    margin: 100px;
+.registration {
+    margin: 50px auto; /* Center the form horizontally */
+    padding: 20px;
+    background-color: #f8f9fa;
 }
 
-.registration-form{
+.registration-form {
+    max-width: 100%; /* Adjust to the container width */
     width: 50%;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px;
 }
-@media only screen and (max-width:576px){
-    .registration-form{
-        width: fit-content;
+
+/* Small devices (phones, less than 576px) */
+@media only screen and (max-width: 576px) {
+    .registration {
+        margin: 20px;
+    }
+
+    .registration-form {
+        width: 90%; /* Reduce width to fit within smaller screens */
+        padding: 20px;
+    }
+
+    .form-group label {
+        font-size: 14px; /* Adjust label font size for readability */
+    }
+
+    .form-control {
+        font-size: 14px; /* Adjust input font size */
+        padding: 10px; /* Adjust padding for smaller fields */
+    }
+
+    .btn {
+        width: 100%; /* Make the button full-width for better usability */
+    }
+
+    .radio-button {
+        flex-direction: column; /* Stack radio buttons vertically */
+    }
+
+    .form-check-label {
+        font-size: 14px; /* Adjust text size */
+    }
+}
+
+/* Medium devices (tablets, 576px and up) */
+@media only screen and (min-width: 576px) and (max-width: 768px) {
+    .registration-form {
+        width: 70%; /* Adjust width for tablets */
+    }
+
+    .btn {
+        width: 50%; /* Keep button width reasonable */
+    }
+}
+
+/* Large devices (desktops, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .registration-form {
+        width: 50%;
+    }
+
+    .btn {
+        width: 25%; /* Keep button compact */
     }
 }

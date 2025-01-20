@@ -7,6 +7,14 @@
 font-size: 100px;
 /* font-weight: 800; */
 }
+.more-info-button{
+    width: fit-content;
+    /* height: fit-content; */
+    background-color: transparent;
+    border: none;
+    color: black;
+    border-radius: 10%;
+}
 .box{
     width: 75%;
     /* height: fit-content; */
@@ -20,6 +28,7 @@ font-size: 100px;
     
     margin-bottom: 50px;  
     padding-bottom: 10px;
+    /* cursor:none; */
 
 
    
@@ -128,6 +137,15 @@ justify-content: center;
 
 
            
+        }
+
+        .more-info-button{
+            width: fit-content;
+            height: fit-content;
+            background-color: transparent;
+            border: none;
+            color: black;
+            border-radius: 10%;
         }
         .value{
             font-size: 10px;
@@ -253,7 +271,14 @@ justify-content: center;
             
         }
        
-        
+        .more-info-button{
+            width: fit-content;
+            height: fit-content;
+            background-color: transparent;
+            border: none;
+            color: black;
+            border-radius: 10%;
+        }
         
        
         .description{
@@ -312,6 +337,14 @@ justify-content: center;
         
         
            
+        }
+        .more-info-button{
+            width: fit-content;
+            height: fit-content;
+            background-color: transparent;
+            border: none;
+            color: black;
+            border-radius: 10%;
         }
 
         .value{
@@ -506,6 +539,14 @@ justify-content: center;
     font-size: 0.8rem; 
     display: flex ;
     justify-content: center;
+    }
+    .more-info-button{
+        width: fit-content;
+        height: fit-content;
+        background-color: transparent;
+        border: none;
+        color: black;
+        border-radius: 10%;
     }
 
         
