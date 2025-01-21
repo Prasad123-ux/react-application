@@ -41,7 +41,7 @@ function Registration() {
         const data = await response.json()
         window.localStorage.setItem('token',data.token)  
         console.log(data.token)
-         dispatch(setTokenData(data.token))
+        dispatch(setTokenData(data.token))
         addToast("Registration Successful",data.message, "success") 
         navigate("/main")
 

@@ -8,6 +8,10 @@ import axios from 'axios';
 import { setAllCompanies } from '../Redux/jobSlice';
 import CompanyCard from './CompanyCard';
 import { useToast } from '@chakra-ui/react';
+
+
+
+
 export default function AllCompanies() { 
    const  [title,setTitle]= useState("Actively Hiring Companies ")  
    const [companyType, setCompanyType]= useState([])            
