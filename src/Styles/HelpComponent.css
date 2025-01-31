@@ -1,0 +1,142 @@
+/* General Styles */
+.help-component {
+    background: linear-gradient(to right, #f9f9f9, #eef2f3);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .animated-heading {
+    font-size: 2.5rem;
+    font-weight: bold;
+    animation: fadeIn 1.5s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Accordion Styling */
+  .accordion-button {
+    font-weight: bold;
+    background: #e9f5fc !important;
+    color: #007bff;
+    border-radius: 5px !important;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  .accordion-button:hover {
+    background-color: #d8f1fa !important;
+    transform: scale(1.02);
+  }
+  
+  .accordion-body {
+    background: #fff;
+    border-left: 3px solid #007bff;
+    border-radius: 5px;
+    padding: 15px;
+  }
+  
+  /* Form Styling */
+  .contact-form-section {
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    animation: slideUp 1.2s ease;
+  }
+  
+  .contact-form-section form {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .contact-form-section label {
+    font-weight: bold;
+  }
+  
+  .contact-form-section .form-control {
+    border-radius: 10px;
+    border: 1px solid #cccccc;
+  }
+  
+  .contact-form-section .submit-button {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 30px;
+    transition: background-color 0.3s ease, transform 0.2s;
+  }
+  
+  .contact-form-section .submit-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-3px);
+  }
+  
+  /* Modal Styling */
+  .modal-content {
+    border-radius: 15px;
+    background: #f8f9fa;
+  }
+  
+  .modal-header {
+    background-color: #007bff;
+    color: #ffffff;
+    border-radius: 15px 15px 0 0;
+  }
+  
+  .modal-body p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+  
+  .modal-footer .btn-secondary {
+    background-color: #6c757d;
+    border-radius: 30px;
+  }
+  
+  /* Support Button */
+  .support-button {
+    background-color: #17a2b8;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 30px;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  .support-button:hover {
+    background-color: #138496;
+    transform: translateY(-3px);
+  }
+  
+  /* Media Queries for Responsiveness */
+  @media (max-width: 768px) {
+    .help-component {
+      padding: 15px;
+    }
+  
+    .animated-heading {
+      font-size: 2rem;
+    }
+  
+    .contact-form-section form {
+      width: 100%;
+    }
+  }
+  
+  @keyframes slideUp {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  

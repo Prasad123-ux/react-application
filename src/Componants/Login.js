@@ -19,6 +19,7 @@ function Login() {
   const [otpEmailValue,setOtpEmailValue]= useState()
   const [otp,setOtp]= useState()
   const dispatch= useDispatch()
+  const [loading, setLoading]= useState(false)
   
 
   const navigate= useNavigate()
@@ -69,41 +70,49 @@ const handleForgetPassword=(e)=>{
 
 const handleLoginData=async (e)=>{
   e.preventDefault()
-
-   await fetch('   https://jobnexus-backend.onrender.com/api/candidate/loginCandidate',{
+  setLoading(true)
+try{
+ const response=    await fetch('   https://jobnexus-backend.onrender.com/api/candidate/loginCandidate',{
     method:"POST",
     body:JSON.stringify({data:loginData}),
     headers:{
       "Content-type":"application/json"
     }
-  }).then((response)=>{
-    console.log(response)
-    if(response.status===404){
-      
-
-      
-      addToast('User Not Found',response.statusText, "error")
-      throw new Error(response.statusText)
-    }else{
-      return response.json()
-    }
-
-  }).then((data)=>{
-    
-    
-    if(data.success===false){
-       return addToast(data.message,data.error, "error")
-    }
-    navigate('/main')
-    addToast(data.message, data.message,"success")
-      localStorage.setItem('token', data.token) 
-      
-
-
-  }).catch((err)=>{
-    console.log(err.message)
-
   })
+  if(!response.ok){
+    const errorText= await response.text() 
+    throw new Error(`error related to login ${response.status} :${errorText}`)
+  }else{
+    const data = await response.json()
+            window.localStorage.setItem('token',data.token)  
+            console.log(data.token)
+            dispatch(setTokenData(data.token))
+            addToast("Login Successful",data.message, "success") 
+            navigate("/main")
+    
+
+  }
+}catch(err){
+  console.log(err)
+
+}finally{
+  setLoading(false)
+}
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
 
 }
  const onchange=(e)=>{
@@ -124,7 +133,7 @@ const addToast=(title,message="", status)=>{
 }
 
   return (
-    <div className='login-page d-flex justify-content-center flex-column flex-md-row  ' style={{"backgroundColor":"#FAFAFA"}}>
+    <div className='login-page d-flex justify-content-around flex-column flex-md-row  ' style={{"backgroundColor":"#FAFAFA"}}>
       <div className='login-form shadow container p-4  rounded-5  mt-5' style={{"backgroundColor":"#FFFFFF"}} >
         <span className='fw-medium d-block fs-4'>Login</span>
         <form onSubmit={handleLoginData}>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { FaPaperPlane } from "react-icons/fa";
-
+import { useLocation } from 'react-router-dom';
 import {Drawer, Button, Avatar, Input, HStack, Text, Box, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, useDisclosure, VStack, Divider, UnorderedList, ListItem, AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter,AlertDialogHeader, AlertDialogOverlay} from '@chakra-ui/react'
 
 import {Link } from 'react-router-dom'
@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setFilteredJobs, setTokenData } from './Redux/jobSlice'; 
 import { useToast } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
+import { TbFilterSearch } from "react-icons/tb";
 
 
 
@@ -24,36 +25,37 @@ const [loginButton,setLoginButton]= useState(false)
   const [email,setEmail]= useState('Email') 
   const [loading,setLoading]= useState(false)
   const navigate= useNavigate()
+  const locationPath = useLocation() 
+  const [userData, setUserData]=useState()
+
    
    const [location, setLocation]= useState()
    const [role, setRole]= useState()
     const cancelRef = React.useRef();
-    const tokenValue= useSelector((state)=>state.jobs.token)
+    const tokenValue=localStorage.getItem("token")
     const dispatch= useDispatch() 
-    const allJobs= useSelector((state)=>state.jobs.jobs)
-    const filteredJobs = useSelector((state) => state.jobs.filteredJobs); 
+    // const allJobs= useSelector((state)=>state.jobs.jobs)
+    // const filteredJobs = useSelector((state) => state.jobs.filteredJobs); 
     const jobSeekerData= useSelector((state)=>state.jobs.jobSeekers) 
     const toast= useToast() 
     
 
-
-    useEffect(() => {
-      console.log(tokenValue)
-    }, [tokenValue]);
-    
-
+    const showSearchBar = locationPath.pathname === "/main";
    
 
 
-
     const handleSearchData=async ()=>{  
+      if (!showSearchBar){
+        addToast("Please  be Formal", '', "warning") 
+        return 
+      }
       
       if( !tokenValue){
         addToast("Please Login Yourself", 'Please Register', "warning") 
         return
       }
       try{
-    const response = await fetch(`   https://jobnexus-backend.onrender.com/api/candidate/searchData?location=${encodeURIComponent(location)}&role=${encodeURIComponent(role)}`, {
+    const response = await fetch(`https://jobnexus-backend.onrender.com/api/candidate/searchData?location=${encodeURIComponent(location)}&role=${encodeURIComponent(role)}`, {
       method:'GET',
       headers:{"content-type":"application/json"}
     })
@@ -68,11 +70,13 @@ const [loginButton,setLoginButton]= useState(false)
       dispatch(setFilteredJobs(data.job[0]))   
       }
       addToast("We are landed jobs for you","data finded", 'success')
+      onClose()
     }
     
   }catch(err){
     console.log(err)
-    
+    addToast("Jobs not found for your requirements", "error")
+    onClose()
 
   }finally{
     setLoading(false)
@@ -82,13 +86,43 @@ const [loginButton,setLoginButton]= useState(false)
 
     
 
+const handleGetUserData = async () => {
+    
+    
+    await fetch('https://jobnexus-backend.onrender.com/api/candidate/getProfileData', {
+        method: "POST",
+        body: JSON.stringify({ token: tokenValue }),
+        headers: {
+          "Content-type": "application/json"
+        }
+      })
+      .then((response)=>{
+        if(!response.ok){
+          throw new Error(response.statusText)
+        }else{
+          return response.json()
+        }
 
+      }).then((data)=>{ 
+        console.log(data)
+        setUserData(data.Data) 
+      
+})
+.catch((err)=>{ 
+  console.log(err.message)
+
+})
+  
+    
+  };
 
 
 
 
  
- 
+ useEffect(()=>{
+  handleGetUserData()
+ },[])
 
 
      
@@ -109,7 +143,7 @@ const [loginButton,setLoginButton]= useState(false)
         title: title,
         description: message,
         status: status,
-        duration: 6000,
+        duration: 2000,
         isClosable: true,
       })
     }
@@ -120,28 +154,31 @@ const [loginButton,setLoginButton]= useState(false)
     navigate("/login")
   }
 
+
+
+
   return (  
 
 
- <Box   className='navbar fixed mb-5'   >
-      <HStack justifyContent={'space-between'} >
+ <Box   className='navbar fixed'   >
+      <HStack justifyContent={'space-evenly'} >
         
       
-          <Text  width={"fit-content"} fontSize={{base:'2rem',sm:'2.5rem',md:'3rem',lg:'3rem' }} color={'yellow'} fontWeight={'800'}  onClick={handleHomeNavigate}  > Jobify</Text>
+          <Text  width={"fit-content"} className='jobify-name' fontSize={{base:'2rem',sm:'2.5rem',md:'3rem',lg:'3rem' }} color={'yellow'} fontWeight={'800'}  onClick={handleHomeNavigate}  > Jobify</Text>
         
-        <Input textAlign={'center'}  spellCheck="true"  onChange={((e)=>{ setRole(e.target.value)})} display={{ base:'none' ,md:'block ' ,sm:'none' ,lg:'block' }}fontSize={{base:'1rem',md:'1rem'}}  fontWeight={'700'} placeholder ='Search for your role' />
+       <Input textAlign={'center'}  spellCheck="true"  onChange={((e)=>{ setRole(e.target.value)})} display={{ base:'none' ,md:'block ' ,sm:'none' ,lg:'block' }}fontSize={{base:'1rem',md:'1rem'}}  fontWeight={'700'} placeholder ='Search for your role' />
 
-        <Input   textAlign={'center'} spellCheck="true" onChange={((e)=>{ setLocation(e.target.value)})} fontSize={{base:'1rem',md:'1rem'}} display={{  base:'none', md:'none ' ,sm:'none' ,lg:'block' }} fontWeight={'700'} placeholder='Search your Location'/>  
+       <Input   textAlign={'center'} spellCheck="true" onChange={((e)=>{ setLocation(e.target.value)})} fontSize={{base:'1rem',md:'1rem'}} display={{  base:'none', md:'none ' ,sm:'none' ,lg:'block' }} fontWeight={'700'} placeholder='Search your Location'/> 
 
-        { location&&  location.length>1   && role && role.length>1 ?
+        { location &&  location.length>1   && role && role.length>1 ?
         <Button isDisabled={false}  onClick={handleSearchData} width={'200px'} variant={'solid'} colorScheme='teal' display={{base:'none', md:'none', lg:'block'}} mr={'20'}><FaPaperPlane/></Button>
       :            <Button  isDisabled={true} onClick={handleSearchData} width={'200px'} variant={'solid'} colorScheme='teal' display={{base:'none', md:'none', lg:'block'}} mr={'20'}><FaPaperPlane/></Button>
 }
-        {/* <div className='d-block d-lg-none'><Heading/></div> */}
+       
 
 
-       { tokenValue? <Button  borderRadius={'full'}   width={{base:'25px',md:'50px' ,sm:'50px' , lg:'50px'}} backgroundColor='white'  size={{base:'xs', sm:'md',md:'md'}} mr={{base:'10px',}}    onClick={onOpen}   ><BiMenuAltLeft  size={'lg'}/></Button>:"not"}
-       {  tokenValue?<Text width={'50px'} mr={{base:'px',md:'2', lg:'2'}} ><Link to='/profile'> <Avatar cursor={'pointer'} src={jobSeekerData.extraFields?.profileImage && jobSeekerData.extraFields?.profileImage.length>=1 ?jobSeekerData.extraFields?.profileImage:"" } size={{base:'xs' , sm:'xs',md:'md',lg:'md'}}  /></Link></Text>:""}
+     { tokenValue? <Button  borderRadius={'full'}   width={{base:'25px',md:'50px' ,sm:'50px' , lg:'50px'}} backgroundColor='white'  size={{base:'xs', sm:'md',md:'md'}} mr={{base:'10px',}}    onClick={onOpen}   ><BiMenuAltLeft  size={'lg'}/></Button>:"not"} 
+       {  tokenValue?<Text width={'50px'} mr={{base:'px',md:'2', lg:'2'}} ><Link to='/profile'> <Avatar cursor={'pointer'} src={jobSeekerData.extraFields?.profileImage && jobSeekerData.extraFields?.profileImage.length>=1 ?jobSeekerData.extraFields?.profileImage:"" } size={{base:'xs' , sm:'xs',md:'md',lg:'md'}}  /></Link></Text>:""} 
 
         <Box width={{ base:'10px' ,sm:'300px',md:'500px' ,lg:'500px'}}  mr={{base:'5' , sm:'5', md:'2',lg:'2'}}>     
          
@@ -157,9 +194,10 @@ const [loginButton,setLoginButton]= useState(false)
   </Box>:""
       
 }
-    
-
-
+    <Box className='d-flex auth-box'>
+{/* { tokenValue? <Button  borderRadius={'full'}  backgroundColor='white'  size={{base:'xs', sm:'sm',md:'sm'}}  onClick={onOpen}   ><BiMenuAltLeft  size={'lg'}/></Button>:"not"} */}
+{/* {  tokenValue?<Text ><Link to='/profile'> <Avatar cursor={'pointer'} src={jobSeekerData.extraFields?.profileImage && jobSeekerData.extraFields?.profileImage.length>=1 ?jobSeekerData.extraFields?.profileImage:"" } size={{base:'xs' , sm:'xs',md:'md',lg:'md'}}  /></Link></Text>:""} */}
+</Box>
         </Box>
         
         
@@ -176,72 +214,90 @@ const [loginButton,setLoginButton]= useState(false)
       <HStack justifyContent={'space-between'}>
 <Avatar size={'md'}/>
 <VStack ml={'25px'}>
-  <span className='username'>{userName}</span>
-  <span className='user-email'> {email}</span>
+<div className=' userName fw-bold'>{userData && userData.FullName?.length>=0  ? userData.FullName :"Your Name" }</div>  
+<span className='user-email'>{userData && userData.Email?.length>=0  ? userData.Email:"Your Email" }</span>  
+
  <Link to='/profile'> <Text color={'blue'} fontSize={'0.8rem'} onClick={onClose}>View & Update Profile</Text></Link>
 </VStack>
 </HStack>
 <Divider mt={'8'}/>
-<UnorderedList spacing={'6'}>
-  <ListItem>
+<div className='w-100'>
+<Input textAlign={'center'}  spellCheck="true"  onChange={((e)=>{ setRole(e.target.value)})} fontSize={{base:'1rem',md:'1rem'}}  fontWeight={'700'} placeholder ='Search for your role' />
+
+<Input   textAlign={'center'} spellCheck="true" onChange={((e)=>{ setLocation(e.target.value)})} fontSize={{base:'1rem',md:'1rem'}}  fontWeight={'700'} placeholder='Search your Location'/> 
+<div className='d-flex justify-content-between mt-3'>
+
+{ location&&  location.length>1   && role && role.length>1 ?
+        <Button isDisabled={false}  onClick={handleSearchData} width={'100px'} variant={'solid'} colorScheme='teal'  className='mx-auto' ><FaPaperPlane/></Button>
+      :            <Button  isDisabled={true} onClick={handleSearchData} width={'100px'} variant={'solid'} colorScheme='teal' mr={'20'} className='mx-auto '><FaPaperPlane/></Button>
+}
+ <div className='d-block d-lg-none filter-button'><Heading/></div>
+ </div>
+ </div>
+<Divider mt={'8'}/>
+<UnorderedList spacing={'6'} style={{"listStyle":"none"}}>
+  <ListItem >
     
   
     <Text className='side-text'  onClick={onClose} ><Link to="/">Home</Link></Text>
+   
   </ListItem>
   <ListItem>
   <Text className='side-text' onClick={onClose} ><Link to="/main">Find Jobs </Link></Text>
 
   </ListItem>
   <ListItem>
-  <Text  className='side-text'  onClick={onClose} ><Link to="/profile">Profile</Link></Text>
-
-  </ListItem>
-  <ListItem>
-   
-   
-  { loginButton ? <Text className="side-text" onClick={onClose} >
-     
-     <Link >Log in </Link>   
-     
-      </Text> :
-      <Text className='side-text' onClick={onClose} >
-     
-     <Link >Log Out </Link>   
-     
-      </Text>
-}
-  </ListItem>
-  <ListItem>
-  <Text className="side-text" onClick={onClose} ><Link to ="/signin">Sign in </Link></Text>
-
-  </ListItem>
-  <ListItem>
-  <Text className='side-text' onClick={onClose} ><Link to ="/registration">Register</Link></Text>
-
-  </ListItem>
-  <ListItem>
-  <Text className='side-text'  onClick={onClose}   _>Settings</Text>
+  <Text className='side-text' onClick={onClose}> <Link to="/companies"> Top Companies </Link></Text>
 
   </ListItem> 
   <ListItem>
-  <Text className='side-text' onClick={onClose}> <Link to="/companies">Companies </Link></Text>
+  <Text className='side-text text-primary' onClick={onClose}> <Link to="/companies"> Suggested Jobs</Link></Text>
 
   </ListItem> 
+ 
   <ListItem>
-  <Text className='side-text' onClick={onClose} > <Link to="/companies/skeleton">Companies skeleton </Link></Text>
+  <Text className="side-text" onClick={onClose} ><Link to ="/job_detail/appliedJobs">My Applications</Link></Text>
+
+  
+  </ListItem>
+  
+  
+  <ListItem>
+  <Text className="side-text" onClick={onClose} ><Link to ="/job_detail/SavedJobs">Saved Jobs</Link></Text>
 
   </ListItem>
 
+  <ListItem>
+  <Text className='side-text'  onClick={onClose}>Settings</Text>
+
+  </ListItem> 
+  <ListItem>
+  <Text className='/job_detail/reportJob side-text'  onClick={onClose} > <Link to ="/candidate/report">Report job</Link></Text>
+
+  </ListItem> 
+  
+ 
 
   
   <ListItem>
-  <Text className="side-text" onClick={onClose} >Help</Text>
+  <Text className="/candidate/help side-text" onClick={onClose} > <Link to ="/candidate/help">Help</Link></Text>
 
   </ListItem>
   <ListItem>
   <Text className='side-text' onClick={onClose}>FAQ</Text>
 
   </ListItem>
+  { loginButton ? <Text className="side-text" onClick={onClose} >
+     
+     <Link >Log in </Link>   
+     
+      </Text> :
+      <Text className='side-text' onClick={onLogOutDelete} >
+     
+     <Link >Log Out </Link>   
+     
+      </Text>
+}
 </UnorderedList>
       </DrawerBody>
 

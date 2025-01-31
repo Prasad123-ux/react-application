@@ -1,6 +1,6 @@
 
 .link{
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .title{
@@ -8,91 +8,91 @@ font-size: 100px;
 /* font-weight: 800; */
 }
 .more-info-button{
-    width: fit-content;
-    /* height: fit-content; */
-    background-color: transparent;
-    border: none;
-    color: black;
-    border-radius: 10%;
+  width: fit-content;
+  /* height: fit-content; */
+  background-color: transparent;
+  border: none;
+  color: black;
+  border-radius: 10%;
 }
 .box{
-    width: 75%;
-    /* height: fit-content; */
-    height:fit-content;
-    background-color: #FFFFFF;
-    /* margin-left: 25%; */
-    border-radius: 30px;
-    margin-top: 60px;
+  width: 75%;
+  /* height: fit-content; */
+  height:fit-content;
+  background-color: #FFFFFF;
+  /* margin-left: 25%; */
+  border-radius: 30px;
+  margin-top: 60px;
 
-    text-align: center;
-    
-    margin-bottom: 50px;  
-    padding-bottom: 10px;
-    /* cursor:none; */
+  text-align: center;
+  
+  margin-bottom: 50px;  
+  padding-bottom: 10px;
+  /* cursor:none; */
 
 
-   
+ 
 }
 
-   
+ 
 
 
-    .second-job-section{
-        display: flex;
-        justify-content: space-around;
-        
-    }
-    .second-job-section > .third-job-section >.value{
-        font-size: 1rem;
-    }
-    .third-job-section{
-        width: fit-content;
-        display: flex;
-        justify-content:center;
-    }
-    .icons{
-        
-        width: fit-content;
-        margin-top:3px; 
-        font-size: 1.2rem;
-    }
-    .avatar{
+  .second-job-section{
+      display: flex;
+      justify-content: space-around;
+      
+  }
+  .second-job-section > .third-job-section >.value{
+      font-size: 1rem;
+  }
+  .third-job-section{
+      width: fit-content;
+      display: flex;
+      justify-content:center;
+  }
+  .icons{
+      
+      width: fit-content;
+      margin-top:3px; 
+      font-size: 1.2rem;
+  }
+  .avatar{
 font-size: 0.2rem;
-       
-    }
-    .title{
-        
-        font-size: 1rem;
-        font-weight: 700;
-        
-    }
-    .companyName{  
-        font-size: 1.1rem;
-        font-weight: 500;
-        
-    }
-   
-    
-    
-   
-    .description{
-        padding-left: 35px;
-        padding-right:35px ;
-        font-size: 1rem;
-        font-weight: 500 ;
-        text-align: center; 
-        margin-top: 10px;
-        
-    }
-    
-    
-    
-    
-       
+     
+  }
+  .title{
+      
+      font-size: 1rem;
+      font-weight: 700;
+      
+  }
+  .companyName{  
+      font-size: 1.1rem;
+      font-weight: 500;
+      
+  }
+ 
+  
+  
+ 
+  .description{
+      padding-left: 35px;
+      padding-right:35px ;
+      font-size: 1rem;
+      font-weight: 500 ;
+      text-align: center; 
+      margin-top: 10px;
+      
+  }
+  
+  
+  
+  
+     
 .footer-buttons{
 display: flex;
 justify-content: space-around;
-width: 30%;
+width: 100%;
 }
 
 .salary{
@@ -111,443 +111,444 @@ font-size: 1rem;
 
 
 .skills{
-    margin-top: 10px;
+  margin-top: 10px;
 font-size: 0.9rem; 
 display: flex ;
 justify-content: center;
 }
 
 .value{
-    margin-left: 3px;
+  margin-left: 3px;
 }
-    
-    
+  
+  
 
-    @media only screen and  ( max-width: 576px  ) {
-    /* @media (max-width:576px){ */
-        .box{
-            width: 100%;
-            height: fit-content;
-            background-color: #FFFFFF;
-            border-radius: 10px;
-            /* margin-top: 60px; */
-            text-align: center;
-            /* margin-bottom: 50px; */
-        
-
-
-           
-        }
-
-        .more-info-button{
-            width: fit-content;
-            height: fit-content;
-            background-color: transparent;
-            border: none;
-            color: black;
-            border-radius: 10%;
-        }
-        .value{
-            font-size: 10px;
-        }
-
-
-        .second-job-section{
-            display: flex;
-            justify-content: space-around;
-            
-        }
-        .second-job-section > .third-job-section >.value{
-            font-size: 0.8rem;
-        }
-        .third-job-section{
-            width: fit-content;
-            display: flex;
-            justify-content:center;
-        }
-        .icons{
-            
-            width: fit-content;
-            margin-top: 5px;
-        }
-        .avatar{
-    font-size: 0.2.rem;
-           
-        }
-        .title{
-            
-            font-size: 1rem;
-            font-weight: 700;
-            
-        }
-        .companyName{  
-            font-size: 0.8rem;
-            font-weight: 500;
-            
-        }
-       
-        
-        
-       
-        .description{
-            padding-left: 35px;
-            padding-right:35px ;
-            font-size: 0.6rem;
-            font-weight: 500 ;
-            text-align: center; 
-            margin-top: 15px;
-            
-        }
-        
-        
-        
-        
-          
-.footer-buttons{
-    display: flex;
-    justify-content: space-around;
-    width: 30%;
-}
-
-    }
-
-
-   
-    /* @media only screen and (min-width: 480px) and (max-width: 767px) { */
-    @media only screen and (min-width:576px) and (max-width:768px) {
-    
+  @media only screen and  ( max-width: 576px  ) {
+  /* @media (max-width:576px){ */
+      .box{
+          width: 100%;
+          height: fit-content;
+          background-color: #FFFFFF;
+          border-radius: 10px;
+          /* margin-top: 60px; */
+          text-align: center;
+          /* margin-bottom: 50px; */
       
-        .box{
-            width: 90%;
-            /* width: fit-content; */
-            height: fit-content;
-            background-color: white;
-            
-            border-radius: 30px;
-            /* margin-top: 60px; */
-            /* margin-left: 0px;; */
-    
-        
-            text-align: center;
-            
-            /* margin-bottom: 50px; */
-        }
-        .value{
-            font-size: 10px;
-        }
 
 
-        .second-job-section{
-            display: flex;
-            justify-content: space-around;
-            
-        }
-        .second-job-section > .third-job-section >.value{
-            font-size: 0.8rem;
-        }
-        .third-job-section{
-            width: fit-content;
-            display: flex;
-            justify-content:center;
-        }
-        .icons{
-            
-            width: fit-content;
-            margin-top: 2px;
-        }
-        .avatar{
-    font-size: 0.2.rem;
-           
-        }
-        .title{
-            
-            font-size: 1rem;
-            font-weight: 700;
-            
-        }
-        .companyName{  
-            font-size: 0.8rem;
-            font-weight: 500;
-            
-        }
-       
-        .more-info-button{
-            width: fit-content;
-            height: fit-content;
-            background-color: transparent;
-            border: none;
-            color: black;
-            border-radius: 10%;
-        }
+         
+      }
+
+      .more-info-button{
         
-       
-        .description{
-            padding-left: 35px;
-            padding-right:35px ;
-            font-size: 0.6rem;
-            font-weight: 500 ;
-            text-align: center; 
-            margin-top: 15px;
-            
-        }
+          width: fit-content;
+          /* height: fit-content; */
+          background-color: transparent;
+          border: none;
+          color: black;
+          border-radius: 10%;
+      }
+      .value{
+          font-size: 10px;
+      }
+
+
+      .second-job-section{
+          display: flex;
+          justify-content: space-around;
+          
+      }
+      .second-job-section > .third-job-section >.value{
+          font-size: 0.8rem;
+      }
+      .third-job-section{
+          width: fit-content;
+          display: flex;
+          justify-content:space-around;
+      }
+      .icons{
+          
+          width: fit-content;
+          margin-top: 5px;
+      }
+      .avatar{
+  font-size: 0.2.rem;
+         
+      }
+      .title{
+          
+          font-size: 1rem;
+          font-weight: 700;
+          
+      }
+      .companyName{  
+          font-size: 0.8rem;
+          font-weight: 500;
+          
+      }
+     
+      
+      
+     
+      .description{
+          padding-left: 35px;
+          padding-right:35px ;
+          font-size: 0.6rem;
+          font-weight: 500 ;
+          text-align: center; 
+          margin-top: 15px;
+          
+      }
+      
+      
+      
+      
         
-        
-        
-        
-            .icon{
-                display: none;
-                width: 10px;
-                height: 2px;
-                font-size: 2rem;
-            }
 .footer-buttons{
-    display: flex;
-    justify-content: space-around;
-    width: 30%;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+  }
+
+
+ 
+  /* @media only screen and (min-width: 480px) and (max-width: 767px) { */
+  @media only screen and (min-width:576px) and (max-width:768px) {
+  
+    
+      .box{
+          width: 90%;
+          /* width: fit-content; */
+          height: fit-content;
+          background-color: white;
+          
+          border-radius: 30px;
+          /* margin-top: 60px; */
+          /* margin-left: 0px;; */
+  
+      
+          text-align: center;
+          
+          /* margin-bottom: 50px; */
+      }
+      .value{
+          font-size: 10px;
+      }
+
+
+      .second-job-section{
+          display: flex;
+          justify-content: space-around;
+          
+      }
+      .second-job-section > .third-job-section >.value{
+          font-size: 0.8rem;
+      }
+      .third-job-section{
+          width: fit-content;
+          display: flex;
+          justify-content:center;
+      }
+      .icons{
+          
+          width: fit-content;
+          margin-top: 2px;
+      }
+      .avatar{
+  font-size: 0.2.rem;
+         
+      }
+      .title{
+          
+          font-size: 1rem;
+          font-weight: 700;
+          
+      }
+      .companyName{  
+          font-size: 0.8rem;
+          font-weight: 500;
+          
+      }
+     
+      .more-info-button{
+          width: fit-content;
+          height: fit-content;
+          background-color: transparent;
+          border: none;
+          color: black;
+          border-radius: 10%;
+      }
+      
+     
+      .description{
+          padding-left: 35px;
+          padding-right:35px ;
+          font-size: 0.6rem;
+          font-weight: 500 ;
+          text-align: center; 
+          margin-top: 15px;
+          
+      }
+      
+      
+      
+      
+          .icon{
+              display: none;
+              width: 10px;
+              height: 2px;
+              font-size: 2rem;
+          }
+.footer-buttons{
+  display: flex;
+  justify-content: space-around;
+  width: 30%;
 }
 
 .salary{
-    width: fit-content; 
-    display: flex;
-    justify-content: center;  
-    margin-top: 10px;
-    
+  width: fit-content; 
+  display: flex;
+  justify-content: center;  
+  margin-top: 10px;
+  
 }
 
 
 .salary > .value{
-    font-size: 0.8rem; 
-    /* margin-top: 10px; */
+  font-size: 0.8rem; 
+  /* margin-top: 10px; */
 }
 
-    }
-   
-    @media only screen and (min-width:769px) and (max-width:959px) {
-        .box{
-            width: 100%;
-            height: fit-content;
-            background-color: #FFFFFF;
-            /* margin-left: 25%; */
-            border-radius: 30px;
-            margin-top: 60px;
-        
-            text-align: center;
-            
-            margin-bottom: 50px;
-        
-        
-           
-        }
-        .more-info-button{
-            width: fit-content;
-            height: fit-content;
-            background-color: transparent;
-            border: none;
-            color: black;
-            border-radius: 10%;
-        }
+  }
+ 
+  @media only screen and (min-width:769px) and (max-width:959px) {
+      .box{
+          width: 100%;
+          height: fit-content;
+          background-color: #FFFFFF;
+          /* margin-left: 25%; */
+          border-radius: 30px;
+          margin-top: 60px;
+      
+          text-align: center;
+          
+          margin-bottom: 50px;
+      
+      
+         
+      }
+      .more-info-button{
+          width: fit-content;
+          height: fit-content;
+          background-color: transparent;
+          border: none;
+          color: black;
+          border-radius: 10%;
+      }
 
-        .value{
-            font-size: 10px;
-        }
+      .value{
+          font-size: 10px;
+      }
 
 
-        .second-job-section{
-            display: flex;
-            justify-content: space-around;
-            
-        }
-        .second-job-section > .third-job-section >.value{
-            font-size: 0.8rem;
-        }
-        .third-job-section{
-            width: fit-content;
-            display: flex;
-            justify-content:center;
-        }
-        .icons{
-            
-            width: fit-content;
-            margin-top: 2px;
-        }
-        .avatar{
-    font-size: 0.2.rem;
-           
-        }
-        .title{
-            
-            font-size: 2rem;
-            font-weight: 700;
-            
-        }
-        .companyName{  
-            font-size: 0.8rem;
-            font-weight: 500;
-            
-        }
-       
-        
-        
-       
-        .description{
-            padding-left: 35px;
-            padding-right:35px ;
-            font-size: 0.6rem;
-            font-weight: 500 ;
-            text-align: center; 
-            margin-top: 10px;
-            
-        }
-        
-        
-        
-        
-            .icon{
-                display: none;
-                width: 10px;
-                height: 2px;
-                font-size: 2rem;
-            }
+      .second-job-section{
+          display: flex;
+          justify-content: space-around;
+          
+      }
+      .second-job-section > .third-job-section >.value{
+          font-size: 0.8rem;
+      }
+      .third-job-section{
+          width: fit-content;
+          display: flex;
+          justify-content:center;
+      }
+      .icons{
+          
+          width: fit-content;
+          margin-top: 2px;
+      }
+      .avatar{
+  font-size: 0.2.rem;
+         
+      }
+      .title{
+          
+          font-size: 2rem;
+          font-weight: 700;
+          
+      }
+      .companyName{  
+          font-size: 0.8rem;
+          font-weight: 500;
+          
+      }
+     
+      
+      
+     
+      .description{
+          padding-left: 35px;
+          padding-right:35px ;
+          font-size: 0.6rem;
+          font-weight: 500 ;
+          text-align: center; 
+          margin-top: 10px;
+          
+      }
+      
+      
+      
+      
+          .icon{
+              display: none;
+              width: 10px;
+              height: 2px;
+              font-size: 2rem;
+          }
 .footer-buttons{
-    display: flex;
-    justify-content: space-around;
-    width: 30%;
+  display: flex;
+  justify-content: space-around;
+  width: 30%;
 }
 
 .salary{
-    width: fit-content; 
-    display: flex;
-    justify-content: center;  
-    margin-top: 10px;
-    
+  width: fit-content; 
+  display: flex;
+  justify-content: center;  
+  margin-top: 10px;
+  
 }
 
 
 .salary > .value{
-    font-size: 0.8rem; 
-    /* margin-top: 10px; */
+  font-size: 0.8rem; 
+  /* margin-top: 10px; */
 }
 
 
 .skills{
-    font-size: 0.8rem; 
-    display: flex ;
-    justify-content: center;
-    }
+  font-size: 0.8rem; 
+  display: flex ;
+  justify-content: center;
+  }
 
-        
-        
+      
+      
 
-    }
-    /* @media only screen and (max-width:992px ) { */
-    @media only screen and (min-width:960px) and (max-width>1200px) {
-        .box{
-            width: 100%;
-            height: fit-content;
-            background-color: #FFFFFF;
-            /* margin-left: 25%; */
-            border-radius: 30px;
-            margin-top: 60px;
-        
-            text-align: center;
-            
-            margin-bottom: 50px;
-        
-        
-           
-        } 
-
-
-        .value{
-            font-size: 20px;
-        }
+  }
+  /* @media only screen and (max-width:992px ) { */
+  @media only screen and (min-width:960px) and (max-width>1200px) {
+      .box{
+          width: 100%;
+          height: fit-content;
+          background-color: #FFFFFF;
+          /* margin-left: 25%; */
+          border-radius: 30px;
+          margin-top: 60px;
+      
+          text-align: center;
+          
+          margin-bottom: 50px;
+      
+      
+         
+      } 
 
 
-        .second-job-section{
-            display: flex;
-            justify-content: space-around;
-            
-        }
-        .second-job-section > .third-job-section >.value{
-            font-size: 0.9rem;
-        }
-        .third-job-section{
-            width: fit-content;
-            display: flex;
-            justify-content:center;
-        }
-        .icons{
-            
-            width: fit-content;
-            margin-top: 3px;
-        }
-        .avatar{
-    font-size: 0.2.rem;
-           
-        }
-        .title{
-            
-            font-size: 1.2rem;
-            font-weight: 700;
-            
-        }
-        .companyName{  
-            font-size: 1rem;
-            font-weight: 500;
-            
-        }
-       
-        
-        
-       
-        .description{
-            padding-left: 35px;
-            padding-right:35px ;
-            font-size: 0.8rem;
-            font-weight: 500 ;
-            text-align: center; 
-            margin-top: 10px;
-            
-        }
-        
-        
-        
-        
+      .value{
+          font-size: 20px;
+      }
+
+
+      .second-job-section{
+          display: flex;
+          justify-content: space-around;
+          
+      }
+      .second-job-section > .third-job-section >.value{
+          font-size: 0.9rem;
+      }
+      .third-job-section{
+          width: fit-content;
+          display: flex;
+          justify-content:center;
+      }
+      .icons{
+          
+          width: fit-content;
+          margin-top: 3px;
+      }
+      .avatar{
+  font-size: 0.2.rem;
+         
+      }
+      .title{
+          
+          font-size: 1.2rem;
+          font-weight: 700;
+          
+      }
+      .companyName{  
+          font-size: 1rem;
+          font-weight: 500;
+          
+      }
+     
+      
+      
+     
+      .description{
+          padding-left: 35px;
+          padding-right:35px ;
+          font-size: 0.8rem;
+          font-weight: 500 ;
+          text-align: center; 
+          margin-top: 10px;
+          
+      }
+      
+      
+      
+      
 
 .footer-buttons{
-    display: flex;
-    justify-content: space-around;
-    width: 30%;
+  display: flex;
+  justify-content: space-around;
+  width: 30%;
 }
 
 .salary{
-    width: fit-content; 
-    display: flex;
-    justify-content: center;  
-    margin-top: 10px;
-    
+  width: fit-content; 
+  display: flex;
+  justify-content: center;  
+  margin-top: 10px;
+  
 }
 
 
 .salary > .value{
-    font-size: 0.8rem; 
+  font-size: 0.8rem; 
 
 }
 
 
 .skills{
-    font-size: 0.8rem; 
-    display: flex ;
-    justify-content: center;
-    }
-    .more-info-button{
-        width: fit-content;
-        height: fit-content;
-        background-color: transparent;
-        border: none;
-        color: black;
-        border-radius: 10%;
-    }
+  font-size: 0.8rem; 
+  display: flex ;
+  justify-content: center;
+  }
+  .more-info-button{
+      width: fit-content;
+      height: fit-content;
+      background-color: transparent;
+      border: none;
+      color: black;
+      border-radius: 10%;
+  }
 
-        
-        }
+      
+      }

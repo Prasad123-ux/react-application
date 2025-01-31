@@ -32,7 +32,7 @@ function Profile({api}) {
   const [userUpdatedData, setUserUpdatedData]= useState({name:"", location:"", workStatus:"",city:"", join:"", }) 
   const dispatch= useDispatch() 
   const jobSeekerData= useSelector((state)=>state.jobs.jobSeekers) 
-  const  token= useSelector((state)=>(state.tokenData))
+   const tokenValue= localStorage.getItem("token")
 
 
 //  const token = localStorage.getItem('token') 
@@ -44,6 +44,8 @@ function Profile({api}) {
 // }, []); // Empty dependency array means this effect runs once when the component mounts
 
 useEffect(()=>{
+
+
   handleGetUserData();
 }, [])
 
@@ -58,7 +60,7 @@ useEffect(()=>{
     
     await fetch('https://jobnexus-backend.onrender.com/api/candidate/getProfileData', {
         method: "POST",
-        body: JSON.stringify({ token: token }),
+        body: JSON.stringify({ token: tokenValue }),
         headers: {
           "Content-type": "application/json"
         }
@@ -71,6 +73,7 @@ useEffect(()=>{
         }
 
       }).then((data)=>{ 
+        console.log(data)
         setUserData(data.Data) 
         dispatch(setJobSeekers(data.Data))
 })
@@ -117,7 +120,7 @@ const onchange=(e)=>{
         <div className='profile-info mx-auto text-center col-12 col-lg-7'>
        <div className='name-info'>
      
-        <span className=' name d-block fw-bold'>{userData.FullName && userData.FullName.length>1  ? userData.FullName :"" }</span>  
+        <span className=' name d-block fw-bold'>{userData.FullName && userData.FullName.length>=0  ? userData.FullName :"Not Found" }</span>  
         {/* <span className=''></span> */}
         <span className='profile-last fw-light'>Profile last updated</span>-<span className=' day text-secondary fw-medium '>Today</span>
         {/* <button className='btn btn-primary' onClick={getUserData}>  get the user data from </button> */}
@@ -131,8 +134,8 @@ const onchange=(e)=>{
         <div className='down-first col-12 col-md-6 '>
           
          {userData.City && userData.City.length>1  ?  <Text className='d-block text-secondary '><CiLocationOn style={{"width":"30px"}}  className='d-inline' /> <span className=''>{userData.City && userData.City.length>1  ? userData.City :"" }</span></Text>:""}
-         {userData.WorkStatus && userData.WorkStatus.length>1  ? <Text className='d-block text-secondary '><BsPersonWorkspace className='d-inline' style={{"width":"30px"}} /> <span className=''>{userData.WorkStatus && userData.WorkStatus.length>1  ? userData.WorkStatus :"" }</span>  </Text>:""}
-         { userData.birthDate && userData.birthDate.length>=1 ?<Text className='d-block text-secondary '><MdOutlineDateRange className='d-inline' style={{"width":"30px"}} /><span className='d-inline'> {userData.birthDate && userData.birthDate.length>1  ? userData.birthDate:""}</span></Text>:""}
+         {userData.WorkStatus && userData.WorkStatus.length>0  ? <Text className='d-block text-secondary '><BsPersonWorkspace className='d-inline' style={{"width":"30px"}} /> <span className=''>{userData.WorkStatus && userData.WorkStatus.length>1  ? userData.WorkStatus :"" }</span>  </Text>:""}
+         { userData.birthDate && userData.birthDate.length>=0 ?<Text className='d-block text-secondary '><MdOutlineDateRange className='d-inline' style={{"width":"30px"}} /><span className='d-inline'> {userData.birthDate && userData.birthDate.length>1  ? userData.birthDate:""}</span></Text>:""}
           
    
       
@@ -140,7 +143,7 @@ const onchange=(e)=>{
         <div className='col-12  col-md-6' >
       { userData.MobileNumber  ? <Text className='d-block text-secondary '><CiPhone style={{"width":"30px" ,"height":"20px"}} className='d-inline' /><span className=''>{userData.MobileNumber  ? userData.MobileNumber :"Not Found" }</span>  </Text>:""}
        {userData.Email && userData.Email.length>1  ? <Text className='d-block text-secondary '><CiMail  style={{"width":"30px" ,"height":"20px"}} className='d-inline' /><span className=''>{userData.Email && userData.Email.length>1  ? userData.Email :"" }</span>  </Text>:""}
-       {token && token.length>=1  ? <button className='d-block text-secondary btn  w-50 mx-auto shadow bg-light  ' data-toggle="modal" data-target="#exampleModalLong"><FiEdit2 className='d-inline' style={{"width":"30px"}} /><span className='d-inline'>Edit </span></button>: <button className='d-block text-secondary btn  w-50 mx-auto shadow bg-light  ' ><Link to='/login' className='d-inline'>Log in </Link></button>}
+       {tokenValue   ? <button className='d-block text-secondary btn  w-50 mx-auto shadow bg-light  ' data-toggle="modal" data-target="#exampleModalLong"><FiEdit2 className='d-inline' style={{"width":"30px"}} /><span className='d-inline'>Edit </span></button>: <button className='d-block text-secondary btn  w-50 mx-auto shadow bg-light  ' ><Link to='/login' className='d-inline'>Log in </Link></button>}
 
 
         </div>

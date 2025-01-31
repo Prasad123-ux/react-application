@@ -1,360 +1,175 @@
-
-.companyProfile-mainPage{ 
-    margin-top: 100px;
-
+/* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
 }
 
-.companyProfile-side-img{ 
-
-width: 100%;
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
 }
-.company-profile-logo{ 
-    width: 100%; 
-    height: 100px; 
-    margin-top: 20px; 
-    display: block;
-} 
-.company-profile-data{
+
+.text-center {
+  text-align: center;
+}
+
+/* Header Section */
+.header-section {
+  position: relative;
+  background-color: #003f5c;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+}
+
+.header-section img.banner-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  filter: brightness(70%);
+  transition: transform 0.3s ease;
+}
+
+.header-section:hover img.banner-image {
+  transform: scale(1.1);
+}
+
+.header-section .overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.header-section .company-name {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Company Info */
+.company-info {
+  background: linear-gradient(to right, #ffffff, #f0f0f0);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.company-logo {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #007bff;
+}
+
+.company-info h2 {
+  color: #333;
+  font-size: 1.8rem;
+}
+
+.company-info .icons {
+  color: #007bff;
+}
+
+.actions .btn {
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.actions .btn-outline-primary:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.actions .btn-outline-secondary:hover {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+/* Tabs Section */
+#company-tabs .nav-link {
+  color: #333;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+#company-tabs .nav-link:hover {
+  color: #007bff;
+}
+
+#company-tabs .nav-link.active {
+  background-color: #007bff;
+  color: #fff !important;
+  border-radius: 10px;
+}
+
+/* Tab Content */
+.tab-content {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header-section .company-name {
+    font-size: 1.8rem;
+  }
+
+  .company-info {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .company-info .d-flex {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .actions {
+    justify-content: center;
     margin-top: 10px;
+  }
 
-}
-.company-profile-detail{
-    width: fit-content;
-
-}
-.follow-btn{
-    width: 200px; 
-    font-size: 1.2rem; 
-    font-weight: 600;
-}
-.follows{
-    width: fit-content;
-}
-.company-profile-name{
-    font-size: 1.9rem; 
-    font-weight: 500;
-}
-.company-profile-tagline{
-    font-size: 1.1rem; 
-    font-weight: 400 ;
-    color: cyan;
-}
-.company-profile-sectors{ 
-    margin-top: 5px;
-    background-color:bisque;
-    width: fit-content;
-    border: 1px solid bisque ; 
-    border-radius: 10px;
-    padding-left: 5px; 
-    padding-right: 5px;
-}
-.followers-number{
+  #company-tabs .nav-link {
     font-size: 0.9rem;
-    font-weight: 600; 
-    margin-right: 5px;
-}
-.next-section{
-    /* background-color: red; */
-    width:fit-content; 
-    margin-top: 50px; 
-    font-size: 1.2rem; 
-    font-weight: 600; 
-    padding-left: 250px;
-} 
-.company-jobs{ 
-    width: 75%; 
-    /* display: flex; */
-    /* justify-content: space-between; */
-    
-}
-.company-recommended-jobs{  
-    width: 100%;
-    background-color:white; 
-    margin-top: 50px;
-    /* width: fit-content; */
-
-}
-.overview-button{
-cursor: pointer; 
-width: fit-content;
-}
-.jobs-button{
-    cursor: pointer;
-    width: fit-content; 
-    margin-left: 100px;
-}
-.breadcrumbs{
-    width: fit-content;
-}
-.image-optional{
-    width: 100% ;
-    height: 100px; 
-    background-color:coral;
-}
-.company-profile-job{
-    width: 70%;
-}
-.company-allJObs{
-    width: 100%;
-}
-.company-showJobs{
-    width: 70%;
-}
-.overView-button{
-    cursor: pointer;
-}
-.jobs-button{
-    cursor: pointer;
-}
-/* .company-profile-data{
-    width: 100%;
-} */
-
-
-
-
-@media only screen and  ( max-width: 576px  ) { 
-
-
-    .companyProfile-mainPage{ 
-        margin-top: 100px;
-    
-    }
-    
-    .companyProfile-side-img{ 
-    
-    width: 100%;
-    }
-    .company-profile-logo{ 
-        width: 100px; 
-        height: 50px; 
-        margin-top: 20px;  
-        /* border: 1px solid transparent; */
-        /* border-radius: 10px; */
-        display: none;
-
-    }
-    
-    .company-profile-data{
-        margin-top: 10px;
-    
-    }
-    .company-profile-detail{
-        width: 100%;
-    
-    }
-    .follow-btn{
-        width: 100px; 
-        font-size: 1rem; 
-        font-weight: 600;
-    }
-    .follows{
-        width: fit-content;
-    }
-    .company-profile-name{
-        font-size: 1.3rem; 
-        font-weight: 500;
-    }
-    .company-profile-tagline{    
-        font-size: 0.8rem; 
-        font-weight: 400 ;
-        color: cyan;
-    }
-    .company-profile-sectors{ 
-        margin-top: 5px;
-        background-color:bisque;
-        width: fit-content;
-        border: 1px solid bisque ; 
-        border-radius: 10px;
-        padding-left: 5px; 
-        padding-right: 5px;
-    }
-    .followers-number{
-        font-size: 0.8rem;
-        font-weight: 600; 
-        margin-right: 5px;
-    }
-    .next-section{
-        /* background-color: red; */
-        width:fit-content; 
-        margin-top: 50px; 
-        font-size: 1.2rem; 
-        font-weight: 600;  
-        padding-left: 0px;
-        /* padding-left: 100px; */
-        
-    } 
-    .company-jobs{ 
-        width: 100%; 
-        /* display: flex; */
-        /* justify-content: space-between; */
-        
-    }
-    .company-recommended-jobs{  
-        width: 100%;
-        background-color:white; 
-        margin-top: 50px;
-        /* width: fit-content; */
-    
-    }
-    .overview-button{
-    cursor: pointer; 
-    width: fit-content;
-    }
-    .jobs-button{
-        cursor: pointer;
-        width: fit-content; 
-        margin-left: 100px;
-    }
-    .breadcrumbs{
-        width: fit-content;
-    }
-    .image-optional{
-        width: 100% ;
-        height: 100px; 
-        background-color:coral;
-    }
-    .company-profile-job{
-        width: 100%;
-    }
-    .company-allJObs{
-        width: 100%;
-    }
-    .company-showJobs{
-        width: 100%;
-    }
-    .overView-button{
-        cursor: pointer; 
-        font-size: 0.9rem; 
-        font-weight: 600;
-    }
-    .jobs-button{
-        cursor: pointer; 
-        font-size: 0.9rem; 
-        font-weight: 600;
-
-    }
+  }
 }
 
-@media only screen and (min-width:576px) and (max-width:768px) {
+/* Animations */
+.company-logo {
+  transition: transform 0.3s ease;
+}
 
-    .companyProfile-mainPage{ 
-        margin-top: 100px;
-    
-    }
-    
-    .companyProfile-side-img{ 
-    
-    width: 100%;
-    }
-    .company-profile-logo{ 
-        width: 100%; 
-        height: 100px; 
-        margin-top: 20px;
-    } 
-    .company-profile-data{
-        margin-top: 10px;
-    
-    }
-    .company-profile-detail{
-        width: fit-content;
-    
-    }
-    .follow-btn{
-        width: 150px; 
-        font-size: 1rem; 
-        font-weight: 600;
-    }
-    .follows{
-        width: fit-content;
-    }
-    .company-profile-name{
-        font-size: 1.9rem; 
-        font-weight: 500;
-    }
-    .company-profile-tagline{
-        font-size: 1.1rem; 
-        font-weight: 400 ;
-        color: cyan;
-    }
-    .company-profile-sectors{ 
-        margin-top: 5px;
-        background-color:bisque;
-        width: fit-content;
-        border: 1px solid bisque ; 
-        border-radius: 10px;
-        padding-left: 5px; 
-        padding-right: 5px;
-    }
-    .followers-number{
-        font-size: 0.8rem;
-        font-weight: 600; 
-        margin-right: 5px;
-    }
-    .next-section{
-        /* background-color: red; */
-        width:fit-content; 
-        margin-top: 50px; 
-        font-size: 1.2rem; 
-        font-weight: 600;  
-        padding-left: 100px;
-        
-    } 
-    .company-jobs{ 
-        width: 75%; 
-        /* display: flex; */
-        /* justify-content: space-between; */
-        
-    }
-    .company-recommended-jobs{  
-        width: 100%;
-        background-color:white; 
-        margin-top: 50px;
-        /* width: fit-content; */
-    
-    }
-    .overview-button{
-    cursor: pointer; 
-    width: fit-content;
-    }
-    .jobs-button{
-        cursor: pointer;
-        width: fit-content; 
-        margin-left: 100px;
-    }
-    .breadcrumbs{
-        width: fit-content;
-    }
-    .image-optional{
-        width: 100% ;
-        height: 100px; 
-        background-color:coral;
-    }
-    .company-profile-job{
-        width: 85%;
-    }
-    .company-allJObs{
-        width: 100%;
-    }
-    .company-showJobs{
-        width: 100%;
-    }
-    .overView-button{
-        cursor: pointer;
-    }
-    .jobs-button{
-        cursor: pointer;
-    }
+.company-logo:hover {
+  transform: scale(1.1);
+}
 
-}  
+.button {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
 
-
-
-
-
-
-
-
-
-
-
+.button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}

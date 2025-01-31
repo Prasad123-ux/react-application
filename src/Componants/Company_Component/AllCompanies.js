@@ -1,126 +1,130 @@
-import React, { useEffect, useState } from 'react' 
- import options from "../data.json"  
- import "../../Styles/allCompanies.css" 
- import { FcNext } from "react-icons/fc";
-import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
-// import { response } from 'express';
-import { setAllCompanies } from '../Redux/jobSlice';
-import CompanyCard from './CompanyCard';
-import { useToast } from '@chakra-ui/react';
+import React, { useEffect, useState } from "react";
+import { Card, Button, Dropdown, DropdownButton, Spinner } from "react-bootstrap";
+import { FaMapMarkerAlt, FaBuilding, FaExternalLinkAlt } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
+// import "./CompanyProfile.css";
 
+const AllCompanies = () => {
+  const [companies, setCompanies] = useState([]);
+  const [filteredCompanies, setFilteredCompanies] = useState([]);
+  const [industries, setIndustries] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    window.scrollTo(0,0) 
+    const fetchCompanies = async () => {
+      try {
+        const response = await axios.get("https://jobnexus-backend.onrender.com/api/getAllCompanies");
+        if (response.status === 200) {
+          const data = response.data.data;
+          setCompanies(data);
+          setFilteredCompanies(data);
 
-
-export default function AllCompanies() { 
-   const  [title,setTitle]= useState("Actively Hiring Companies ")  
-   const [companyType, setCompanyType]= useState([])            
-   const [heading, setHeading]=useState("Top Hiring Companies")
-  //  const allJobs = useSelector((state) => state.jobs.jobs);   
-   const allCompaniesData= useSelector((state)=>state.jobs.companies)
-
-   const [findedCompany,setFindedCompany] = useState([])   
-   const dispatch= useDispatch()
-   const toast = useToast()
-
-
-
-   useEffect(()=>{
-    const  handleAllCompaniesData=async ()=>{
-
-      try{ 
-        const response= await  axios.get("https://jobnexus-backend.onrender.com/api/getAllCompanies")
-          
-          if(response.status !==200){ 
-            addToast('Sorry Data Not Found ', "error")
-
-            throw new Error(response.statusText)
-          }else{
-            dispatch(setAllCompanies(response.data.data))
-            
-          }
-
-      }catch(err){  
-        addToast(err.message, "error")
-
-        console.log(err)
-
+          // Extract unique industries
+          const uniqueIndustries = [
+            ...new Set(data.map((company) => company.CompanyIndustry)),
+          ];
+          setIndustries(uniqueIndustries);
+        } else {
+          console.error("Failed to fetch companies");
+        }
+      } catch (error) {
+        console.error("Error fetching companies:", error);
+      } finally {
+        setLoading(false);
       }
+    };
+
+    fetchCompanies();
+  }, []);
+
+  const handleFilter = (industry) => {
+    if (industry === "All") {
+      setFilteredCompanies(companies);
+    } else {
+      const filtered = companies.filter(
+        (company) => company.CompanyIndustry === industry
+      );
+      setFilteredCompanies(filtered);
     }
+  };
 
+  const navigateToCompany = (id) => {
+    console.log(id)
+    navigate(`/companies/skeleton/companyProfile/${id}`);
+  };
 
-  handleAllCompaniesData()
-   }, [])
-
-   const findCompany=((industry)=>{      
-    
-    if(allCompaniesData && allCompaniesData.length>=1){ 
-      
-    const filterIndustry=allCompaniesData.filter((company)=>company.CompanyIndustry===industry ) 
-    if(filterIndustry && filterIndustry.length>=1) {
-    setFindedCompany(filterIndustry)  
-    setHeading(industry)
-    
-
-    } else{  
-      addToast(` Company not registered for ${industry} sector`, "warning")
-
-      setFindedCompany("")  
-      setHeading("Top Hiring Companies")
-
-    }
-   
-    
-    
-    }else{
-      console.log("we are finding")
-    }
-
-
-
-   }) 
-   
-     
-   const addToast=(title,status)=>{
-    toast({title: title,
-      
-      status: status,
-      duration: 5000,
-      isClosable: true})
-  
+  if (loading) {
+    return (
+      <div className="d-flex justify-content-center align-items-center vh-100">
+        <Spinner animation="border" variant="primary" />
+      </div>
+    );
   }
-  
-  
-  
 
-  return (  
+  return (
+    <div className="company-profile container mt-5">
+      {/* Filter Section */}
+      <div className="filter-section d-flex justify-content-around align-items-center mb-4">
+        <h2 className="text-primary">Top Companies</h2>
+        <DropdownButton
+          id="industry-filter"
+          title="Filter by Industry"
+          onSelect={handleFilter}
+        >
+          <Dropdown.Item eventKey="All">All</Dropdown.Item>
+          {industries.map((industry, index) => (
+            <Dropdown.Item key={index} eventKey={industry}>
+              {industry}
+            </Dropdown.Item>
+          ))}
+        </DropdownButton>
+      </div>
 
-
-    <div className=' row company-cards-page'>
-        {/* <h1>{title}</h1> */}
-        <div className='  company-slider col-sm-4 col-lg-3 col-12 '> { options.companyType && options.companyType.length>=1 ?
-            options.companyType.map((item, index)=>{
-                return <div className='  company-board mx-auto mt-2 shadow ' > <span className='company-type d-block'>{item} </span>    
-
-                 <div onClick={()=>findCompany(item)}><span className='text-primary  company-number '> find Companies </span> <FcNext className='company-next d-inline' />  </div></div>  
-            })
-          :""  }
-
-        </div> 
-
-        <div className= 'col-sm-8 col-lg-9 col-12 row companies mx-auto'>  
-          <h3 className='industry-heading'> {heading}</h3>
-          { findedCompany && findedCompany.length>=1  ? 
-        findedCompany.map((company, index)=>{
-          return <div className='col-12 col-lg-6  company-main  col-md-12'> <CompanyCard name={company.CompanyName }       logo={company.CompanyLogo}/> </div>
-
-        })
-    : allCompaniesData && allCompaniesData.length>=1 ? allCompaniesData.map((company,index)=>{
-      return <div className='col-12  col-lg-6 col-md-12'> <CompanyCard name={company.CompanyName }       logo={company.CompanyLogo} id={company._id}/> </div>
-    }) :"" }
-
-        </div>
-      
+      {/* Companies List */}
+      <div className="companies-list row">
+        {filteredCompanies.length > 0 ? (
+          filteredCompanies.map((company) => (
+            <div className="col-md-4 mb-4" key={company._id}>
+              <Card className="h-100 shadow-sm">
+                 {/* <Card.Img
+                  variant="top"
+                  src={company.CompanyLogo || "https://via.placeholder.com/100"}
+                  alt={`${company.CompanyName} Logo`}
+                  className="company-logo d-inline" */}
+                
+                <Card.Body >
+                  <Card.Title>{company.CompanyName}</Card.Title>
+                  <Card.Subtitle className="mb-2 text-muted">
+                    {company.CompanyIndustry}
+                  </Card.Subtitle>
+                  <Card.Text>
+                    <FaMapMarkerAlt className="me-2" />
+                    {company.CompanyAddress}
+                  </Card.Text>
+                  <Button
+                    variant="primary"
+                    
+                    style={{"width":"fit-content"}}
+                    onClick={() => navigateToCompany(company._id)}
+                  >
+                    View Profile <FaExternalLinkAlt className="ms-2"  style={{"width":"fit-content"}}/>
+                  </Button>
+                </Card.Body>
+              </Card>
+            </div>
+          ))
+        ) : (
+          <div className="text-center w-100">
+            <p className="text-muted">No companies found for the selected industry.</p>
+          </div>
+        )}
+      </div>
     </div>
-  )
-}
+  );
+};
+
+export default AllCompanies;

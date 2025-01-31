@@ -7,7 +7,7 @@
 }
 .main-box{
   width: fit-content;
-  margin-top: 100px;
+  /* margin-top: 100px; */
 }
 
 .jobs{
@@ -29,6 +29,7 @@
   /* padding: 20px; */
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for aesthetics */
   z-index: 1000;
+  height: fit-content;
 }
 body {
   /* width: 100%; */
@@ -59,7 +60,7 @@ body {
 }
 .main-box{
   width: 100%;
-  margin-top: 100px;
+  /* margin-top: 100px; */
 }
 
 .jobs{

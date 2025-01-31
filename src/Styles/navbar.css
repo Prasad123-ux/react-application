@@ -11,9 +11,12 @@
     box-sizing: border-box;
     
   }
-
+.jobify-name{
+  cursor: pointer;
+}
 
 .navbar{
+  margin-bottom: px;
 
      
     background-color: whitesmoke; 
@@ -53,3 +56,7 @@
   width: fit-content;
 
  } */
+
+ .auth-box{
+  width: fit-content;
+ }

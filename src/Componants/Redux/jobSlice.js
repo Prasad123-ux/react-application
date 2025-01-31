@@ -8,7 +8,8 @@ const initialState={
     jobSeekers:[],
     companies:[] ,
     companiesJobs:[],
-    token:[],
+    token:"",
+    score:0
 };
 
 
@@ -35,12 +36,15 @@ const jobSlice=createSlice({
         },
         setTokenData:(state,action)=>{
             state.token=action.payload
+        },
+        setProfileScore:(state, action)=>{
+            state.score=action.payload
         }
        
     }
 })
 
-export const {setAllJobs, setFilteredJobs, setJobSeekers, setAllCompanies, setAllCompaniesJobs,setTokenData}=jobSlice.actions;
+export const {setAllJobs, setFilteredJobs, setJobSeekers, setAllCompanies, setAllCompaniesJobs,setTokenData, setProfileScore}=jobSlice.actions;
 
 
 export default jobSlice.reducer;

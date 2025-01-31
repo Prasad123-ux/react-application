@@ -1,162 +1,175 @@
-import React, { useEffect,useState } from 'react' 
-import { useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom' 
-import "../../Styles/companyProfile.css" 
-import { FcRating } from "react-icons/fc";  
-import axios from 'axios';
-import ShowJobs from './ShowJobs';
-import Job from '../Job';
-import RecommendedJobs from './RecommendedJobs'; 
-import { CiLocationOn, } from "react-icons/ci";
-import Breadcumbs from './Breadcumbs'; 
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react' 
-import { ChevronRightIcon } from '@chakra-ui/icons'; 
-import { Link } from 'react-router-dom';
-import OverView from './OverView';
-import CompanyInfo from './CompanyInfo';
+import React, { useEffect, useState } from "react";
+import { Tabs, Tab, Card, Button } from "react-bootstrap";
+import { FaMapMarkerAlt, FaBuilding, FaBriefcase, FaHeart, FaShareAlt } from "react-icons/fa";
+import { useParams } from "react-router-dom";
+import { useToast } from "@chakra-ui/react";
+import CompanyInfo from "./CompanyInfo";
+import CompanyJobs from "./CompanyJobs";
+import { useNavigate } from "react-router-dom";
+// import "bootstrap/dist/css/bootstrap.min.css";
+import "../../Styles/companyProfile.css";
+import Footer from "../Footer";
 
+const CompanyProfile = () => {
+  const [activeTab, setActiveTab] = useState("overview");
+  const {id}= useParams()
+  const [loading, setLoading]=useState(true) 
+  const [error, setError]= useState()
+  const [companyData, setCompanyData]= useState()
+  const toast= useToast()
+  const navigate= useNavigate()
+  const [follow, setFollow]= useState(false)
+   
+useEffect(()=>{
+  const fetchCompanyData=async()=>{
 
-
-
-export default function CompanyProfile() {   
+    try{
+      const response= await fetch(`https://jobnexus-backend.onrender.com/api/company//getProfileData/${id}`, {
+       method:"GET"
  
-    const allCompany= useSelector((state)=>state.jobs.companies) 
-    const {id}=useParams() 
-    const [company,setCompany]= useState([]) 
-    const [follow,setFollows]=useState("Follow") 
-    const [followValue,setFollowValue]= useState(false) 
-    const token= localStorage.getItem("token") 
-    const [content, setContent]= useState(false)  
-    const [breadcrumbs, setBreadcrumbs] = useState({
-        "Home": "/",
-        "top-Companies": "/companies",
-        [company.CompanyName]:"/companis"
-
-      });
-         
-    useEffect(()=>{  
-        console.log(id)
-        const particularCompany= allCompany.filter((item)=>item._id===id)  
-        if(particularCompany&& particularCompany.length>=1){
-            setCompany(particularCompany[0])  
-
-        }
+      })
+      if(!response.ok){
+        const errorText=await response.text
+        throw new Error(`Problem around fetching data with status ${response.status}:${errorText}`)
+      }else{
+        const data = await response.json()
+        setCompanyData(data.Data) 
+        console.log(data)
         
-
-    }, [id]) 
-
+      }
 
 
-    const handleFollow= async (id)=>{  
-        if(followValue===false){
-            setFollowValue(true)
-            setFollows("Unfollow")  
 
-}else{
-    setFollowValue(false)
-    setFollows("Follow")  
+    }catch(err){
+      addToast(err.message, 'Data not fetched Successfully', "error")
+      
+      
 
+    }finally{
 
-}
-
-try{
-    const response= await  axios.post('https://jobnexus-backend.onrender.com/api/candidate/companyProfile/followaction',{
-        token:token ,
-        follows:followValue ,
-        id:id
-        
-  
-    }) 
-    if(response.status!==200){
-        throw new Error(response.responseText)
-    }else{
-        return response.data
+      setLoading(false)
     }
-}
-catch(err){
-    console.log(err)
+
+  }
+fetchCompanyData()
+
+
+},[id])
+
+
+const handleButtonClick=(id)=>{
+  navigate(`/job_detail/${id}`)
+
 }
 
-    }  
+const handleFollow=()=>{
+  if (!follow){
+    setFollow(true)
+    addToast("Followed Successfully", '', "success")
+  }else{
+    setFollow(false)
+  }
+}
+
+ 
+const addToast=(title, message, status)=>{
+toast(
+  {
+    title: title,
+      description: message,
+      status: status,
+      duration: 2000,
+      isClosable: true,
+
+
+
+  }
+)
+}
+
 
 
 
 
 
   return (
-    <div className='companyProfile-mainPage '>
-        <div > { company.CompanyImage && company.CompanyImage.length>=1  ? <img src={ company.CompanyImage} className='companyProfile-side-img' alt="image-profile"/>:<div className='image-optional'></div>}  </div> 
-    <div className='company-profile-data d-flex justify-content-around flex-sm-row flex-column'>   
-        <div className='company-profile-detail row mx-auto '> 
-        <img src={company.CompanyImage}  className="company-profile-logo col-2 " alt='logo'/>  
+    <>
 
-           <div className='col-12  col-sm-10 mx-auto '> <span className=' company-profile-name d-inline'> {company.CompanyName}</span> 
-             <div className='d-inline'><FcRating className='rating-icon d-inline' />  <span className='rating d-inline'>3.8 | 14 reviews</span> </div> 
-            <span className='d-block company-profile-tagline'>We transform SAP Solutions into Value</span>
-            { company.CompanySectors && company.CompanySectors.length>=1 ? company.CompanySectors.map((item, index)=>{
-                  return <div className='company-profile-sectors'>item   </div>
-            }):<div className='company-profile-sectors'>item   </div>} </div>
+    {loading   ? <div className="text-center">Loading...</div>:
+    error ? <div className="text-center">error...</div>:
+    companyData    ?
 
+
+    
+    <div className="company-profile container mt-5">
+      {/* Header Section */}
+      <div className="header-section text-center p-4">
+        <img
+          src={companyData.CompanyImage}
+          alt={companyData.CompanyName}
+          className="banner-image img-fluid"
+        />
+        <div className="overlay">
+          <h1 className="company-name">{companyData.CompanyName}</h1>
         </div>
-        <div className='follows mx-auto'>  <span className='followers-number'> 1.385k Followers</span> 
-    <button  className='btn btn-outline-primary follow-btn' value={followValue} onClick={()=>{handleFollow(company._id)}}>{ follow}</button>  
-    </div>
-    </div> 
-   
-               <div className='next-section  d-flex justify-content-around mx-auto' > <span style={{textDecoration: content? 'underline':'none'}} onClick={()=>{setContent(true)}}  className='overView-button'> Overview</span> <span className='jobs-button' style={{textDecoration: content? 'none':'underline'}} onClick={()=>{setContent(false)}}> Jobs</span> </div>   
-               {content===true  ? <div className='company-profile-overview  ' ><OverView/> <div className='company-showJobs mx-auto'><ShowJobs/></div><div className='company-profile-info'><CompanyInfo/></div> </div>:   
-               <div className='company-profile-job mx-auto '> 
-               
-<ShowJobs/> 
-                 <div className='company-jobs mx-auto mt-5   row'> 
-                    <div className='company-allJObs  mx-auto col-12'> 
-                         <span className='fs-6 fw-bold d-block'>Jobs by {company.CompanyName} </span> 
-                         <span className=' fw-bold ms-5 text-secondary'>55154  </span> <span>  jobs by {company.CompanyName}</span>
-                          <Job/>  </div>
-                    <div className='company-recommended-jobs col-12'>
-                        <span className='fs-6 fw-bold'>Recommended Jobs for your regarding company  </span> 
-                        { 
-                        <div className='d-flex justify-content-between'>
-                            <div className='mt-3 mx-auto'> <span className='fs-6 fw-medium mx-auto'>jot title</span>  
-                            <div><CiLocationOn className='d-inline' style={{"width":"25px"}}/> Hyderabad </div> 
-                           
-                            <div>  {company.CompanyName}  </div>    
-                            <hr className='fw-bold'></hr> 
-                            </div>  
-                            <img src="" alt='company-logo' className='d-block w-100 mt-3'/>
-                            </div>
-                        }
+      </div>
 
+      {/* Company Info */}
+      <div className="company-info d-flex   justify-content-around flex-md-wrap flex-column align-items-center p-4">
+        <div className="d-flex align-items-center">
+          <img
+            src={companyData.CompanyLogo}
+            alt="Company Logo"
+            className="company-logo me-3"
+          />
+          <div>
+            <h2 className="mb-0">{companyData.CompanyName}</h2>
+            <p className="text-muted mb-0">{companyData.CompanyIndustry}</p>
+            <div className="d-flex align-items-center">
+              <FaMapMarkerAlt className="me-2 icons" style={{"width":"fit-content"}} />
+              <span style={{"width":"fit-content"}} >{companyData.CompanyAddress}</span>
+            </div>
+          </div>
+        </div>
+        <div className="actions d-flex ">
+          <Button variant="outline-primary" className="me-2" onClick={handleFollow}>
+            { follow ?<FaHeart className="me-2 text-danger " />:<FaHeart className="me-2  text-transparent" />}
+            {follow ? "Unfollow" :"Follow"}
+          </Button>
+          <Button variant="outline-secondary " className="mt-2">
+            <FaShareAlt className="me-2" /> Share
+          </Button>
+        </div>
+      </div>
 
-                    </div>
-                  
-                      </div>
-               
-               </div>   
-             
-               }  
-               <Breadcumbs breadCrumbs={breadcrumbs}/>   
-
-               <div className='breadcrumbs'>
-               <Breadcrumb fontWeight='medium' fontSize='sm' className='breadcrumbs'>
-  <BreadcrumbItem>
-    <Link to="/">Home</Link>
-
-  </BreadcrumbItem>
-
-  <BreadcrumbItem>
-    {/* <BreadcrumbLink href='companies'>companies</BreadcrumbLink> */} 
-    <Link to="companies"> Companies</Link>
-  </BreadcrumbItem>
-
-  <BreadcrumbItem isCurrentPage>
-  <Link to="/">current</Link>
-
-  </BreadcrumbItem>
-</Breadcrumb>
-</div>
-            
-               
-    </div>
-  )
+      {/* Tabs Section */}
+      <Tabs
+        id="company-tabs"
+        activeKey={activeTab}
+        onSelect={(k) => setActiveTab(k)}
+        className="mb-4"
+      >
+        <Tab eventKey="overview" title={<span><FaBuilding className="me-2" /> Overview</span>}>
+          <div className="p-3">
+            <h3>About Us</h3>
+            <p>
+              {companyData.CompanyDescription}
+            </p>
+            <CompanyInfo size={companyData.CompanySize} year={companyData.CompanyEstablishmentYear} owner={companyData.CompanyOwner} mail={companyData.CompanyEmail} linkedin={companyData.CompanyLinkedinProfile} twitter={companyData.CompanyTwitterProfile} website={companyData.CompanyWebsite} facebook={companyData.CompanyFacebookProfile}/>
+          </div>
+        </Tab>
+        <Tab eventKey="jobs" title={<span><FaBriefcase className="me-2" /> Jobs</span>}>
+          <div className="p-3">
+            <h3>Available Positions</h3>
+           <CompanyJobs mail={companyData.CompanyEmail}/>
+          </div>
+        </Tab>
+      </Tabs>
+    </div>:<div className="text-center">Data Not Found</div>
 }
+<Footer/>
+    </>
+  );
+};
+
+export default CompanyProfile;

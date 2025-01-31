@@ -22,8 +22,11 @@ function Explain() {
     const [saveValue, setSaveValue]= useState("Save")
      const {id}= useParams();
      const navigate= useNavigate()
-     const tokenValue= useSelector((state)=>state.jobs.token) 
+     const [saved, setSaved]=useState(false)
+    //  const tokenValue= useSelector((state)=>state.jobs.token) 
      const toast= useToast()
+     const tokenValue=localStorage.getItem("token")
+     const [loading, setLoading]=useState(false)
 
 
     
@@ -32,9 +35,8 @@ function Explain() {
 
      const months=["jan", "Feb", "March", "April", "May", "Jun","July", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
-     let monthName=months[new Date(jobData.createdAt ).getMonth()]
-    let day=new Date(jobData.createdAt ).toUTCString().slice(5,7)
-    console.log(monthName,day)
+     
+    
 
 
     
@@ -43,10 +45,7 @@ function Explain() {
 
 useEffect(()=>{  
     window.scrollTo(0,0) 
-    console.log(tokenValue)
-   
-
-
+    console.log(tokenValue)  
 
 const findJobExplainDetail= async ()=>{
     try{
@@ -78,7 +77,7 @@ const findJobExplainDetail= async ()=>{
 }
 
 findJobExplainDetail()
-
+              
 
 },[id])
 
@@ -158,24 +157,36 @@ useEffect(()=>{
 
 
 
-const handleSaveJob=async (jobValue)=>{
+const handleSaveJob=async (id)=>{
+    if(saved){
+        addToast("Job Already Saved","jj","warning")
+        return 
+    }
+    setLoading(true)
 if(tokenValue){
 try{
-    const response= await fetch(`   https://jobnexus-backend.onrender.com/api/candidate/save_Job?id=${jobValue}`, {
+    const response= await fetch(`   https://jobnexus-backend.onrender.com/api/candidate/save_Job/${id}`, {
         method:"POST",
-        body:JSON.stringify({email:jobData.CompanyEmail}),
         headers:{
             "Content-type":"application/json"
-        }
+        },
+        body:JSON.stringify({email:jobData.CompanyEmail, token:tokenValue, companyName:jobData.company_name, JobTitle:jobData.JobTitle, location:jobData.JobLocation})
+
+    
+        
     })
-    if(!response.ok){
-        throw new Error(`HTTP error! status: ${response.status}`)
-    }
     const result = await response.json()
-    setSaveValue("Saved")
-    console.log(result)
+    if(!response.ok){
+        
+        throw new Error(result.message || `HTTP error! status: ${response.status}`);
+    }
+    setSaved(true)
+    addToast(result.message || "Job Saved Successfully", "", "success");
 }catch(err){
-console.log(err)
+    addToast(err.message || "An error occurred", "Job Not Saved", "error");
+}
+finally{
+    setLoading(false)
 }
 }else{
     addToast("Please Login Yourself", "using login you can access more information about job and access to more content", "warning")
@@ -187,7 +198,7 @@ console.log(err)
 
 const handleApplyJobClick=(id)=>{ 
     if (tokenValue ){
-        navigate(`/job_detail/job_application/${id}`)
+        navigate("job_detail/job_application", {state  :  {jobData}});
 
     }else{
   addToast("Please Login Yourself", "using login you can access more information about job and access to more content", "warning")
@@ -208,7 +219,7 @@ const handleApplyJobClick=(id)=>{
 
 
 const handleButtonClick=(id)=>{
-    navigate(`/job_detail/${id}`)
+    navigate("/job_detail/job_application", {state  :  {jobData}});
 
   }
 
@@ -224,10 +235,15 @@ const handleButtonClick=(id)=>{
   }
 
 
+
+  const handleReportJob=(id)=>{
+    navigate(`/job_detail/reportJob/${id}`)
+  }
+
   return (
    <> 
 
-    <div className=' w-100   d-flex justify-content-center explain flex-column flex-md-row mt-5' style={{"backgroundColor":"#F8F9FA"}}>
+    <div className=' w-100   d-flex justify-content-center explain  flex-column flex-md-row ' style={{"backgroundColor":"#F8F9FA"}}>
         <div className='first-block me-0 me-lg-5 mt-5'>
         
         <div className='heading-name bg-white shadow  p-4   ' style={{"borderRadius":"10px"}}>
@@ -272,7 +288,7 @@ const handleButtonClick=(id)=>{
     <div className='d-sm-flex justify-content-sm-end justify-content-end justify-content-md-around flex-md-row flex-column  '>
      { saveValue==="Save" && tokenValue!== null ? <button onClick={()=>{handleSaveJob(jobData._id)}} className='save-button  btn btn-outline-primary   rounded  '>
        {saveValue}
-        </button>:<button disabled className=' save-button  btn btn-outline-primary   rounded '> {saveValue}</button>
+        </button>:<button disabled className=' save-button  btn btn-outline-primary   rounded '> {!saved ? "Save":"Saved"}</button>
 }
         <button  onClick={()=>{handleApplyJobClick(jobData._id)}} className='apply-button btn-primary bg-primary  rounded'>Apply</button>
        
@@ -339,7 +355,7 @@ return (value.length>1? <div> <span className=' fw-bold text-dark mt-3'>{key} : 
 
     
     </div>
-    <button className='text-primary fw-bold text-decoration-underline'>Report This Job</button>
+    <button className='text-primary fw-bold text-decoration-underline' onClick={()=>{handleReportJob(jobData._id)}}>Report This Job</button>
     
 
 </div>

@@ -16,6 +16,10 @@ import SubmitApply from './Componants/SubmitApply'
 import AllCompanies from './Componants/Company_Component/AllCompanies'
 import CompanyCard from './Componants/Company_Component/CompanyCard'
 import CompanyProfile from './Componants/Company_Component/CompanyProfile'
+import AppliedJobs from './Componants/AppliedJobs'
+import ReportJob from './Componants/Company_Component/ReportJob'
+import SavedJobs from './Componants/SavedJobs'
+import HelpComponent from './Componants/HelpComponent'
 
 
 
@@ -104,9 +108,10 @@ const length=users.length
       
 
       <BrowserRouter basename={process.env.PUBLIC_URL}>
-     { isScrolling===true ?<Navbar users={users} getCity={onCityChange} getRole={onRoleChange} onDelete={handleDelete} length={length}/>:""}   
+     {/* { isScrolling===true ?<Navbar users={users} getCity={onCityChange} getRole={onRoleChange} onDelete={handleDelete} length={length}/>:""}    */}
      {/* <Navbar/> */} 
-     <Navbar/>
+     <Navbar/>  
+
 <Routes>
 <Route  path='/' element={<Home users={users} />} />
 <Route exact path='/login' element={<Login users={users} api={api}/>} />
@@ -115,12 +120,23 @@ const length=users.length
 <Route exact path='/main' element={<Main city={city} role={type}  api={api} />} />
 <Route exact path='/profile' element={<Profile users={users}  api={api}/>}/>
 <Route exact path="/job_detail/:id" element={<Explain/>}  api={api}/>
-<Route exact path="job_detail/job_application/:id" element={<Application/>}  api={api}/>
+<Route exact path="//job_detail/:id/job_detail/job_application/" element={<Application/>}  api={api}/>
 <Route exact path="job_detail/job_application/application_success" element={<SubmitApply/>} api={api}/> 
 <Route exact path="companies" element={<AllCompanies/>} api={api}/>
 <Route exact path="/companies/skeleton" element={<CompanyCard/>} api={api}/>
 <Route exact path="/companies/skeleton/companyProfile/:id" element={<CompanyProfile/>} api={api}/> 
 <Route exact path="" element={<CompanyProfile/>} api={api}/> 
+<Route exact path="/job_detail/appliedJobs" element={<AppliedJobs/>} />
+<Route exact path="/job_detail/SavedJobs" element={<SavedJobs/>}  api={api}/>
+<Route exact path="/job_detail/reportJob" element={<ReportJob/>}  api={api}/>
+<Route exact path="/job_detail/reportJob/:id" element={<ReportJob/>}  api={api}/>
+<Route exact path="/candidate/help" element={<HelpComponent/>}  api={api}/>
+<Route exact path="/candidate/report" element={<ReportJob/>}  api={api}/>
+
+
+
+
+
 
 
 

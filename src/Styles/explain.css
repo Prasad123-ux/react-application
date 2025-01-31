@@ -1,3 +1,5 @@
+
+
 .heading-name{
     width: 100%;
 }
@@ -18,12 +20,10 @@
     height: fit-content;
 
 }
-.explain{
-    margin-top: 500px;
-}
+
 
 @media only screen and  ( max-width: 576px  ) {
-
+   
 
     .heading-name{
         width: 100%;
@@ -53,6 +53,7 @@
 
 
 @media only screen and (min-width:576px) and (max-width:768px) {
+    
     .heading-name{
         width: 90%;
     }
@@ -84,6 +85,7 @@
     }
 }
     @media only screen and (min-width:769px) and (max-width:1140px) {
+       
         .heading-name{
             width: 90%;
         }

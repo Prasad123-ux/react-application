@@ -6,8 +6,10 @@ import Loading from './Loading.js';
 import Footer from './Footer.js';
 import Heading from './Heading.js';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAllJobs, setTokenData } from './Redux/jobSlice.js'; 
+import { setAllJobs, setFilteredJobs, setTokenData } from './Redux/jobSlice.js'; 
 import { useToast } from '@chakra-ui/react';
+import { CiCircleRemove } from "react-icons/ci";
+// import { useDispatch } from 'react-redux';
 
 // import { FaCircleArrowLeft } from "react-icons/fa6"; 
 // import { FaCircleArrowRight } from "react-icons/fa6";
@@ -18,12 +20,12 @@ const Main = () => {
   
 
 const toast= useToast()
-
+const dispatch= useDispatch()
 const [loading, setLoading]= useState(false)
 
   const [data, setData] = useState([]); // Initialize data as an object with a results property 
   const [page, setPage]= useState() 
-  const dispatch= useDispatch() 
+  
   const allJobs = useSelector((state) => state.jobs.jobs);  
   const filteredJobs = useSelector((state) => state.jobs.filteredJobs);  
   const tokenValue=useSelector((state)=>state.jobs.token)
@@ -34,10 +36,8 @@ const [loading, setLoading]= useState(false)
 
 
 useEffect(()=>{ 
-  const tokenData= localStorage.getItem('token') 
-  console.log(tokenData)
-  dispatch(setTokenData(tokenData))
-  console.log(tokenValue)
+  window.scrollTo(0,0)
+
   const length=  filteredJobs && filteredJobs.length>=1 ? filteredJobs.length:0
   setFilterLength(length)
 }, [filteredJobs])
@@ -58,7 +58,7 @@ useEffect(()=>{
             const errorText= await response.text() 
             throw new Error(`Request failed with status ${response.status}:${errorText}`)
          }else{
-          addToast("We are Finding jobs related to you ", "Please Wait" , "warning")
+          // addToast("We are Finding jobs related to you ", "Please Wait" , "warning")
           const result = await response.json();
          
           
@@ -110,10 +110,17 @@ useEffect(()=>{
     })
   }
 
+
+  const deleteFilter=()=>{
+     dispatch(setFilteredJobs(""))   
+          
+    
+  }
+
   return (
     
     <Box className='main-box ' backgroundColor={'#F8F9FA'}> 
-    
+    { filteredJobs && filteredJobs.length>=1 ?  <div className='w-75  ps-2 pe-2 pt-2 pb-2 mx-auto shadow d-flex justify-content-between'><span>Filter Applied </span><button  className='btn btn-danger icons fw-bold bg-danger' onClick={deleteFilter}> <CiCircleRemove  /></button></div>:""}
     {loading ? 
     <div> <Loading/> </div>
     
@@ -176,9 +183,10 @@ useEffect(()=>{
 
 
 }  
-
+<Footer/>
 
   </Box>
+ 
     
   );
 };

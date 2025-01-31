@@ -58,6 +58,11 @@ console.log(requirement)
 
 
 
+  const handleCompanyInfo=(id)=>{
+    navigate(`/companies/skeleton/companyProfile/:id`)
+
+  }
+
   const addToast=(title,message="", status)=>{
     toast({
       title: title,
@@ -81,7 +86,7 @@ console.log(requirement)
     <UserContext.Provider value={{values, setValues}}>
    
       
-  <div     className='box shadow'   >
+  <div     className='box shadow mx-auto'   >
  
       <div className=' d-flex justify-content-between flex-column mx-auto' >
     <HStack justifyContent={{base:'start',md:'start', sm:'start'}} className='mx-auto'>
@@ -93,9 +98,9 @@ console.log(requirement)
 
     
      <div className='second-job-section '      >
-     <div className='third-job-section' ><CiLocationOn className='icons' /> <span className='value'>  { location && location.length>1 ? `${location.slice(0,10)}...` :"Not Mentioned"}</span></div>
-    <div className='third-job-section' ><BsCurrencyRupee   className='icons'/> <span className='value'>{maxSalary  && minSalary ?  `${minSalary}-${maxSalary} L`: "Not Disclosed"}</span></div>
-    <div className='third-job-section'><BsPersonWorkspace  className='icons'/>   <span className='value'>{ minExperience && maxExperience ? `${minExperience}-${maxExperience}Yrs`:"0 Yrs"}</span> </div>
+     <div className='third-job-section' ><CiLocationOn className='icons  d-inline ' /> <span className='value mt-1 mt-md-0'>  { location && location.length>1 ? `${location.slice(0,10)}...` :"Not Mentioned"}</span></div>
+    <div className='third-job-section' ><BsCurrencyRupee   className='icons'/> <span className='value mt-1 mt-md-0'>{maxSalary  && minSalary ?  `${minSalary}-${maxSalary} L`: "Not Disclosed"}</span></div>
+    <div className='third-job-section'><BsPersonWorkspace  className='icons'/>   <span className='value mt-1 mt-md-0'>{ minExperience && maxExperience ? `${minExperience}-${maxExperience}Yrs`:"0 Yrs"}</span> </div>
     </div>        
 
 
@@ -134,11 +139,11 @@ console.log(requirement)
    
 
 <div className='second-job-section mx-auto mt-3'> 
-    <div  className=' third-job-section'> <FaRegCalendarAlt   className=' icons '/> <span className='value'>  {postedDate ? (`${months[new Date(postedDate).getMonth()] } ${new Date(postedDate).toUTCString().slice(5,7)}`):""}</span></div> 
-    <button className='btn btn-primary mx-auto more-info-button  mx-auto shadow' onClick={()=>{handleButtonClick(id)}}  >View </button>
-    <div className=' footer-buttons '>
-      
-      <button className='btn more-info-button shadow btn-primary' onClick={()=>{handleOnDelete(id)}} ><ViewOffIcon /> </button>
+    {/* <div  className=' third-job-section   d-block d-md-none '> <FaRegCalendarAlt   className=' icons '/> <span className='value'>  {postedDate ? (`${months[new Date(postedDate).getMonth()] } ${new Date(postedDate).toUTCString().slice(5,7)}`):""}</span></div>  */}
+    {/* <button className='btn btn-primary  more-info-button  mx-auto shadow'  onClick={()=>{handleButtonClick(id)}}  >View </button> */}
+    <div className=' footer-buttons  d-flex justify-content-around'>
+    <button className='btn more-info-button shadow ' onClick={()=>{handleButtonClick(id)}} >View</button>
+      <button className='btn more-info-button shadow ' onClick={()=>{handleOnDelete(id)}} ><ViewOffIcon /> </button>
         {/* {  saveValue===false   ? <button onClick={()=>{handleSaveJob(id)}}>  <BsSave /> </button> :    <button onClick={()=>{handleSaveJob(id)}}>  <BsSaveFill /> </button>} */}
 
     </div>
@@ -157,4 +162,3 @@ console.log(requirement)
     
   )
 } 
-export {UserContext};

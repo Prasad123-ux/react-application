@@ -11,6 +11,7 @@ export default function RecommendedJobs({similarJobData,  months, jobData}) {
         navigate() 
         navigate(`/job_detail/${id}`)
 
+
     }
   return (
     <div className='similar-job  bg-white shadow  p-4 mt-5     style={{"borderRadius":"10px"}}'>

@@ -5,17 +5,21 @@ import "../Styles/resume.css";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { useToast } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux'; 
+import { useDispatch } from 'react-redux';
+import { setProfileScore } from './Redux/jobSlice';
 
 function Resume({ resumeData }) {
   const [resume, setResume] = useState(null);
   const toast = useToast();
   const token= localStorage.getItem('token')
   const jobSeekerData= useSelector((state)=>state.jobs.jobSeekers)
-
+  const scoreValue= useSelector((state)=>state.jobs.score) 
+  const dispatch= useDispatch
   const handleFileChange = (e) => {
      const file = e.target.files[0]; 
-    // setResume(e.target.files[0])
+    // setResume(e.target.files[0]) 
+  
 
     // Check file size (2MB limit)
     if (file && file.size > 10 * 1024 * 1024) {
@@ -67,6 +71,7 @@ function Resume({ resumeData }) {
       const data = await response.json();
       addToast("Updated Successfully", "Resume updated successfully", "success");
       console.log(data);
+      dispatch(setProfileScore(scoreValue+20))
     } catch (err) {
       console.error(err);
       addToast("Error", err.message, "error");

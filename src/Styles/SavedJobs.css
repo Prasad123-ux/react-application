@@ -1,0 +1,42 @@
+/* .saved-job-card-wrapper {
+    transform: scale(0.95);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+  
+  .saved-job-card-wrapper:hover {
+    transform: scale(1);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .saved-job-card {
+    border-radius: 10px;
+    overflow: hidden;
+} 
+    
+  .saved-job-card .card-header {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .saved-job-card .card-body p {
+    font-size: 0.9rem;
+  }
+  
+  .saved-job-card .btn-outline-success {
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  }
+  
+  .saved-job-card .btn-outline-success:hover {
+    background-color: #198754;
+    color: white;
+  }
+  
+  .saved-job-card .btn-outline-danger {
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  }
+  
+  .saved-job-card .btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: white;
+  }
+   */

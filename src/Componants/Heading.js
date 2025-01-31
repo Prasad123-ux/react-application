@@ -8,7 +8,8 @@ import options from './data.json'
 import { MdClear } from "react-icons/md"; 
 import { useDispatch, useSelector } from 'react-redux';
 import { setFilteredJobs } from './Redux/jobSlice';
-// import e from 'express';
+import { useToast } from '@chakra-ui/react';
+import { TbFilterSearch } from "react-icons/tb";
 
  
 
@@ -23,6 +24,9 @@ import { setFilteredJobs } from './Redux/jobSlice';
   const filteredJobs = useSelector((state) => state.jobs.filteredJobs);
 
    const [filter, setFilter]= useState({})   
+   const toast=useToast()  
+
+
 
 
 
@@ -82,6 +86,9 @@ import { setFilteredJobs } from './Redux/jobSlice';
   
 
      const onFilterSubmit=async ()=>{
+      onClose()
+      try{
+
       const params= new URLSearchParams();
 
 
@@ -95,6 +102,10 @@ import { setFilteredJobs } from './Redux/jobSlice';
         }
       }
     const queryString= params.toString()
+    if(!queryString && queryString.length<=0){
+      addToast("Please choose Filter option")
+      return 
+    }
          
     const response= await  fetch(`   https://jobnexus-backend.onrender.com/api/candidate/filterData?${queryString}`, {
       method:"GET",
@@ -102,13 +113,28 @@ import { setFilteredJobs } from './Redux/jobSlice';
         "Content-type":"application/json"
       }
     })  
+if(!response.ok){
+  const errorText= await response.text() 
+  throw new Error(`Sorry!  Result not find for your requirements ${errorText}`)
+}
+else{
+  const data = await response.json()
+  if( data.jobs && data.jobs.length>=1){
+  dispatch(setFilteredJobs(data.jobs[0]))   
+  }
+addToast(data.message, "success")
 
-     const data= await response.json()
-     console.log(data.jobs)  
-     if( data.jobs && data.jobs.length>=1){
-     dispatch(setFilteredJobs(data.jobs[0]))   
-     }
+}
+}catch(err){
+  addToast(err.message,  "error")
 
+      }finally{
+
+      }
+
+
+
+    
      }
 
 
@@ -119,7 +145,13 @@ import { setFilteredJobs } from './Redux/jobSlice';
       dispatch(setFilteredJobs(""))
   }
 
-
+const addToast=(title,status)=>{
+  toast({title: title,
+    // description: message,
+    status: status,
+    duration: 4000,
+    isClosable: true,})
+}
 
      
   
@@ -138,7 +170,7 @@ import { setFilteredJobs } from './Redux/jobSlice';
      {/* <DrawerContent>  */}
     {/* <DrawerCloseButton/>  */}
    {/* <DrawerHeader color={'yellow'}>Jobify</DrawerHeader>  */}
-   {/* <DrawerBody >  */}  
+   {/* <DrawerBody >  */}    
 
 
 
@@ -166,8 +198,8 @@ import { setFilteredJobs } from './Redux/jobSlice';
             return <Checkbox    value={values} name={values}  isChecked={filteredValue[item.heading]?.includes(values)}   onChange={(e)=>{onchange(item.heading, e.target.name)}} >{values}</Checkbox>
           })}
          </AccordionPanel>
-         </AccordionItem>
-         
+         </AccordionItem> 
+      
           })
         }
         <div className='d-flex justify-content-between'>
@@ -189,10 +221,12 @@ import { setFilteredJobs } from './Redux/jobSlice';
        {/* </Drawer>  */}
 
     </Box>
+
+
     <Box  display={{ base: 'block', sm: 'block', md: 'block', lg: 'none' }}>
     
 
-       <Button className=" filter-button btn btn-outline-primary" onClick={onOpen} >fil</Button> 
+       <Button className=" filter-button btn btn-outline-primary" onClick={onOpen} ><TbFilterSearch /></Button> 
 
      <Drawer className="heading-drawer" isOpen={isOpen} placement='left'  onClose={onClose}  size={'xs'}>  
         
@@ -222,7 +256,8 @@ import { setFilteredJobs } from './Redux/jobSlice';
          </AccordionButton>
          <AccordionPanel  className=''>
         {item.value.map((values)=>{
-             return <Checkbox   checked={isChecked} >{values}</Checkbox>
+                         return <Checkbox    value={values} name={values}  isChecked={filteredValue[item.heading]?.includes(values)}   onChange={(e)=>{onchange(item.heading, e.target.name)}} >{values}</Checkbox>
+
         })}
          </AccordionPanel>
          </AccordionItem>
@@ -233,12 +268,13 @@ import { setFilteredJobs } from './Redux/jobSlice';
       </Accordion>
 
     </div>
+    <div className='d-flex justify-content-around'>
+      {/* <Button fontSize={'20'} width={'100px'} alignItems={'center'} border={'1px solid gray'} onClick={onClose}>Submit</Button>   */}
+      <button className='btn btn-outline-primary icons mt-3 ' onClick={onFilterSubmit}><FaPaperPlane/></button>
+      </div>
      </DrawerBody> 
     <DrawerFooter > 
-      <div className='d-flex justify-content-around'>
-      {/* <Button fontSize={'20'} width={'100px'} alignItems={'center'} border={'1px solid gray'} onClick={onClose}>Submit</Button>   */}
-      {/* <button disable className='btn btn-outline-primary'><FaPaperPlane/> submit</button> */}
-      </div>
+     
        </DrawerFooter> 
      </DrawerContent> 
 

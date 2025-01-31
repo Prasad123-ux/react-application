@@ -5,53 +5,36 @@ import { FaRegFilePdf } from "react-icons/fa6";
 import { Link, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux'; 
+import { useLocation } from 'react-router-dom';
+import Footer from './Footer';
+import { useToast } from '@chakra-ui/react';
+
 
 
 function Application() {
-    const [jobData , setJobData]= useState([])
-    //  const [profileData, setProfileData]= useState([])
-     const [getError, setGetError   ]= useState([])
-    const {id}=useParams()
+    
+    const location= useLocation()
+    const {jobData}=location.state || {}
+    const toast= useToast()
+    const [applyLoading, setApplyLoading]= useState(false)
+    
+     const [getError, setGetError]= useState([])
+  
     const token=localStorage.getItem('token')
-    const navigate= useNavigate()
+        const navigate= useNavigate() 
+        const [profile, setProfile]= useState()
+    const scoreValue= useSelector((state)=>state.jobs.score) 
+    const [loading, setLoading]= useState(false)
     
 
-    useEffect(()=>{
-        const findJobExplainDetail= async ()=>{
-            try{
-                await fetch(`   https://jobnexus-backend.onrender.com/api/candidate/getJobByID/${id}`,{
-                    method:"GET",
-                    headers:{
-                        "Content-type":"application/json"
-                    }
-                }).then((result)=>{
-                    if(!result.ok){
-                        throw new Error(result.statusText)
-                    }else{
-                        return  result.json()
-                    }
-        
-                }).then((data)=>{
-                     console.log(data)
-                    setJobData(data.Data)
-                    // console.log(jobData)
-        
-                }).catch((err)=>{
-                    // console.log("error at fetching data",err)
-        
-                })
-            }catch(err){
-                
-        
-            }
-        }
-        
-        findJobExplainDetail()
-        
-        
-        },[id])
     
-useEffect(()=>{
+
+
+    
+useEffect(()=>{ 
+
+console.log(jobData)
     const findProfileData=async ()=>{
         try{
         const response= await fetch('   https://jobnexus-backend.onrender.com/api/candidate/getProfileData', {
@@ -65,12 +48,17 @@ useEffect(()=>{
             throw new Error(response.statusText)
         }
         const result = await response.json()
-        console.log(result)
+      
+        setProfile(result.Data) 
+      
+        
         
     }
 catch(err){
     console.log(err)
 
+}finally{
+  setLoading(false)
 }
     }
 
@@ -82,49 +70,54 @@ const handleHomePage=()=>{
 }
 
 const appliedJob= async (value)=>{
-    console.log(value)
+  setApplyLoading(true)
+
     
+    try{
     
-    
-        await fetch(`   https://jobnexus-backend.onrender.com/api/candidate/appliedForJob/${value}`, {
-            method:"GET",
+   const response=     await fetch(`   https://jobnexus-backend.onrender.com/api/candidate/appliedForJob/${value}`, {
+            method:"POST",
         headers:{
             "Content-type":"application/json"
-        
+          },
+          body:JSON.stringify({ token:token, Email:jobData.Email, companyName:jobData.company_name, JobTitle:jobData.JobTitle, location:jobData.JobLocation})
 
-}}).then((response)=>{
-    setGetError(response)
-    if(!response.ok){
-    
-        throw new Error(response.statusText)
-     
-    }else{
-        return response.json()
-    }
-
-}).then((data)=>{
-    console.log(data)
-    navigate('job_detail/job_application/application_success')
+})
+const result= await response.json()
+if(!response.ok){
+  throw new Error(result.message ||  `HTTP error! status: ${response.status}`)
   
-}).catch((err)=>{
-    console.log(err.message)
-    
+}else{
+addToast(result.message, "job Saved Successfully", "success")
+}
     // navigate('/main')
     
-})
+    }catch(err){
+      addToast(err.message,"Failed with application", "warning")
+
+    }finally{
+      setApplyLoading(false)
+
+    }
+}
+const addToast=(title,message, status)=>{
+  toast({
+    title: title,
+    description: message,
+    status: status,
+    duration: 6000,
+    isClosable: true,
+  })
 }
 
-   console.log(getError.status)
-
-
-    console.log(id)
+   
 
   return (
     <>
     
       <div className='  mx-auto application-first-body shadow  text-center    flex-column pt-2 pb-3  object-fit-fill border rounded' >
-<span className='fw-bold'>{ jobData.JobTitle && jobData.JobTitle.length>0 ? jobData.JobTitle:""} ({ jobData.JobCommonInfo && jobData.JobCommonInfo.length>0 ?jobData.JobCommonInfo[0].JobRole:""})</span>
-<div className='mt-1'>{jobData.company_name && jobData.company_name.length>0 ? jobData.company_name:""}--{jobData.JobLocation && jobData.JobLocation.length>0 ? jobData.JobLocation:"" } </div>
+<span className='fw-bold'>{ jobData && jobData.JobTitle?.length>=0 ? jobData.JobTitle:""} ({ jobData&& jobData.JobCommonInfo?.length>0 ?jobData.JobCommonInfo[0].JobRole:""})</span>
+<div className='mt-1'>{jobData && jobData.company_name?.length>=0 ? jobData.company_name:""}--{jobData&& jobData.JobLocation?.length>0 ? jobData.JobLocation:"" } </div>
       </div>
 
 
@@ -133,51 +126,78 @@ const appliedJob= async (value)=>{
     <Text className='text-secondary fw-medium' >Contact Information</Text>
     <div className='user-info shadow object-fit-fill border rounded p-3 mb-4'>
         <span className='text-secondary key'>Full Name</span>
-        <Text className='fw-medium  value'>Prasad Metkar</Text>
+        <Text className='fw-medium  value'>{ profile && profile.FullName.length>=0 ? profile.FullName:"Not Found"}</Text>
         <hr></hr>
         <span className='text-secondary key'>Email</span>
-        <Text className='fw-medium  value'>Prasadmetkar333@gmail.com</Text>
+        <Text className='fw-medium  value'>{ profile && profile.Email.length>=0 ? profile.Email:"Not Found"}</Text>
         <hr></hr>
         <span className='text-secondary key '>Location</span>
-        <Text className='fw-medium  value'>Hyderabad Telangana</Text>
+        <Text className='fw-medium  value'>{ profile && profile.City.length>=0 ? profile.City:"Not Found"}</Text>
         <hr></hr>
+
         <span className='text-secondary key'>Mobile Number</span>
-        <Text className='fw-medium  value'>+91 9307173845</Text>
+        <Text className='fw-medium  value'>{ profile && profile.MobileNumber ? profile.MobileNumber:"Not Found"}</Text>
     </div>
-    <Text className='text-secondary fw-medium ' >CV</Text>
-    <div className='object-fit-fill border rounded shadow p-3 mb-4'>
-    <span className='icons' > <FaRegFilePdf  className='d-inline fs-4' style={{"width":"100px"}}/></span><Link to="" className='value text-primary text-decoration-underline' >Prasad_Metkar_Resume.pdf</Link>
-
-
-    </div>
-    <Text className='text-secondary fw-medium' >Your Chances</Text>
-    <div className='object-fit-fill border rounded shadow p-3 mb-4 '>
     
-        <Text className='text-center fw-bold'> 54%</Text>
-        <span className='text-secondary text-center warning'>( Low chances indicates you don't have sufficient requirements for job. Don't apply for job if you're chances is less that 35%, If you apply it will make bad impact on your profile.  )</span>
-    </div>
+    {profile && profile.extraFields?.resume?.length > 0 && (
+  <div className='object-fit-fill border rounded shadow p-3 mb-4'>
+    <span className='icons'>
+      <FaRegFilePdf className='d-inline fs-4' style={{ width: "100px" }} />
+    </span>
+    <Link
+      to={profile.extraFields.resume}
+      className='value text-primary text-decoration-underline'
+    >{ profile && profile.FullName.length>=0 ? profile.FullName:"Not Found"}.resume.pdf
+      
+    </Link>
+  </div>
+)}
+
+    <Text className='text-secondary fw-medium' >Your Chances for noticing recruiters.</Text>
+    <div className='object-fit-fill border rounded shadow p-3 mb-4'>
+  {profile && profile.extraFields?.resume?.length > 0 ? (
+    <>
+      <Text className='text-center text-success fw-bold'>{scoreValue}%</Text>
+      <div className='text-center'> <Link to="/profile">Find my  Score</Link></div>
+      <span className='text-secondary text-center warning'>
+        (Low chances indicate you don't meet sufficient requirements for the job. Avoid applying if your chances are below 35%, as it may negatively impact your profile.)
+      </span>
+    </>
+  ) : (
+    <>
+      <Text className='text-danger text-center fw-bold'>
+        <span>{scoreValue}%</span>
+        <div>Please update your profile and then apply.</div>
+      </Text>
+      <span className='text-secondary text-center warning'>
+        (Low chances indicate you don't meet sufficient requirements for the job. Avoid applying if your chances are below 35%, as it may negatively impact your profile.)
+      </span>
+    </>
+  )}
+</div>
+
 
 
 
 
 </div>
 <div className=' mt-3 mb-5 mx-auto d-flex justify-content-around   flex-row application-first-body '>
-<button onClick={()=>{appliedJob(jobData._id)}} className=' submit-button shadow btn btn-primary' data-toggle="modal" data-target="#exampleModalCenter" >Submit </button>
+    <button onClick={()=>{appliedJob(jobData._id)}} className=' submit-button shadow btn btn-primary' data-toggle="modal" data-target="#exampleModalCenter" >{scoreValue>35 ?"Submit" :"Submit Anyway"}</button>
 <Link to="/main" className=' submit-button shadow btn btn-danger'>Cancel</Link>
 </div >
 
 
 
-<div className="modal fade" id="exampleModalCenter"  role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div className="modal " id="exampleModalCenter"  role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div className="modal-dialog modal-dialog-centered" role="document">
     <div className="modal-content">
     
       <div className="modal-body">
         {
-            getError.status===500 ?<div className='text-center'>
+            getError.status===false ?<div className='text-center'>
                  <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcR1YxzO29WdMekQweLMPHh5zFlT5HRwfVmhh3IH08syg1bpdPtf" alt="Application Successfully" className='d-block mx-auto ' style={{"width":"200px", "heigh":"100px"}}/>
-                <div>You Did It !</div>
-                <span>Your application was sent!</span>
+                <div>Sorry it can't happen !</div>
+                <span>Please try again!</span>
             </div>:<div>
                 <img src="https://img.freepik.com/free-vector/business-partners-with-documents_18591-51592.jpg?t=st=1722885433~exp=1722889033~hmac=ce36235feff116e29a3382e3727e0a5ea36d5a3be303e9021e8961ae0a445d84&w=740" alt="Application Successfully" className='d-block mx-auto  ' style={{"width":"200px", "heigh":"100px"}}/>
                 <div>You Did It !</div>
@@ -194,7 +214,7 @@ const appliedJob= async (value)=>{
   </div>
 </div>
 
-      
+      <Footer/>
         {/* </div> */}
     </>
   )

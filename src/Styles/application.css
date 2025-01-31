@@ -4,7 +4,7 @@ body{
 
 .application-first-body{
     width: 35%;
-    margin-top: 150px;
+    margin-top:50px;
 }
 .key{
     font-size: 0.8rem;
@@ -29,7 +29,8 @@ body{
 
     .application-first-body{
         width: 100%;
-        margin-top: 10px;
+        /* width: fit-content; */
+        margin-top: 50px;
     }
     .key{
         font-size: 0.8rem;
@@ -56,7 +57,7 @@ body{
 @media only screen and (min-width:576px) and (max-width:768px) {
     .application-first-body{
         width: 90%;
-        margin-top: 10px;
+        margin-top: 50px;
     }
     .key{
         font-size: 0.8rem;
@@ -79,7 +80,7 @@ body{
     @media only screen and (min-width:769px) and (max-width:1200px) {
         .application-first-body{
             width: 70%;
-            margin-top: 10px;
+            margin-top:50px;
         }
         .key{
             font-size: 0.8rem;
