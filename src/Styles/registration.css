@@ -1,5 +1,5 @@
 .registration {
-    margin: 50px auto; /* Center the form horizontally */
+    margin:  auto; /* Center the form horizontally */
     padding: 20px;
     background-color: #f8f9fa;
 }
@@ -17,7 +17,7 @@
 /* Small devices (phones, less than 576px) */
 @media only screen and (max-width: 576px) {
     .registration {
-        margin: 20px;
+        /* margin: 20px; */
     }
 
     .registration-form {

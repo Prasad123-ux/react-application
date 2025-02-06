@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import "../Styles/application.css"
 import { Text  } from '@chakra-ui/react'
 import { FaRegFilePdf } from "react-icons/fa6";
-import { Link, useParams } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux'; 
@@ -65,9 +65,7 @@ catch(err){
     findProfileData()
 },[token])
 
-const handleHomePage=()=>{
-    navigate('/main')
-}
+
 
 const appliedJob= async (value)=>{
   setApplyLoading(true)
@@ -109,6 +107,7 @@ const addToast=(title,message, status)=>{
     isClosable: true,
   })
 }
+
 
    
 
@@ -188,31 +187,7 @@ const addToast=(title,message, status)=>{
 
 
 
-<div className="modal " id="exampleModalCenter"  role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div className="modal-dialog modal-dialog-centered" role="document">
-    <div className="modal-content">
-    
-      <div className="modal-body">
-        {
-            getError.status===false ?<div className='text-center'>
-                 <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcR1YxzO29WdMekQweLMPHh5zFlT5HRwfVmhh3IH08syg1bpdPtf" alt="Application Successfully" className='d-block mx-auto ' style={{"width":"200px", "heigh":"100px"}}/>
-                <div>Sorry it can't happen !</div>
-                <span>Please try again!</span>
-            </div>:<div>
-                <img src="https://img.freepik.com/free-vector/business-partners-with-documents_18591-51592.jpg?t=st=1722885433~exp=1722889033~hmac=ce36235feff116e29a3382e3727e0a5ea36d5a3be303e9021e8961ae0a445d84&w=740" alt="Application Successfully" className='d-block mx-auto  ' style={{"width":"200px", "heigh":"100px"}}/>
-                <div>You Did It !</div>
-                <span>Your application was sent!</span>
-            </div>
-        }
-        
-      </div>
-      <div className="modal-footer">
-        <button type="button" onClick={()=>{handleHomePage()}} className="btn btn-secondary " data-dismiss="modal">Just Look More !</button>
-        {/* <button type="button" className="btn btn-primary w-25">Save changes</button> */}
-      </div>
-    </div>
-  </div>
-</div>
+
 
       <Footer/>
         {/* </div> */}

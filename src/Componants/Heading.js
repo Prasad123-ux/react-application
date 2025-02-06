@@ -1,9 +1,9 @@
-import { Button , Drawer , DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, useDisclosure, Checkbox, Box, Flex, AccordionProvider, DrawerFooter} from '@chakra-ui/react'
+import { Button , Drawer , DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, useDisclosure, Checkbox, Box, DrawerFooter} from '@chakra-ui/react'
 import React  from 'react'
 import { useState } from 'react'
 import "../Styles/heading.css"
 import { FaPaperPlane } from "react-icons/fa";
-import {Accordion,AccordionItem,AccordionButton,AccordionPanel,AccordionIcon,Alert, AlertIcon} from '@chakra-ui/react'
+import {Accordion,AccordionItem,AccordionButton,AccordionPanel,AccordionIcon} from '@chakra-ui/react'
 import options from './data.json'
 import { MdClear } from "react-icons/md"; 
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,14 +16,10 @@ import { TbFilterSearch } from "react-icons/tb";
 
    export default function Heading() {
     const [filteredValue, setFilteredValue]= useState({})   
-     const [checkedValue, setIsCheckedValue]= useState() 
-     const [isChecked, setIsChecked]= useState(true)
+     
   const {isOpen, onClose, onOpen}=useDisclosure()
   const dispatch= useDispatch();
-  const allJobs= useSelector((state)=>state.jobs.jobs)   
   const filteredJobs = useSelector((state) => state.jobs.filteredJobs);
-
-   const [filter, setFilter]= useState({})   
    const toast=useToast()  
 
 
@@ -162,15 +158,6 @@ const addToast=(title,status)=>{
        
 
 
-{/* <Button pos={'fixed'}  mt={{base:'2rem',sm:'3rem',md:'4rem',lg:'5rem'}}  top={'6'} colorScheme='whatsapp' width={{base:'100px', md:'200px',lg:'200px'}} height={'40px'} variant={'solid'}  onClick={onOpen} fontSize={'20'} size={{base:'sm', sm:'sm', md:'md', lg:'lg', xl:'xl'}} > Apply Filters</Button>  */}
-{/* <Drawer className="heading-drawer" isOpen={isOpen} placement='left'  onClose={onClose}  size={'xs'}>   */}
-        
-{/* <DrawerOverlay/>  */}
-
-     {/* <DrawerContent>  */}
-    {/* <DrawerCloseButton/>  */}
-   {/* <DrawerHeader color={'yellow'}>Jobify</DrawerHeader>  */}
-   {/* <DrawerBody >  */}    
 
 
 

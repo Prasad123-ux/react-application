@@ -1,14 +1,11 @@
-import React, { createContext,  useState } from 'react'
+import React, { createContext,  useEffect,  useState } from 'react'
 import { HStack, Avatar,Text} from '@chakra-ui/react'
 import "../Styles/job.css"
-import { ViewOffIcon } from '@chakra-ui/icons'
-
-
+import { ViewOffIcon } from '@chakra-ui/icons' 
 import { CiLocationOn, } from "react-icons/ci";
 import { BsCurrencyRupee } from "react-icons/bs";
 import { BsPersonWorkspace } from "react-icons/bs";
 import { PiNotepadLight } from "react-icons/pi";
-import { FaRegCalendarAlt } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom' 
 import { useToast } from '@chakra-ui/react';
 
@@ -19,27 +16,50 @@ import { useToast } from '@chakra-ui/react';
 
 const UserContext =createContext()   
 
-  export default function Job({href,postedDate, contract_type,category,company_name, title,logo, location, country, employment_type, description,experience,maxSalary,minSalary,qualification , id, onDelete, maxExperience,minExperience, requirement,neededSkills}) {
+  export default function Job({href,postedDate, contract_type,category,company_name, title,logo, location, country, employment_type, description,experience,maxSalary,minSalary,qualification , id, onDelete, maxExperience,minExperience, requirement,neededSkills, mail}) {
 const months=["jan", "Feb", "March", "April", "May", "Jun","July", "Aug", "Sep", "Oct", "Nov", "Dec"]          
 const toast= useToast()
-
-
-
-
- let monthName=months[new Date(postedDate).getMonth()]
-let day=new Date(postedDate).toUTCString().slice(5,7)
+const monthName=months[new Date(postedDate).getMonth()]
+const day=new Date(postedDate).toUTCString().slice(5,7)
 console.log(monthName,day)
-const [saveValue, setSaveValueJob]=useState(false)
-
-const token= localStorage.getItem("token")
+const [companyInfo, setCompanyInfo]= useState()
 const navigate=useNavigate()
- 
-console.log(requirement)
-
-
-
  const [values, setValues] =useState([])
   
+
+
+useEffect(()=>{
+  const getCompanyInfo=async()=>{
+    try{
+const response = await fetch(`https://jobnexus-backend.onrender.com/api/candidate/companyInfo/${mail}`, {
+  method:"get"
+
+})
+
+if(!response.ok){
+  const errorText= await response.text 
+  // console.log(result.message)
+  throw new Error(`${errorText}`)
+}
+else{
+  const data=await response.json()    
+  console.log(data.data.CompanyName)
+  setCompanyInfo(data.data)
+}
+}
+catch(err){ 
+
+console.log(err.message)
+
+    }
+
+  }
+
+
+  getCompanyInfo()
+
+},[mail])
+
 
 
  
@@ -52,16 +72,26 @@ console.log(requirement)
     
   }
   const handleButtonClick=(id)=>{
-    navigate(`/job_detail/${id}`)
+    navigate(`/job_detail/${id}`,  {state  : {companyInfo}})
 
   }
 
 
 
   const handleCompanyInfo=(id)=>{
-    navigate(`/companies/skeleton/companyProfile/:id`)
+    navigate(`/companies/skeleton/companyProfile/${id}`)
 
   }
+
+
+
+
+
+
+
+
+
+
 
   const addToast=(title,message="", status)=>{
     toast({
@@ -90,14 +120,13 @@ console.log(requirement)
  
       <div className=' d-flex justify-content-between flex-column mx-auto' >
     <HStack justifyContent={{base:'start',md:'start', sm:'start'}} className='mx-auto'>
-    <Avatar className='avatar ms-2 mt-2' size={{base:'sm', sm:'md', md:'md', lg:'md',xl:'md'}}  name={company_name} />
-    <span className='title mx-auto'>{title} </span>
-    </HStack >
-    <Text className='companyName mx-auto'>{company_name}</Text>   
-
+    <Avatar className='avatar ms-2 mt-2' size={{base:'sm', sm:'md', md:'md', lg:'md',xl:'md'}} onClick={()=>{handleCompanyInfo(companyInfo._id)}}  name={company_name} />
+    <span className='title mx-auto'>{title}</span>
+    </HStack > 
+    <Text className='companyName mx-auto ' onClick={()=>{handleCompanyInfo(companyInfo._id)}}>{companyInfo ?companyInfo.CompanyName:" "}</Text>   
 
     
-     <div className='second-job-section '      >
+     <div className='second-job-section'>
      <div className='third-job-section' ><CiLocationOn className='icons  d-inline ' /> <span className='value mt-1 mt-md-0'>  { location && location.length>1 ? `${location.slice(0,10)}...` :"Not Mentioned"}</span></div>
     <div className='third-job-section' ><BsCurrencyRupee   className='icons'/> <span className='value mt-1 mt-md-0'>{maxSalary  && minSalary ?  `${minSalary}-${maxSalary} L`: "Not Disclosed"}</span></div>
     <div className='third-job-section'><BsPersonWorkspace  className='icons'/>   <span className='value mt-1 mt-md-0'>{ minExperience && maxExperience ? `${minExperience}-${maxExperience}Yrs`:"0 Yrs"}</span> </div>
@@ -158,6 +187,7 @@ console.log(requirement)
       </div>
       {/* </Link> */}
         </UserContext.Provider>
+        
         </>
     
   )

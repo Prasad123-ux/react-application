@@ -13,14 +13,11 @@ import Resume from './Resume';
 import Education from './Education';
 import Experience from './Experience';
 import Project from './Project';
-// import Work from './Certification';
 import Accomplishment from './Accomplishment'; 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { setJobSeekers } from './Redux/jobSlice';
 import Certification from './Certification';
 import RemainingDetails from './RemainingDetails';
-import ProfileProgress from './ProfileProgress'; 
-import { CircularProgress } from '@chakra-ui/react';
 import ProfileImage from './ProfileImage';
 
 
@@ -31,17 +28,8 @@ function Profile({api}) {
   const [userData, setUserData]= useState([])
   const [userUpdatedData, setUserUpdatedData]= useState({name:"", location:"", workStatus:"",city:"", join:"", }) 
   const dispatch= useDispatch() 
-  const jobSeekerData= useSelector((state)=>state.jobs.jobSeekers) 
    const tokenValue= localStorage.getItem("token")
 
-
-//  const token = localStorage.getItem('token') 
-//  console.log(jobSeekerData)
-
-//  useEffect(() => {
-//   // Call the function to fetch user data when component mounts
-//   handleGetUserData();  
-// }, []); // Empty dependency array means this effect runs once when the component mounts
 
 useEffect(()=>{
 
@@ -110,21 +98,16 @@ const onchange=(e)=>{
    
     <div className='base' >
       <div className='base-first row  mx-auto rounded shadow  p-4 '>
-        <div className='profile-photo col-12 col-lg-1 d-flex justify-content-center '>    
+        <div className='profile-photo col-12 col-lg-1 d-flex   justify-content-center '>    
         
           {/* <ProfileProgress/>  */}
           <ProfileImage/>
-          {/* <CircularProgress value={59} size='100px' thickness='4px' >   <Avatar size="xl" /> </CircularProgress> */}
-          {/* <button className='ms-5 mt-2 btn btn-primary  cursor-pointer ' style={{"height":"40px"}}> EDIT</button> */}
         </div>                              
-        <div className='profile-info mx-auto text-center col-12 col-lg-7'>
+        <div className='profile-info mx-auto text-center col-12 mt-2 mt-sm-0 col-lg-7'>
        <div className='name-info'>
      
         <span className=' name d-block fw-bold'>{userData.FullName && userData.FullName.length>=0  ? userData.FullName :"Not Found" }</span>  
-        {/* <span className=''></span> */}
         <span className='profile-last fw-light'>Profile last updated</span>-<span className=' day text-secondary fw-medium '>Today</span>
-        {/* <button className='btn btn-primary' onClick={getUserData}>  get the user data from </button> */}
-        {/* <button className='btn btn-outline-danger' onClick={handleGetUserData}> getUserData</button> */}
         
     
        </div>
@@ -271,16 +254,10 @@ const onchange=(e)=>{
     </div>
   </div>
 </div>
+ </div>
 
 
-
-
-
-
-
-          
-    </div>
-    < ProfilePart />
+ <ProfilePart />
     <div className=' d-block d-sm-none mt-5'>
     <div className='w-100 bg-gradient text-info d-flex justify-content-center fs-6 fw-bold  mt-5 section-heading shadow'> Resume</div>
    <Resume/>

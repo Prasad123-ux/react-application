@@ -11,8 +11,9 @@ import { FaFacebookSquare } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa6";
 import { FaTwitterSquare } from "react-icons/fa";
 import Footer from './Footer.js';
-import { useSelector } from 'react-redux';  
 import { useToast } from '@chakra-ui/react';
+import { useLocation } from 'react-router-dom';
+
 
 function Explain() {
 
@@ -21,12 +22,17 @@ function Explain() {
     const [similarJobData, setSimilarJobData]= useState([])
     const [saveValue, setSaveValue]= useState("Save")
      const {id}= useParams();
+     const location= useLocation()
      const navigate= useNavigate()
      const [saved, setSaved]=useState(false)
     //  const tokenValue= useSelector((state)=>state.jobs.token) 
      const toast= useToast()
      const tokenValue=localStorage.getItem("token")
-     const [loading, setLoading]=useState(false)
+     const [loading, setLoading]=useState(false)    
+
+     const { companyInfo } = location.state   || {}   
+
+
 
 
     
@@ -45,7 +51,7 @@ function Explain() {
 
 useEffect(()=>{  
     window.scrollTo(0,0) 
-    console.log(tokenValue)  
+    console.log(companyInfo)
 
 const findJobExplainDetail= async ()=>{
     try{
@@ -365,13 +371,12 @@ return (value.length>1? <div> <span className=' fw-bold text-dark mt-3'>{key} : 
 
 <div className='about-company heading-name shadow p-4 '>
 <Text className='fw-bold'>About Company</Text>
-<span>{companyData.CompanyDescription}</span>
+<span>{companyInfo? companyInfo.CompanyDescription:''}</span>
 
 <Text className='fw-bold mt-3'>Company Info</Text>
-{companyData.CompanyAddress ?<div className='CompanyAddress'>
-        <span className='fw-bold text-secondary '>Address:</span><span>{companyData.CompanyAddress}</span>
-
-         </div>:""}
+<div className='CompanyAddress'>
+<span className='fw-bold text-secondary '>Address:</span><span>{companyInfo? companyInfo.CompanyAddress:""}</span>
+</div>
         
 
 </div>

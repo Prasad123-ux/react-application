@@ -8,7 +8,6 @@ import { FaArchive } from "react-icons/fa";
 import { FaCircleMinus } from "react-icons/fa6"; 
 import { useToast } from "@chakra-ui/react";
 import Footer from "./Footer";
-// import e from "express";
 
 
 
@@ -23,7 +22,7 @@ const AppliedJobs = () => {
   const toast= useToast()
   const [status, setStatus]= useState(["Interviewing", "offer Received", "Hired", "No longer Interested"])
   const [statusValue, setStatusValue]= useState('') 
-  // const token= localStorage.getItem('token')
+
   
   
 
@@ -160,7 +159,7 @@ const addToast=(title, status)=>{
   return (
     <>
     <div className="container my-5 mx-auto">
-      <h2 className="text-center mb-4 section-heading">Applied Jobs</h2>
+      <h4 className="text-center mb-4 section-heading">Applied Jobs</h4>
       {loading ? (
         <div className="text-center loader">Loading...</div>
       ) : error ? (

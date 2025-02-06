@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { CiSaveDown2 } from "react-icons/ci";
-import { RiDeleteBin6Line } from "react-icons/ri";
+import React, { useState } from 'react';
+
 import "../Styles/resume.css";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { useToast } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux'; 
 import { useDispatch } from 'react-redux';
 import { setProfileScore } from './Redux/jobSlice';

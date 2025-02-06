@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import "../Styles/footer.css"
-import { HStack , Box, VStack, Input, Button, Text, Stack, Heading, Textarea, Alert, AlertDescription, AlertIcon, AlertTitle, CloseButton} from '@chakra-ui/react'
+import { HStack , Box, VStack, Input, Button, Text, Stack, Heading, Textarea} from '@chakra-ui/react'
 import { FaFacebook, FaGithub, FaInstagram, FaLinkedinIn, FaPaperPlane, FaTwitter, FaWhatsapp } from 'react-icons/fa' 
 import { useToast } from '@chakra-ui/react'
+import { FaPhoneAlt } from "react-icons/fa";
+import { IoMail } from "react-icons/io5";
 
 import {Link } from 'react-router-dom'
 
@@ -16,8 +18,7 @@ const [formData, setFormData]=useState({
   email:"",
   message:''
 })
-const [passAlert, setPassAlert]= useState(false);
-const [deniedAlert, setDeniedAlert]= useState(false)
+
 
 const handleDataChange=(e)=>{
   setLoading(true)
@@ -40,29 +41,14 @@ const handleSubmit= async(e)=>{
       body:JSON.stringify(formDataWithoutPrevDetail),
     })
     if(response.ok){
-      setPassAlert(true)
-      setFormData({ name: '', email: '', message: '' });
+    setFormData({ name: '', email: '', message: '' });
       addToast("Thank You ! We will react you soon", "success")
-      // setUserEmail("")
-       
-        
     }else{
-      setDeniedAlert(true)
       addToast("Sorry there is some problem , Please contact us through  other platform", "error")
-      console.error('Error submitting form');
-        
-
-
-        
-    }
+   }
   }catch(error){
-    setDeniedAlert(true)
-    console.error('Error:', error);
-    addToast("Sorry there is some problem , Please contact us through  other platform", "error")
-    
-
-        
-  }finally{
+  addToast("Sorry there is some problem , Please contact us through  other platform", "error")
+    }finally{
     setLoading(false)
   }
 
@@ -147,8 +133,8 @@ const addToast=(title, status)=>{
    <VStack>
   <Text color={'yellow'} fontSize={{base:'1.5rem',sm:'1.5rem',md:'1.5rem',lg:'1.8rem',xl:'1.5rem'}} fontWeight={{base:'600', sm:'600', md:'700',lg:'700', xl:'700'}}> Need Help</Text>
  <Stack spacing={'0'} >
-  <Text fontSize={{base:'0.8rem', sm:'1rem', md:'1rem',lg:'1rem', xl:'1rem'}} color={'white'} fontWeight={'500'}>+919307173845</Text>
-  <Text fontSize={{base:'0.8rem', sm:'1rem', md:'1rem',lg:'1rem', xl:'1rem'}} color={'white'} fontWeight={'500'}>prasadmetkar333@gmail.com</Text>
+  <Text className='d-flex justify-content-center' fontSize={{base:'0.8rem', sm:'1rem', md:'1rem',lg:'1rem', xl:'1rem'}} color={'white'} fontWeight={'500'}> <FaPhoneAlt className='icons mt-3'/> <Text className='icons mt-1 ms-2'>+919307173845</Text></Text>
+  <Text  className='d-flex justify-content-center'  fontSize={{base:'0.8rem', sm:'1rem', md:'1rem',lg:'1rem', xl:'1rem'}} color={'white'} fontWeight={'500'}> <IoMail className='icons mt-3' /><Text className='icons mt-2 ms-2'> prasadmetkar333@gmail.com</Text></Text>
  </Stack>
   </VStack>
   </Box>

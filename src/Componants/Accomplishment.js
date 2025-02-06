@@ -1,10 +1,8 @@
 import React, {  useState } from 'react'
-import { MdCastForEducation } from "react-icons/md";
 import { IoMdAdd } from "react-icons/io";
 import "../Styles/education.css"
 import { MdOutlineModeEditOutline } from "react-icons/md";
 import { FaGraduationCap } from "react-icons/fa";
-// import { FaLink } from 'react-icons/fa';
 import {Link } from "react-router-dom"
 import { MdDelete } from "react-icons/md";
 import { useDispatch, useSelector } from 'react-redux';

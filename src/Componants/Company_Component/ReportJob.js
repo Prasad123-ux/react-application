@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, } from "react-router-dom";
 import "../../Styles/ReportJob.css"; 
-// import { useParams } from "react-router-dom";
 
-//  // Custom CSS file for styling
+
 
 export default function ReportJob  () {
   
@@ -48,6 +47,7 @@ export default function ReportJob  () {
   };
 
   return (
+    <>
     <div className="container  report-main p-4 rounded shadow-lg bg-light report-job-container">
       <h2 className="text-center text-primary mb-4">Report a Job</h2>
       <p className="text-muted mb-4">
@@ -118,6 +118,8 @@ export default function ReportJob  () {
         </ul>
       </div>
     </div>
+  
+    </>
   );
 };
 

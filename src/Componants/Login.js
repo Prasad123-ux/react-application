@@ -72,7 +72,7 @@ const handleLoginData=async (e)=>{
   e.preventDefault()
   setLoading(true)
 try{
- const response=    await fetch('   https://jobnexus-backend.onrender.com/api/candidate/loginCandidate',{
+ const response=    await fetch('https://jobnexus-backend.onrender.com/api/candidate/loginCandidate',{
     method:"POST",
     body:JSON.stringify({data:loginData}),
     headers:{
@@ -146,7 +146,7 @@ const addToast=(title,message="", status)=>{
     <input type="password" className="form-control rounded-4" id="validationDefault02"  name="password" value={loginData.password}  placeholder="Enter Password"  onChange={onchange} style={{"backgroundColor":"#E8F0FE"}} required/>
   </div>
   <button   className='d-flex forget-btn  btn-link justify-content-start mt-3' data-bs-toggle="modal" data-bs-target="#staticBackdrop">Forget Password ?</button>
-  <button   type='submit' className=' login-btn btn btn-primary  mx-auto ' style={{"backgroundColor":"#4A90E2"}}>Login</button>
+  <button   type='submit' className=' login-btn btn btn-primary  mx-auto ' style={{"backgroundColor":"#4A90E2"}}>{loading ? "Loading...":"Login" }</button>
         </form>
         <span className='d-flex justify-content-center mt-3'>or </span>
           <button   className='text-primary mx-auto btn-link d-flex justify-content-center mt-1 '>Use OTP to Login</button>
@@ -179,9 +179,7 @@ const addToast=(title,message="", status)=>{
 
       </div>
       
-{/* <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-  Launch static backdrop modal
-</button> */}
+
 
 
 <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"  aria-labelledby="staticBackdropLabel" aria-hidden="true">

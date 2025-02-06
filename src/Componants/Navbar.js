@@ -4,26 +4,34 @@ import { useLocation } from 'react-router-dom';
 import {Drawer, Button, Avatar, Input, HStack, Text, Box, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, useDisclosure, VStack, Divider, UnorderedList, ListItem, AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter,AlertDialogHeader, AlertDialogOverlay} from '@chakra-ui/react'
 
 import {Link } from 'react-router-dom'
-import { BiMenuAltLeft } from 'react-icons/bi'
 import "../Styles/navbar.css"
 import Heading from './Heading';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFilteredJobs, setTokenData } from './Redux/jobSlice'; 
 import { useToast } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import { TbFilterSearch } from "react-icons/tb";
-
+import { IoHomeOutline } from "react-icons/io5";
+import { MdOutlineFindInPage } from "react-icons/md";
+import { SiAwsorganizations } from "react-icons/si";
+import { MdRecommend } from "react-icons/md";
+import { MdPendingActions } from "react-icons/md";
+import { TfiSaveAlt } from "react-icons/tfi";
+import { CiSettings } from "react-icons/ci";
+import { MdReportGmailerrorred } from "react-icons/md";
+import { RiFeedbackLine } from "react-icons/ri";
+import { IoMdLogOut } from "react-icons/io";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 
 
 export default function Navbar({users, onDelete, getCity, getRole, color}) {
-
+const [loading, setLoading]= useState()
 const {isOpen:isLogOpen, onOpen:onLogOpen, onClose:onLogClose}= useDisclosure() 
-const [loginButton,setLoginButton]= useState(false)
-  const {isOpen, onOpen, onClose}=useDisclosure()
-  const [userName, setUserName]= useState('Your Name')
-  const [email,setEmail]= useState('Email') 
-  const [loading,setLoading]= useState(false)
+const {isOpen, onOpen, onClose}=useDisclosure()
+const [loginButton, setLoginButton]= useState()
+
+  
+  
   const navigate= useNavigate()
   const locationPath = useLocation() 
   const [userData, setUserData]=useState()
@@ -132,6 +140,7 @@ const handleGetUserData = async () => {
      dispatch(setTokenData(null))
      
      onLogClose()
+     onClose()
       
     }
 
@@ -154,17 +163,27 @@ const handleGetUserData = async () => {
     navigate("/login")
   }
 
+const handleRegisterNavigation=()=>{
+  navigate("/registration")
+}
 
 
 
+
+
+const handleNavigation=(path)=>{
+  navigate(`/${path}`)
+  onClose()
+
+}
   return (  
 
 
  <Box   className='navbar fixed'   >
-      <HStack justifyContent={'space-evenly'} >
+      <HStack justifyContent={"space-around"} >
         
       
-          <Text  width={"fit-content"} className='jobify-name' fontSize={{base:'2rem',sm:'2.5rem',md:'3rem',lg:'3rem' }} color={'yellow'} fontWeight={'800'}  onClick={handleHomeNavigate}  > Jobify</Text>
+          <Text  width={"fit-content"} className='jobify-name' fontSize={{base:'2.5rem',sm:'2.5rem',md:'3rem',lg:'3rem' }} color={'yellow'} fontWeight={'800'}  onClick={handleHomeNavigate}  > Jobify</Text>
         
        <Input textAlign={'center'}  spellCheck="true"  onChange={((e)=>{ setRole(e.target.value)})} display={{ base:'none' ,md:'block ' ,sm:'none' ,lg:'block' }}fontSize={{base:'1rem',md:'1rem'}}  fontWeight={'700'} placeholder ='Search for your role' />
 
@@ -177,17 +196,22 @@ const handleGetUserData = async () => {
        
 
 
-     { tokenValue? <Button  borderRadius={'full'}   width={{base:'25px',md:'50px' ,sm:'50px' , lg:'50px'}} backgroundColor='white'  size={{base:'xs', sm:'md',md:'md'}} mr={{base:'10px',}}    onClick={onOpen}   ><BiMenuAltLeft  size={'lg'}/></Button>:"not"} 
-       {  tokenValue?<Text width={'50px'} mr={{base:'px',md:'2', lg:'2'}} ><Link to='/profile'> <Avatar cursor={'pointer'} src={jobSeekerData.extraFields?.profileImage && jobSeekerData.extraFields?.profileImage.length>=1 ?jobSeekerData.extraFields?.profileImage:"" } size={{base:'xs' , sm:'xs',md:'md',lg:'md'}}  /></Link></Text>:""} 
-
+{/* <div className='d-flex justify-content-end'> */}
+     {/* { tokenValue? <Button  borderRadius={'full'}   width={{base:'50px',md:'50px' ,sm:'50px' , lg:'50px'}} backgroundColor='white' mr={"10px"}  size={{base:'md', sm:'md',md:'md',lg:'md'}}  onClick={onOpen}   ><BiMenuAltLeft  size={'lg'}/></Button>:""}  */}
+     <div className='d-flex justify-content-end'>
+       {  tokenValue?<Text width={'50px'} mr={{base:'px',md:'2', lg:'2'}} className='mr-3 mr-sm-5' ><Link to='/profile'> <Avatar cursor={'pointer'} src={jobSeekerData.extraFields?.profileImage && jobSeekerData.extraFields?.profileImage.length>=1 ?jobSeekerData.extraFields?.profileImage:"" } size={{base:'md' , sm:'md',md:'md',lg:'md'}}  /></Link></Text>:""} 
+       {/* </div> */}
+       { tokenValue? <Button  borderRadius={'full'}   width={{base:'50px',md:'50px' ,sm:'50px' , lg:'50px'}} backgroundColor='white'   onClick={onOpen}   ><GiHamburgerMenu  size={{base:'md' , sm:'md',md:'md',lg:'md'}}   /></Button>:""} 
+       </div>
+       
         <Box width={{ base:'10px' ,sm:'300px',md:'500px' ,lg:'500px'}}  mr={{base:'5' , sm:'5', md:'2',lg:'2'}}>     
          
 
          { !tokenValue ?  
 
-  <Box  display={'flex'} justifyContent={'space-between'} flexDirection={'row'}>
-  <Text  ><Button  onClick={handleLoginNavigate} backgroundColor={'white'} borderRadius={"100px"}   >Log in</Button></Text>
- <Link to="/registration"> <Button  ml={'10px'} display={{base:'none', sm:'block', md:'flex', lg:'flex'}} backgroundColor={'white'}  borderRadius={'full'}>Register</Button></Link>
+  <Box  display={'flex'} justifyContent={"space-around"} flexDirection={'row'}>
+  <Button  onClick={handleLoginNavigate}  >Log in</Button>
+ <Button  onClick={handleRegisterNavigation} ml={'10px'} display={{base:'none', sm:'block', md:'flex', lg:'flex'}} borderRadius={'full'}>Register</Button>
   <Link to='/profile'>
       
     </Link>
@@ -195,8 +219,6 @@ const handleGetUserData = async () => {
       
 }
     <Box className='d-flex auth-box'>
-{/* { tokenValue? <Button  borderRadius={'full'}  backgroundColor='white'  size={{base:'xs', sm:'sm',md:'sm'}}  onClick={onOpen}   ><BiMenuAltLeft  size={'lg'}/></Button>:"not"} */}
-{/* {  tokenValue?<Text ><Link to='/profile'> <Avatar cursor={'pointer'} src={jobSeekerData.extraFields?.profileImage && jobSeekerData.extraFields?.profileImage.length>=1 ?jobSeekerData.extraFields?.profileImage:"" } size={{base:'xs' , sm:'xs',md:'md',lg:'md'}}  /></Link></Text>:""} */}
 </Box>
         </Box>
         
@@ -214,14 +236,15 @@ const handleGetUserData = async () => {
       <HStack justifyContent={'space-between'}>
 <Avatar size={'md'}/>
 <VStack ml={'25px'}>
-<div className=' userName fw-bold'>{userData && userData.FullName?.length>=0  ? userData.FullName :"Your Name" }</div>  
-<span className='user-email'>{userData && userData.Email?.length>=0  ? userData.Email:"Your Email" }</span>  
+<div className=' userName fw-bold'>{userData && userData.FullName?.length>=0  ? userData.FullName :"Not Mentioned" }</div>  
+<span className='user-email'>{userData && userData.Email?.length>=0  ? userData.Email:"Not Mentioned" }</span>  
 
  <Link to='/profile'> <Text color={'blue'} fontSize={'0.8rem'} onClick={onClose}>View & Update Profile</Text></Link>
 </VStack>
 </HStack>
+
+<div className='w-100 d-block d-lg-none'>
 <Divider mt={'8'}/>
-<div className='w-100'>
 <Input textAlign={'center'}  spellCheck="true"  onChange={((e)=>{ setRole(e.target.value)})} fontSize={{base:'1rem',md:'1rem'}}  fontWeight={'700'} placeholder ='Search for your role' />
 
 <Input   textAlign={'center'} spellCheck="true" onChange={((e)=>{ setLocation(e.target.value)})} fontSize={{base:'1rem',md:'1rem'}}  fontWeight={'700'} placeholder='Search your Location'/> 
@@ -236,43 +259,43 @@ const handleGetUserData = async () => {
  </div>
 <Divider mt={'8'}/>
 <UnorderedList spacing={'6'} style={{"listStyle":"none"}}>
-  <ListItem >
+  <ListItem  style={{"height":"fitContent"}}>
     
   
-    <Text className='side-text'  onClick={onClose} ><Link to="/">Home</Link></Text>
+  <Text className='side-text  d-flex justify-content-between'  style={{"height":"fitContent"}} onClick={()=>{handleNavigation("")}}  ><IoHomeOutline className='icons fw-bolder fs-3' /> <Text className='ms-3 mt-1'>Home</Text></Text>
    
   </ListItem>
   <ListItem>
-  <Text className='side-text' onClick={onClose} ><Link to="/main">Find Jobs </Link></Text>
+  <Text className='side-text d-flex justify-content-between ' onClick={()=>{handleNavigation("main")}}  > <MdOutlineFindInPage className='icons fw-bolder fs-3' /> <Text className='ms-3 mt-1'>Find Jobs </Text></Text>
 
   </ListItem>
   <ListItem>
-  <Text className='side-text' onClick={onClose}> <Link to="/companies"> Top Companies </Link></Text>
+  <Text className='side-text d-flex justify-content-between ' onClick={()=>{handleNavigation("companies")}}> <SiAwsorganizations  className='icons fw-bolder fs-3'  /> <Text className='ms-3 mt-1'> Top Companies </Text></Text>
 
   </ListItem> 
   <ListItem>
-  <Text className='side-text text-primary' onClick={onClose}> <Link to="/companies"> Suggested Jobs</Link></Text>
+  <Text className='side-text text-primary d-flex justify-content-between'  onClick={()=>{handleNavigation("suggested")}}> <MdRecommend className='icons fw-bolder fs-3' /> <Text  className='ms-3 mt-1'> Suggested Jobs</Text></Text>
 
   </ListItem> 
  
   <ListItem>
-  <Text className="side-text" onClick={onClose} ><Link to ="/job_detail/appliedJobs">My Applications</Link></Text>
+  <Text className="side-text d-flex justify-content-between" onClick={()=>{handleNavigation("job_detail/appliedJobs")}} > <MdPendingActions className='icons fw-bolder fs-3' /><Text className='ms-3 mt-1'>My Applications</Text></Text>
 
   
   </ListItem>
   
   
   <ListItem>
-  <Text className="side-text" onClick={onClose} ><Link to ="/job_detail/SavedJobs">Saved Jobs</Link></Text>
+  <Text className="side-text  d-flex justify-content-between" onClick={()=>{handleNavigation("job_detail/savedJobs")}} >   <TfiSaveAlt  className='icons fw-bolder fs-3'/><Text className='ms-3 mt-1' >Saved Jobs</Text></Text>
 
   </ListItem>
 
   <ListItem>
-  <Text className='side-text'  onClick={onClose}>Settings</Text>
+  <Text className='side-text  d-flex justify-content-between'  onClick={()=>{handleNavigation("settings")}}> <CiSettings   className='icons fw-bolder fs-2'/> <Text className='ms-3 mt-1'>Settings</Text></Text>
 
   </ListItem> 
   <ListItem>
-  <Text className='/job_detail/reportJob side-text'  onClick={onClose} > <Link to ="/candidate/report">Report job</Link></Text>
+  <Text className='side-text   d-flex justify-content-between'  onClick={()=>{handleNavigation("job_detail/reportJob")}} > <MdReportGmailerrorred   className='icons fw-bolder fs-2' /> <Text className='ms-3 mt-1'>Report job</Text></Text>
 
   </ListItem> 
   
@@ -280,21 +303,19 @@ const handleGetUserData = async () => {
 
   
   <ListItem>
-  <Text className="/candidate/help side-text" onClick={onClose} > <Link to ="/candidate/help">Help</Link></Text>
+  <Text className="side-text   d-flex justify-content-between" onClick={()=>{handleNavigation("candidate/help")}}  > <RiFeedbackLine className='icons fw-bolder fs-2' /> <Text className='ms-3 mt-1'>Help and Feedback</Text></Text>
 
   </ListItem>
-  <ListItem>
-  <Text className='side-text' onClick={onClose}>FAQ</Text>
+  {/* <ListItem>
+  <Text className='side-text d-flex justify-content-between' onClick={onClose}>FAQ</Text>
 
-  </ListItem>
-  { loginButton ? <Text className="side-text" onClick={onClose} >
+  </ListItem> */}
+  { loginButton ? <Text className="side-text"  onClick={()=>{handleNavigation("login")}}   >
      
      <Link >Log in </Link>   
      
       </Text> :
-      <Text className='side-text' onClick={onLogOutDelete} >
-     
-     <Link >Log Out </Link>   
+      <Text className='side-text d-flex justify-content-between' onClick={onLogOpen}  ><IoMdLogOut className='icons fw-bolder fs-2' /> <Text className='ms-3 mt-1'  >Log Out </Text>   
      
       </Text>
 }

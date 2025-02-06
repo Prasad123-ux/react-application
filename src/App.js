@@ -19,7 +19,7 @@ import CompanyProfile from './Componants/Company_Component/CompanyProfile'
 import AppliedJobs from './Componants/AppliedJobs'
 import ReportJob from './Componants/Company_Component/ReportJob'
 import SavedJobs from './Componants/SavedJobs'
-import HelpComponent from './Componants/HelpComponent'
+import HelpComponent from './Componants/HelpComponent'  
 
 
 

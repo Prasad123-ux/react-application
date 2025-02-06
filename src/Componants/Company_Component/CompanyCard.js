@@ -3,7 +3,6 @@ import { FcRating } from "react-icons/fc";
 import "../../Styles/company-card.css" 
 import { FcNext } from "react-icons/fc"; 
 import { useNavigate } from 'react-router-dom'; 
-import { CiLocationOn, } from "react-icons/ci";
 
 
 export default function CompanyCard({name,logo ,id}) {  

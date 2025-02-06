@@ -1,11 +1,11 @@
 import React from 'react'
 
 import "../Styles/Home.css"
-import { Button , Card, Image, CardBody, Stack, Heading,CardFooter, Text,Link as ChakraLink, HStack, ChakraProvider} from '@chakra-ui/react'
+import { Button , Card, Image, CardBody, Stack, Heading,CardFooter, Text,Link as ChakraLink, HStack,} from '@chakra-ui/react'
 import Footer from './Footer'
 import {Link} from 'react-router-dom'
-import { FaWhatsapp } from 'react-icons/fa'
-import { useSelector } from 'react-redux'
+import { FaSearch } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -13,11 +13,16 @@ import { useSelector } from 'react-redux'
 
 
 export default function Home() {
-
+const navigate= useNavigate()
   const image= ['https://media.foundit.in/trex/prod-cdn/media/promotedemployer/2023/january/HN5y7hp89MHcEWgrSi9haJG4iDYWE3DHH0RvvEau.jpeg','https://media.foundit.in/trex/prod-cdn/media/promotedemployer/2023/july/yynMGMz9qDDEqNQPLmijAa0FqfdmRuUNrI1icveZ.jpeg','https://media.foundit.in/trex/prod-cdn/media/promotedemployer/2023/march/QEzey8P9T3AkU5VMMm2LRXyyUXhH5JxA75GVWiK8.jpeg','https://media.foundit.in/trex/prod-cdn/media/promotedemployer/2022/april/Mp2fRLKl9YmxG7YBxanGbRYdkzMayIcwhiEe8HyD.jpeg','https://media.foundit.in/trex/prod-cdn/media/promotedemployer/2023/october/YReWYFMk24w9ourRJ2RxQf1k81sJU14UyDHrvKgU.jpeg','https://media.foundit.in/trex/prod-cdn/media/promotedemployer/2023/august/KKEOlTBrWIHzBibtGxek5VkyUxa2QeNgX9vPe8qh.jpeg','https://media.foundit.in/trex/prod-cdn/media/promotedemployer/2023/august/yTKoftvbNtE2p1x5VqUo5NDOUfwnH2SSOL0BolFB.jpeg','https://media.foundit.in/trex/prod-cdn/media/promotedemployer/2023/october/jgrsZbv93knv0ZbfyrVRjuGactExcDQZ7L31k4nf.jpeg','https://media.foundit.in/trex/prod-cdn/media/promotedemployer/2023/september/15WS2PQ92d4ic3bvZcKPVBpvR7OwXuTdjW94riUL.jpeg','https://media.foundit.in/trex/prod-cdn/media/promotedemployer/2023/february/Zw3suPwERv1Pb9pmRxKGti1T1SNRqyS7caf3j3Uq.jpeg','https://media.foundit.in/trex/prod-cdn/media/promotedemployer/2023/january/Dd5e9M2ngHQkAEP9s2Hu6agZh9EvDYHZQBaPs5xy.jpeg']
  const link = ['https://freshersindia.in/wp-content/uploads/2021/01/ICICI-BANK.png','https://nickrileyarchitect.files.wordpress.com/2015/10/google-workplace3.jpg','https://1.bp.blogspot.com/-gxRkmXsVQUc/XupV7u0pEcI/AAAAAAAAAOQ/cjNxMFY1B2Y_7dKI1sESY4vzG1VKsPPfgCK4BGAsYHg/s780/01282017_MicrosoftImmigrati-780x469.jpg','https://i2.wp.com/www.formtrends.com/wp-content/uploads/2015/10/new-mobility-world_iaa2015_113.jpg?ssl=1','https://officesnapshots.com/wp-content/uploads/2020/06/aurecon-offices-brisbane-6.jpg','https://th.bing.com/th/id/OIP.Luaubjuv2IZf9m0ED79sygHaE8?pid=ImgDet&w=1024&h=683&rs=1','https://th.bing.com/th/id/OIP.X-c5kV6AuIX4VBWD7a6bsQHaE7?pid=ImgDet&w=2048&h=1365&rs=1','https://i.pinimg.com/originals/d8/d9/d2/d8d9d2b30958772a3e39841566b366d2.jpg']
   const name=['ICICI Bank', 'Google','Microsoft','IBM','Facebook','Amazon','Apple', 'Uber']
   const tokenValue= localStorage.getItem("token")
+
+
+  const handleCompanyProfile=()=>{
+    navigate("/companies/skeleton/companyProfile/:id")
+  }
   return (
     <div className=''>  
       <HStack>
@@ -57,7 +62,7 @@ export default function Home() {
       {tokenValue ?"": <Text mt={'10'}> Don't have an account ? <Link to="/registration">Register Here.</Link></Text>}<br></br>
         
        { tokenValue ?"":<Link to='/main'> <Button  w={'200px'} mt={'5'} colorScheme='red'  variant={'solid'} fontSize={'15'}>Continue as a Guest</Button></Link>}
-       { tokenValue ?<Link to='/main'> <Button  w={'200px'} mt={'5'} colorScheme='red'  variant={'solid'} fontSize={'15'}>Find Jobs</Button></Link>:""}
+       { tokenValue ?<Link to='/main'> <Button  w={'200px'} mt={'5'} colorScheme='red'  variant={'solid'} fontSize={'15'}   >  <FaSearch className='icons text-light mb-1' /> <Text className='icons ms-2 mt-2'> Find Jobs</Text></Button></Link>:""}
 
       </div>
       <div className='company'>
@@ -68,7 +73,7 @@ export default function Home() {
  
         name.map((item, index)=>(
            <div>
-         <Card   width={{base:'175px', sm:'175px',md:'180px',lg:'250px'}} height={{base:'150px',sm:'190px',md:'220',lg:'230'}}  mt={'5'}>
+         <Card   width={{base:'175px', sm:'175px',md:'180px',lg:'250px'}} height={{base:'150px',sm:'190px',md:'220',lg:'230'}}  mt={'5'} onClick={()=>{handleCompanyProfile(item._id)}}>
   <CardBody>
     <Image className='shadow'
       src={link[index]}

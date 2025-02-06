@@ -9,7 +9,6 @@ import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'; 
 import { MdDelete } from "react-icons/md";
 import { useToast } from '@chakra-ui/react'; 
-// import { useDispatch } from 'react-redux';
 
 function Education({api, educationData} ) {
 
@@ -77,9 +76,7 @@ const onCollageChange=(e)=>{
 const handleEducationalDetails=async (e)=>{ 
 
 
-//   if(collageDetails.cgpa <0 || collageDetails.cgpa>10 || schoolDetails.cgpa<0 || schoolDetails.cgpa>10){
-// alert("data is not proper")
-//   }else{
+
   e.preventDefault()
 
 try{

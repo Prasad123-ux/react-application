@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Tabs, Tab, Card, Button } from "react-bootstrap";
+import { Tabs, Tab, Button } from "react-bootstrap";
 import { FaMapMarkerAlt, FaBuilding, FaBriefcase, FaHeart, FaShareAlt } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
 import CompanyInfo from "./CompanyInfo";
 import CompanyJobs from "./CompanyJobs";
 import { useNavigate } from "react-router-dom";
-// import "bootstrap/dist/css/bootstrap.min.css";
 import "../../Styles/companyProfile.css";
 import Footer from "../Footer";
 
@@ -21,6 +20,7 @@ const CompanyProfile = () => {
   const [follow, setFollow]= useState(false)
    
 useEffect(()=>{
+  window.scrollTo(0,0)
   const fetchCompanyData=async()=>{
 
     try{

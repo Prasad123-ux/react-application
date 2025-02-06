@@ -1,20 +1,15 @@
 import React, {  useEffect, useState } from 'react';
 import Job from './Job.js';
-import { Box, Button, useDisclosure , } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import "../Styles/main.css"
 import Loading from './Loading.js';
 import Footer from './Footer.js';
 import Heading from './Heading.js';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAllJobs, setFilteredJobs, setTokenData } from './Redux/jobSlice.js'; 
+import {  setFilteredJobs, } from './Redux/jobSlice.js'; 
 import { useToast } from '@chakra-ui/react';
 import { CiCircleRemove } from "react-icons/ci";
-// import { useDispatch } from 'react-redux';
 
-// import { FaCircleArrowLeft } from "react-icons/fa6"; 
-// import { FaCircleArrowRight } from "react-icons/fa6";
-
- 
 
 const Main = () => {
   
@@ -24,11 +19,8 @@ const dispatch= useDispatch()
 const [loading, setLoading]= useState(false)
 
   const [data, setData] = useState([]); // Initialize data as an object with a results property 
-  const [page, setPage]= useState() 
-  
-  const allJobs = useSelector((state) => state.jobs.jobs);  
   const filteredJobs = useSelector((state) => state.jobs.filteredJobs);  
-  const tokenValue=useSelector((state)=>state.jobs.token)
+  
   const [filterLength, setFilterLength]= useState(0) 
   const [error, setError]= useState()
 
@@ -51,7 +43,6 @@ useEffect(()=>{
       try {
        setLoading(true) 
       
-        //  const response = await fetch(`https://api.adzuna.com/v1/api/jobs/${country}/search/${page}?app_id=04e0dcfa&app_key=e3c1a3d7bebf84066e7a64f6d3a38dc1&results_per_page=100&salary_max=${maximumSalary}&part_time=${part}&full_time=${full}&salary_min=${minimumSalary}&max_days_old=${lastDays}&what_or=${job}&where=${location}`);
          const response=await fetch('   https://jobnexus-backend.onrender.com/api/candidate/getAllJobs')
          
          if(!response.ok){

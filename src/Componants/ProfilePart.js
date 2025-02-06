@@ -15,7 +15,7 @@ const renderComponent=(value)=>{
   setSection(value)
 }
   return (   
-    <div className='profile-part-main  w-100  '>
+    <div className='profile-part-main d-none d-sm-block  w-100  '>
 
         <div className='profile-part-header  d-flex justify-content-around  ' >
         <div to ="/" className= { section ==="resume" ? 'profile-section text-primary text-decoration-underline  ms-5 ':"profile-section ms-5"} onClick={()=>{ renderComponent("resume")}}> Resume</div>

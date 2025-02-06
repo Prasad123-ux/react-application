@@ -1,7 +1,6 @@
 import { Avatar, Spinner } from '@chakra-ui/react'
 import React, { useState } from 'react' 
 import { useToast } from '@chakra-ui/react' 
-import axios from 'axios'
 import { useSelector } from 'react-redux'
 
 export default function ProfileImage() { 
@@ -59,8 +58,8 @@ export default function ProfileImage() {
       } 
       
   return (
-    <div> 
-      <Avatar src={jobSeekerData.extraFields?.profileImage && jobSeekerData.extraFields?.profileImage.length>=1 ?jobSeekerData.extraFields?.profileImage:"" }   size="2xl" cursor="pointer" onClick={()=>document.getElementById("avatar-input").click()}/> 
+    <div className='d-flex justify-content-center d-md-block'> 
+      <Avatar className='mx-auto' src={jobSeekerData.extraFields?.profileImage && jobSeekerData.extraFields?.profileImage.length>=1 ?jobSeekerData.extraFields?.profileImage:"" }   size="xl" cursor="pointer" onClick={()=>document.getElementById("avatar-input").click()}/> 
       {loading && <Spinner size="xl" /> } 
 
       <input type='file' id="avatar-input" accept="image/*" style={{display:"none"}} onChange={handleFileChange}/>

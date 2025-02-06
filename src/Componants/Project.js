@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { MdCastForEducation } from "react-icons/md";
 import { IoMdAdd } from "react-icons/io";
 import "../Styles/education.css"
 import { MdOutlineModeEditOutline } from "react-icons/md";
@@ -13,7 +12,7 @@ import { LiaProjectDiagramSolid } from "react-icons/lia";
 
 function Project() {
   const [projectDetail, setProjectDetail]= useState({projectName:"", projectDescription:"", projectDate:"",projectLink:""})
-  const dispatch= useDispatch() 
+  const dispatch= useDispatch()
   const jobSeekerData= useSelector((state)=>state.jobs.jobSeekers)
   const [loader,setLoader]= useState(false) 
   const toast= useToast()

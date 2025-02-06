@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { MdCastForEducation } from "react-icons/md";
 import { IoMdAdd } from "react-icons/io";
 import "../Styles/education.css"
 import { MdOutlineModeEditOutline } from "react-icons/md";
